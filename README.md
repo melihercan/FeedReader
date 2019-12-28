@@ -1,5 +1,10 @@
+WORK IN PROGRESS...
 
-## Overview
+# FeedReader
+
+![alt text](https://github.com/melihercan/FeedReader/blob/master/FeedReader.png)
+
+
 
 ### Domain
 
