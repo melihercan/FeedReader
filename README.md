@@ -5,6 +5,10 @@ WORK IN PROGRESS...
 ![alt text](https://github.com/melihercan/FeedReader/blob/master/FeedReader.png)
 
 
+RSS Feed Reader sample project. It demonstrates the usage of the following concepts and frameworks:
+- Clean Architecture
+- Blazor
+- Xamarin
 
 ### Domain
 
