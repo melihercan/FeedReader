@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Entities.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Interactors.Interfaces
 {
-    public interface IIdentity
+    public interface IFeedRepository
     {
-        Task<bool> Authenticate(string username, string password);
+        Task Create(FeedUrl feedUrl);
     }
 }

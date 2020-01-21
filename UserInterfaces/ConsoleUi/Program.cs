@@ -1,7 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using Gateways.Identity;
+using Gateways.Repository;
+using Interactors.Feed.Commands.CreateFeed;
+using Interactors.Interfaces;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -18,7 +24,26 @@ namespace ConsoleUi
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
+
+                    // Add MediatR for each assembly that uses it.
+                    ////var assemblies = new Assembly[] 
+                    ////{ 
+                    ////Assembly.GetExecutingAssembly(),
+
+                    ///};
+                    ////services.AddMediatR(Assembly.GetExecutingAssembly());
+                   
+                    
+                    
+                    //services.AddMediatR(typeof(CreateFeedCommand).GetTypeInfo().Assembly);
+
+                    services.AddSingleton<IIdentity, Identity>();
+                    services.AddSingleton<IFeedRepository, FeedRepository>();
+                    
+                    services.AddSingleton<Interactors.Startup>();
+
                     services.AddHostedService<Worker>();
+
                 });
     }
 }

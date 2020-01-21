@@ -6,4 +6,8 @@
     <RootNamespace>Gateways.Identity</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Interactors\Interactors.csproj" />
+  </ItemGroup>
+
 </Project>
