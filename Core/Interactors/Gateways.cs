@@ -5,16 +5,17 @@ using System.Text;
 
 namespace Interactors
 {
-    public class Startup
+    public class Gateways
     {
         public static IFeedRepository Repository { get; private set; }
         public static IIdentity Identity { get; private set; }
 
-        public Startup(IFeedRepository repository, IIdentity identity)
+        public static void Init(IFeedRepository repository, IIdentity identity)
         {
             Repository = repository;
             Identity = identity;
 
         }
+
     }
 }

@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Gateways.Identity;
 using Gateways.Repository;
+using Interactors;
 using Interactors.Feed.Commands.CreateFeed;
 using Interactors.Interfaces;
 using MediatR;
@@ -15,11 +16,32 @@ namespace ConsoleUi
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static /*async Task*/ void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
+            ///            
+
+#if false
+            var host = new HostBuilder()
+                .ConfigureServices((context, services) =>
+                {
+                    //services.AddMediatR(typeof(CreateFeedCommand).GetTypeInfo().Assembly);
+
+
+                    services.AddSingleton<IIdentity, Identity>();
+                    services.AddSingleton<IFeedRepository, FeedRepository>();
+
+                    services.AddSingleton<Interactors.Startup>();
+
+                    services.AddHostedService<Worker>();
+                });
+
+            await host.RunConsoleAsync();
+#endif
+
         }
 
+#if true
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
@@ -32,18 +54,21 @@ namespace ConsoleUi
 
                     ///};
                     ////services.AddMediatR(Assembly.GetExecutingAssembly());
-                   
-                    
-                    
-                    //services.AddMediatR(typeof(CreateFeedCommand).GetTypeInfo().Assembly);
+
+
+
+                    services.AddMediatR(typeof(CreateFeedCommand).GetTypeInfo().Assembly);
+
 
                     services.AddSingleton<IIdentity, Identity>();
                     services.AddSingleton<IFeedRepository, FeedRepository>();
-                    
-                    services.AddSingleton<Interactors.Startup>();
-
                     services.AddHostedService<Worker>();
 
+////                    var provider = services.BuildServiceProvider();
+
+
+
                 });
+#endif
     }
 }
