@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Interactors
 {
-    public class Gateways
+    public class Container
     {
         public static IFeedRepository Repository { get; private set; }
         public static IIdentity Identity { get; private set; }
