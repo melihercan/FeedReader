@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebUi", "UserInterfaces\Web
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity", "Gateways\Identity\Identity.csproj", "{DCF36F0E-AF8E-4E34-9E1A-4E55D73A2FFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleUi", "UserInterfaces\ConsoleUi\ConsoleUi.csproj", "{897C1ED7-6295-48D9-AA49-CD5A40E4BDF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleUi", "UserInterfaces\ConsoleUi\ConsoleUi.csproj", "{897C1ED7-6295-48D9-AA49-CD5A40E4BDF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
