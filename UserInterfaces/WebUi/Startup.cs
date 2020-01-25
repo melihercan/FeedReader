@@ -18,8 +18,6 @@ namespace WebUi
 
             services.AddSingleton<IFeedRepository, FeedRepository>();
             services.AddSingleton<IIdentity, Identity>();
-            services.AddHostedService<Worker>();
-            services.AddSingleton<IHostedService, Bootstrap>();
         }
 
         public void Configure(IComponentsApplicationBuilder app)

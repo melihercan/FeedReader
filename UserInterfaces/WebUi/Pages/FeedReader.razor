@@ -1,6 +1,5 @@
 ﻿@page "/FeedReader"
 @inject ILogger<FeedReader> Logger
-@inject IHostedService Bootstrap
 
 <h3>FeedReader</h3>
 
@@ -8,8 +7,5 @@
 {
     protected override async Task OnInitializedAsync()
     {
-        await Bootstrap.StartAsync(new CancellationTokenSource().Token);
-
     }
-
 }
