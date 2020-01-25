@@ -12,7 +12,7 @@ using System.Text;
 
 namespace MobileUi
 {
-    public class Bootstrap
+    public class HostBuilder
     {
         public static App Init()
         {
@@ -26,16 +26,6 @@ namespace MobileUi
                     services.AddSingleton<App>();
                 })
                 .Build();
-
-            //var x = host.Services.GetService<FeedRepository>();
-            //var y = host.Services.GetService<Identity>();
-            //var z = host.Services.GetService<App>();
-
-            //Interactors.Container.Init(x, y);
-            //                host.Services.GetService<FeedRepository>(),
-            //              host.Services.GetService<Identity>());
-
-
 
             return host.Services.GetService<App>();
         }

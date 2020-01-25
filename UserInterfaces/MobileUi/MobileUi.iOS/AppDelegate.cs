@@ -24,7 +24,8 @@ namespace MobileUi.iOS
         {
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+////            LoadApplication(new App());
+            LoadApplication(HostBuilder.Init());
 
             return base.FinishedLaunching(app, options);
         }

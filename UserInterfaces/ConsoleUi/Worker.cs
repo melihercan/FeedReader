@@ -24,6 +24,9 @@ namespace ConsoleUi
             _mediator = mediator;
             _feedRepository = feedRepository;
             _identity = identity;
+
+////            Interactors.Container.Init(_feedRepository, _identity);
+
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
