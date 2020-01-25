@@ -59,9 +59,8 @@ namespace ConsoleUi
 
                     services.AddMediatR(typeof(CreateFeedCommand).GetTypeInfo().Assembly);
 
-
-                    services.AddSingleton<IIdentity, Identity>();
                     services.AddSingleton<IFeedRepository, FeedRepository>();
+                    services.AddSingleton<IIdentity, Identity>();
                     services.AddHostedService<Worker>();
 
 ////                    var provider = services.BuildServiceProvider();

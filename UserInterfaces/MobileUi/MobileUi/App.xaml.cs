@@ -3,14 +3,18 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using MobileUi.Services;
 using MobileUi.Views;
+using Interactors.Interfaces;
 
 namespace MobileUi
 {
     public partial class App : Application
     {
 
-        public App()
+        public App(IFeedRepository feedRepository, IIdentity identity)
         {
+            Interactors.Container.Init(feedRepository, identity);
+
+
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
