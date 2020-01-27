@@ -1,5 +1,4 @@
 ﻿using Gateways.Identity;
-using Gateways.Repository;
 using Interactors.Feed.Commands.CreateFeed;
 using Interactors.Interfaces;
 using MediatR;
@@ -20,7 +19,7 @@ namespace MobileUi
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddMediatR(typeof(CreateFeedCommand).GetTypeInfo().Assembly);
-                    services.AddSingleton<IFeedRepository, FeedRepository>();
+                    services.AddSingleton<IFeedRepository, Gateways.FeedRepository.Lib.FeedRepository>();
                     services.AddSingleton<IIdentity, Identity>();
 
                     services.AddSingleton<App>();

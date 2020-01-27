@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Gateways.Identity;
-using Gateways.Repository;
 using Interactors;
 using Interactors.Feed.Commands.CreateFeed;
 using Interactors.Interfaces;
@@ -59,7 +58,7 @@ namespace ConsoleUi
 
                     services.AddMediatR(typeof(CreateFeedCommand).GetTypeInfo().Assembly);
 
-                    services.AddSingleton<IFeedRepository, FeedRepository>();
+                    services.AddSingleton<IFeedRepository, Gateways.FeedRepository.Lib.FeedRepository>();
                     services.AddSingleton<IIdentity, Identity>();
                     services.AddHostedService<Worker>();
 
