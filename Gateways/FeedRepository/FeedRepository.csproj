@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <AssemblyName>Gateways.Repository</AssemblyName>
-    <RootNamespace>Gateways.Repository</RootNamespace>
+    <AssemblyName>Gateways.FeedRepository</AssemblyName>
+    <RootNamespace>Gateways.FeedRepository</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
