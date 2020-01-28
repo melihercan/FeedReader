@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System;
 
-namespace FeedRepository.Shared
+namespace FeedRepository.Server
 {
     public class WeatherForecast
     {
@@ -10,8 +8,8 @@ namespace FeedRepository.Shared
 
         public int TemperatureC { get; set; }
 
-        public string Summary { get; set; }
-
         public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+
+        public string Summary { get; set; }
     }
 }

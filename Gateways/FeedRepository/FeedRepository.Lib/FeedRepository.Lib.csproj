@@ -7,8 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\Entities\Entities.csproj" />
     <ProjectReference Include="..\..\..\Core\Interactors\Interactors.csproj" />
-    <ProjectReference Include="..\Shared\FeedRepository.Shared.csproj" />
+    <ProjectReference Include="..\FeedRepository.Shared\FeedRepository.Shared.csproj" />
   </ItemGroup>
 
 </Project>

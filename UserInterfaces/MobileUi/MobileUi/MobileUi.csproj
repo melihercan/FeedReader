@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Core\Interactors\Interactors.csproj" />
-    <ProjectReference Include="..\..\..\Gateways\FeedRepository\Lib\FeedRepository.Lib.csproj" />
+    <ProjectReference Include="..\..\..\Gateways\FeedRepository\FeedRepository.Lib\FeedRepository.Lib.csproj" />
     <ProjectReference Include="..\..\..\Gateways\Identity\Identity.csproj" />
   </ItemGroup>
 </Project>
