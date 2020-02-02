@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Entities.Models
 {
-    public class FeedChannel
+    public class FeedChannel : BaseModel
     {
         public string Title { get; set; }
         public string Description { get; set; }
