@@ -2,7 +2,7 @@
 
 
 
-<div class="d-flex flex-column vh-100" style="flex:1">
+<div class="d-flex flex-column vh-100"  style="flex:1">
     <nav class="navbar navbar-expand-md sticky-top bg-light">
         <a class="navbar-brand" href="#">
             <h1 class="navbar-brand mb-0">My App</h1>
@@ -11,20 +11,25 @@
             <li class="nav-item"><a class="nav-link">Item 1</a></li>
         </ul>
     </nav>
-    <div id="outer" class="d-flex flex-column flex-grow-1">
-        <div id="one" class="">
-            header content
-            <br> another line
-            <br> And another
+    
+    <div class="d-flex flex-column flex-grow-1">
+       
+        <div class="d-flex flex-row justify-content-center">
+            <div class="p-2">
+                This is header
+            </div>
         </div>
-        <div id="two" class="h-100 flex-grow-1" style="background-color: yellowgreen;">
+        
+        <div class="h-100 flex-grow-1" style="background-color: yellowgreen;">
+            @Body
+        </div>
 
-        @Body
+        <div class="d-flex flex-row justify-content-end">
+            <div class="p-2">
+                © melihercan SW Outsourcing, 2020
+            </div>
+        </div>
 
-        </div>
-        <div id="three" class="">
-            footer content 40px height
-        </div>
     </div>
 </div>
 
