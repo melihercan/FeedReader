@@ -3,7 +3,6 @@
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     height: 100%;
-    background-color: blue;
 }
 
 a, .btn-link {
@@ -30,8 +29,6 @@ app {
 
 .main {
     flex: 1;
-    background-color: yellowgreen;
-    height: 100vh;
 }
 
     .main .top-row {
