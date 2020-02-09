@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FeedRepository.Shared", "Ga
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FeedRepository.Server", "Gateways\FeedRepository\FeedRepository.Server\FeedRepository.Server.csproj", "{B609E3C7-7B86-4938-AF56-3D691870B027}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebUi", "UserInterfaces\WebUi\WebUi.csproj", "{F27F16DF-7056-4447-9D0D-B548249D11FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebUi", "UserInterfaces\WebUi\WebUi.csproj", "{F27F16DF-7056-4447-9D0D-B548249D11FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

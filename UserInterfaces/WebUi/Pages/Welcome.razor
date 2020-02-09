@@ -1,5 +1,6 @@
 ﻿@page "/"
-
+@inject ILogger<Welcome> Logger
+@inject IModalService ModalService
 
 <div class="d-flex flex-column justify-content-center align-items-center h-100">
     <div class="p-2">
@@ -10,10 +11,10 @@
     </div>
     <div class="d-flex flex-row mt-5">
         <div class="p-2 mx-5">
-            <button type="button" class="btn btn-dark">Sign In</button>
+            <button type="button" class="btn btn-dark" @onclick="ShowSignup">Sign Up</button>
         </div>
         <div class="p-2 mx-5">
-            <button type="button" class="btn btn-dark">Login</button>
+            <button type="button" class="btn btn-dark" @onclick="ShowLogin">Login</button>
         </div>
     </div>
 </div>
@@ -21,4 +22,22 @@
 
 @code {
 
+    protected override async Task OnInitializedAsync()
+    {
+        Logger.LogInformation("---- in Welcome");
+    }
+
+
+    private void ShowSignup()
+    {
+        Logger.LogInformation(">>>>>>>>>>>>>>>>>>>>>>>> in ShowSignup()");
+        ModalService.Show<Signup>("Sign Up");
+
+    }
+
+
+    private void ShowLogin()
+    {
+        ModalService.Show<Login>("Login");
+    }
 }
