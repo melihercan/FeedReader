@@ -21,7 +21,6 @@ namespace WebUi
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.Services.AddMediatR(typeof(CreateFeedCommand).GetTypeInfo().Assembly);
             builder.Services.AddBlazoredModal();
-            //builder.Services.AddSingleton<IModalService, ModalService>();
 
             builder.Services.AddSingleton<IFeedRepository, Gateways.FeedRepository.Lib.FeedRepository>();
             builder.Services.AddSingleton<IIdentity, Identity>();
