@@ -11,6 +11,8 @@ using Gateways.Identity;
 using System.Reflection;
 using Blazored.Modal;
 using Blazored.Modal.Services;
+using WebUi.Auth;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace WebUi
 {
@@ -19,13 +21,18 @@ namespace WebUi
         public static async Task Main(string[] args)
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
+
+            builder.Services.AddOptions();
+            builder.Services.AddAuthorizationCore();
+            builder.Services.AddScoped<AuthenticationStateProvider, DummyAuthenticationStateProvider>();
+
             builder.Services.AddMediatR(typeof(CreateFeedCommand).GetTypeInfo().Assembly);
             builder.Services.AddBlazoredModal();
 
             builder.Services.AddSingleton<IFeedRepository, Gateways.FeedRepository.Lib.FeedRepository>();
             builder.Services.AddSingleton<IIdentity, Identity>();
-            builder.RootComponents.Add<App>("app");
 
+            builder.RootComponents.Add<App>("app");
             await builder.Build().RunAsync();
         }
     }
