@@ -1,4 +1,4 @@
-﻿@page "/"
+﻿@page "/welcome"
 @inject ILogger<Welcome> Logger
 @inject IModalService ModalService
 
@@ -42,13 +42,13 @@
     private void ShowSignup()
     {
         Logger.LogInformation(">>>>>>>>>>>>>>>>>>>>>>>> in ShowSignup()");
-        ModalService.Show<Signup>("Sign Up");
+        //ModalService.Show<Signup>("Sign Up");
 
     }
 
 
     private void ShowLogin()
     {
-        ModalService.Show<Login>("Login");
+        //ModalService.Show<Login>("Login");
     }
 }
