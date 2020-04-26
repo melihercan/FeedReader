@@ -13,23 +13,26 @@ RSS Feed Reader sample project. It demonstrates the usage of the following conce
 - MediatR
 - Reactive Extensions
 
-### Entities
+### Core Layer
 
-This will contain all entities, enums, exceptions, interfaces, types and logic specific to the domain layer.
-
-
-### Interactors
-
-This layer contains all application logic. It is dependent on the entities layer, but has no dependencies on any other layer or project. This layer defines interfaces that are implemented by outside layers. For example, if the application need to access a notification service, a new interface would be added to application and an implementation would be created within infrastructure.
+This is the core of the application. It contains:
+- Entities
+- Use Cases
+- Interfaces
 
 
-### Gateways
+### Infrastructure
 
-This layer contains classes for accessing external resources such as file systems, web services, smtp, and so on. These classes should be based on interfaces defined within the interactors layer.
+Implementation of the interfaces:
+- Repositrory
+- User
 
 ### UserInterfaces
 
-This layer presents user interface. This layer depends on interactors layer.
+This layer presents user interfaces:
+- Web UI
+- Mobile UI
+- Console UI
 
 ## License
 
