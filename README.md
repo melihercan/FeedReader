@@ -9,6 +9,9 @@ RSS Feed Reader sample project. It demonstrates the usage of the following conce
 - Clean Architecture
 - Blazor
 - Xamarin
+- WebAPI
+- MediatR
+- Reactive Extensions
 
 ### Entities
 
