@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Interactors.Feed.Commands.CreateFeed;
-using Interactors.Interfaces;
+using Core.Interfaces;
+using Core.UseCases.Feed;
 using MediatR;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -31,9 +31,9 @@ namespace ConsoleUi
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            Interactors.Container.Init(_feedRepository, _identity);
+            ////Interactors.Container.Init(_feedRepository, _identity);
 
-            await _mediator.Send(new CreateFeedCommand
+            await _mediator.Send(new CreateFeed
             {
                  FeedUrl = "https://www.melihercan.org"
             });

@@ -12,6 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\Interactors\Interactors.csproj" />
+    <ProjectReference Include="..\..\Core\Core.csproj" />
   </ItemGroup>
 </Project>

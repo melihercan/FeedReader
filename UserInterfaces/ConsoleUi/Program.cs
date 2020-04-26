@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Gateways.Identity;
-using Interactors;
-using Interactors.Feed.Commands.CreateFeed;
-using Interactors.Interfaces;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -56,10 +52,10 @@ namespace ConsoleUi
 
 
 
-                    services.AddMediatR(typeof(CreateFeedCommand).GetTypeInfo().Assembly);
+//                    services.AddMediatR(typeof(CreateFeedCommand).GetTypeInfo().Assembly);
 
-                    services.AddSingleton<IFeedRepository, Gateways.FeedRepository.Lib.FeedRepository>();
-                    services.AddSingleton<IIdentity, Identity>();
+  //                  services.AddSingleton<IFeedRepository, Gateways.FeedRepository.Lib.FeedRepository>();
+    //                services.AddSingleton<IIdentity, Identity>();
                     services.AddHostedService<Worker>();
 
 ////                    var provider = services.BuildServiceProvider();
