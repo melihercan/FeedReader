@@ -14,6 +14,10 @@ using Blazored.Modal.Services;
 
 namespace WebUi
 {
+
+    //https://proandroiddev.com/clean-architecture-data-flow-dependency-rule-615ffdd79e29
+    //https://medium.com/@mr.anmolsehgal/clean-architecture-fef10b093ad0
+    //  Entities, UseCases, Presenters, Gateways, Controllers
     public class Program
     {
         public static async Task Main(string[] args)
