@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Core.Interfaces;
-using Core.UseCases.Feed;
+using Core.UseCases;
 using MediatR;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -33,9 +33,9 @@ namespace ConsoleUi
         {
             ////Interactors.Container.Init(_feedRepository, _identity);
 
-            await _mediator.Send(new CreateFeed
+            await _mediator.Send(new AddFeed
             {
-                 FeedUrl = "https://www.melihercan.org"
+                 Url = "https://www.melihercan.org"
             });
 
             while (!stoppingToken.IsCancellationRequested)

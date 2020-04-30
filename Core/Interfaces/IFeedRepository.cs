@@ -8,6 +8,6 @@ namespace Core.Interfaces
 {
     public interface IFeedRepository
     {
-        Task Create(FeedUrl feedUrl);
+        Task Create(FeedChannel feedChannel);
     }
 }

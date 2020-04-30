@@ -8,8 +8,8 @@ namespace Core.Entities
     public class Feed
     {
         public int Id { get; set; }
+        public FeedChannel FeedChannel { get; set; }
 
         public SyndicationFeed SyndicationFeed { get; set; }
-
     }
 }

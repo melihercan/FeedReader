@@ -9,7 +9,7 @@ namespace FeedRepository
 {
     public class FeedRepository : IFeedRepository
     {
-        public Task Create(FeedUrl feedUrl)
+        public Task Create(FeedChannel feedChannel)
         {
             throw new NotImplementedException();
         }

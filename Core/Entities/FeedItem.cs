@@ -11,6 +11,5 @@ namespace Core.Entities
         public string Description { get; set; }
         public string Link { get; set; }
         public FeedChannel FeedChannel { get; set; }
-
     }
 }
