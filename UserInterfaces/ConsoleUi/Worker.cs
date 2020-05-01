@@ -15,8 +15,8 @@ namespace ConsoleUi
     {
         private readonly ILogger<Worker> _logger;
         private readonly IMediator _mediator;
-        private readonly IFeedRepository _feedRepository;
-        private readonly IIdentity _identity;
+//        private readonly IFeedRepository _feedRepository;
+//        private readonly IIdentity _identity;
 
         public Worker(ILogger<Worker> logger, IMediator mediator/*, IFeedRepository feedRepository, IIdentity identity*/)
         {
