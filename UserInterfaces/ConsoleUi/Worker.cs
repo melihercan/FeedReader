@@ -18,12 +18,12 @@ namespace ConsoleUi
         private readonly IFeedRepository _feedRepository;
         private readonly IIdentity _identity;
 
-        public Worker(ILogger<Worker> logger, IMediator mediator, IFeedRepository feedRepository, IIdentity identity)
+        public Worker(ILogger<Worker> logger, IMediator mediator/*, IFeedRepository feedRepository, IIdentity identity*/)
         {
             _logger = logger;
             _mediator = mediator;
-            _feedRepository = feedRepository;
-            _identity = identity;
+//            _feedRepository = feedRepository;
+//            _identity = identity;
 
 ////            Interactors.Container.Init(_feedRepository, _identity);
 
