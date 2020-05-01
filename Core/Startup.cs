@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Core
 {
-    public static class Startup
+    public class Startup
     {
         static Startup()
         {
