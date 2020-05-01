@@ -1,13 +1,15 @@
-﻿using Microsoft.Extensions.Hosting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Core.Interfaces;
+using Application.Interfaces;
+using Application.Services;
+using Infrastructure;
 
-namespace Core
+namespace Application
 {
     public static class ModuleInitializer
     {
@@ -22,19 +24,12 @@ namespace Core
             var host = new HostBuilder()
                             .ConfigureHostConfiguration(context =>
                             {
-                                //context.AddCommandLine(new string[] { $"ContentRoot={FileSystem.AppDataDirectory}" });
-                                //context.AddJsonFile(fullConfig);
                             })
                             .ConfigureServices((context, services) =>
                             {
-                                //                                services.AddSingleton<ITagConfigurationViewModel, TagConfigurationViewModel>();
-                                ////                    services.AddSingleton<TagConfigurationPage>();
-                                //                  services.AddSingleton<IMessageManager, MessageManager>();
-                                //                            services.AddSingleton<AppShell>();
-                                //                          services.AddSingleton<App>();
-
-                                //                        platformConfigureServices(services);
                                 services.AddSingleton<IRegistry, Registry>();
+                                services.AddSingleton<IFeedRepository, FeedRepository>();
+                                services.AddSingleton<IIdentity, Identity>();
                             })
                             .ConfigureLogging((context, builder) =>
                             {
@@ -46,4 +41,5 @@ namespace Core
 
         }
     }
+
 }

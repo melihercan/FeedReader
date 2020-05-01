@@ -1,10 +1,9 @@
-﻿using Core.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Identity
+namespace Infrastructure
 {
     public class Identity : IIdentity
     {

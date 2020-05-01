@@ -1,4 +1,4 @@
-﻿using Core.Interfaces;
+﻿using Application.Interfaces;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Core.UseCases
+namespace Application.UseCases
 {
     public class AddFeedHandler : IRequestHandler<AddFeed>
     {
@@ -15,13 +15,13 @@ namespace Core.UseCases
 
         public AddFeedHandler()
         {
-            Console.WriteLine("AddFeed constructor...");
+            Console.WriteLine("AddFeedHandler constructor...");
             _registry = ModuleInitializer.ServiceProvider.GetService<IRegistry>();
         }
 
         public async Task<Unit> Handle(AddFeed request, CancellationToken cancellationToken)
         {
-            Console.WriteLine("AddFeed handler...");
+            Console.WriteLine("AddFeedHander Handle...");
             await Task.CompletedTask;
             return new Unit();
         }

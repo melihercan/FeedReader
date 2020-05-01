@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Core.UseCases
+namespace Application.UseCases
 {
     public class AddFeed : IRequest
     {

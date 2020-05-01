@@ -50,7 +50,7 @@ namespace ConsoleUi
                     ///};
                     ////services.AddMediatR(Assembly.GetExecutingAssembly());
                     //                    services.AddMediatR(new Assembly[] { Core.Assembly.Value });
-                    services.AddMediatR(new Assembly[] { Core.ModuleInitializer.Assembly });
+                    services.AddMediatR(new Assembly[] { Application.ModuleInitializer.Assembly });
 
 
 

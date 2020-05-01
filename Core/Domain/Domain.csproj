@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\Domain\Domain.csproj" />
+    <PackageReference Include="System.ServiceModel.Syndication" Version="4.7.0" />
   </ItemGroup>
 
 </Project>

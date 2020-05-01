@@ -1,9 +1,9 @@
-﻿using Core.Interfaces;
+﻿using Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Core
+namespace Application.Services
 {
     public class Registry : IRegistry
     {
