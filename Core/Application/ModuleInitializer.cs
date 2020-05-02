@@ -29,7 +29,7 @@ namespace Application
                 {
                     services.AddSingleton<IRegistry, Registry>();
                     services.AddSingleton<IFeedRepository, FeedRepository>();
-                    services.AddSingleton<IIdentity, Identity>();
+                    services.AddSingleton<IUser, User>();
                 })
                 .ConfigureLogging((context, builder) =>
                 {

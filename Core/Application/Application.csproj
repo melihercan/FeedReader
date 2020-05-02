@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Infrastructure\FeedRepository\FeedRepository.csproj" />
-    <ProjectReference Include="..\..\Infrastructure\Identity\Identity.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\User\User.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
