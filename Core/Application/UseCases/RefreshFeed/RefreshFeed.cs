@@ -6,8 +6,9 @@ using System.Text;
 
 namespace Application.UseCases
 {
-    public class AddFeed : IRequest<FeedChannel>
+    public class RefreshFeed : IRequest<FeedChannel>
     {
-        public string Url { get; set; }
+        public int Id { get; set; }
     }
+
 }

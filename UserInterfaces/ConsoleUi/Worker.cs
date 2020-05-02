@@ -32,7 +32,14 @@ namespace ConsoleUi
         {
             ////Interactors.Container.Init(_feedRepository, _identity);
 
-            await _mediator.Send(new AddFeed
+
+            var feeds = await _mediator.Send(new GetAllFeeds { });
+            foreach(var feed in feeds)
+            {
+
+            }
+
+            var feedChannel = await _mediator.Send(new AddFeed
             {
                  Url = "https://www.melihercan.org"
             });

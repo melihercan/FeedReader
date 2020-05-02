@@ -9,6 +9,11 @@ namespace Application.UseCases
     {
         public AddFeedValidator()
         {
+            RuleFor(addFeed => addFeed.Url).Must(url =>
+            {
+                //// TODO: Validate URL
+                return true;
+            }).WithMessage("Not a valid feed URL");
         }
     }
 }
