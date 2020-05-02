@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using Microsoft.Extensions.DependencyInjection;
 using UIKit;
 
 namespace MobileUi.iOS
@@ -20,13 +21,22 @@ namespace MobileUi.iOS
         //
         // You have 17 seconds to return from this method, or iOS will terminate your application.
         //
-        public override bool FinishedLaunching(UIApplication app, NSDictionary options)
+        public override bool FinishedLaunching(UIApplication uiApp, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
 
-            return base.FinishedLaunching(app, options);
+            var app = App.PreInit(ConfigureServices);
+            LoadApplication(app);
+            app.PostInit();
+
+            return base.FinishedLaunching(uiApp, options);
         }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+////            services.AddSingleton<IIpAddress, IpAddress>();
+        }
+
     }
 }

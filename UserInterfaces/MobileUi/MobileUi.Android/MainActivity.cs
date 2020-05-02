@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MobileUi.Droid
 {
@@ -22,7 +23,10 @@ namespace MobileUi.Droid
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            LoadApplication(new App());
+
+            var app = App.PreInit(ConfigureServices);
+            LoadApplication(app);
+            app.PostInit();
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
@@ -30,5 +34,11 @@ namespace MobileUi.Droid
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+////            services.AddSingleton<IIpAddress, IpAddress>();
+        }
+
     }
 }
