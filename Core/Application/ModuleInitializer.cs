@@ -22,24 +22,22 @@ namespace Application
             Console.WriteLine("Hello from Core");
 
             var host = new HostBuilder()
-                            .ConfigureHostConfiguration(context =>
-                            {
-                            })
-                            .ConfigureServices((context, services) =>
-                            {
-                                services.AddSingleton<IRegistry, Registry>();
-                                services.AddSingleton<IFeedRepository, FeedRepository>();
-                                services.AddSingleton<IIdentity, Identity>();
-                            })
-                            .ConfigureLogging((context, builder) =>
-                            {
-                                builder.AddConsole();
-                            })
-                            .Build();
+                .ConfigureHostConfiguration(context =>
+                {
+                })
+                .ConfigureServices((context, services) =>
+                {
+                    services.AddSingleton<IRegistry, Registry>();
+                    services.AddSingleton<IFeedRepository, FeedRepository>();
+                    services.AddSingleton<IIdentity, Identity>();
+                })
+                .ConfigureLogging((context, builder) =>
+                {
+                    builder.AddConsole();
+                })
+                .Build();
 
             ServiceProvider = host.Services;
-
         }
     }
-
 }

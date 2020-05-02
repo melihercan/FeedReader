@@ -14,30 +14,21 @@ namespace ConsoleUi
     {
         private readonly ILogger<Worker> _logger;
         private readonly IMediator _mediator;
-//        private readonly IFeedRepository _feedRepository;
-//        private readonly IIdentity _identity;
 
-        public Worker(ILogger<Worker> logger, IMediator mediator/*, IFeedRepository feedRepository, IIdentity identity*/)
+        public Worker(ILogger<Worker> logger, IMediator mediator)
         {
             _logger = logger;
             _mediator = mediator;
-//            _feedRepository = feedRepository;
-//            _identity = identity;
-
-////            Interactors.Container.Init(_feedRepository, _identity);
-
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            ////Interactors.Container.Init(_feedRepository, _identity);
-
-
             var feeds = await _mediator.Send(new GetAllFeeds { });
-            foreach(var feed in feeds)
-            {
+            if(feeds != null)
+                foreach(var feed in feeds)
+                {
 
-            }
+                }
 
             var feedChannel = await _mediator.Send(new AddFeed
             {
