@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,6 +7,6 @@ namespace Application.Interfaces
 {
     public interface IRegistry
     {
-        public int MyProperty { get; set; }
+        public IEnumerable<Feed> Feeds { get; set; }
     }
 }

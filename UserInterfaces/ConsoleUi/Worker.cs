@@ -24,11 +24,13 @@ namespace ConsoleUi
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             var feeds = await _mediator.Send(new GetAllFeeds { });
-            if(feeds != null)
-                foreach(var feed in feeds)
+            if (feeds != null)
+            {
+                foreach (var feed in feeds)
                 {
 
                 }
+            }
 
             var feedChannel = await _mediator.Send(new AddFeed
             {

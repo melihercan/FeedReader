@@ -22,7 +22,7 @@ namespace Application.UseCases
 
         public async Task<IEnumerable<FeedChannel>> Handle(GetAllFeeds request, CancellationToken cancellationToken)
         {
-            _logger.LogInformation("============== GetAllFeedsHanlder");
+            _logger.LogInformation("============== GetAllFeedsHandler");
             await Task.CompletedTask;
             return null;
 
