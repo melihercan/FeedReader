@@ -23,25 +23,35 @@ namespace ConsoleUi
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var feeds = await _mediator.Send(new GetAllFeeds { });
-            if (feeds != null)
+            try
             {
+                var feedChannel = await _mediator.Send(new AddFeed
+                {
+                    Url = "https://www.cnbc.com/id/100003114/device/rss/rss.html"
+                });
+
+                var feeds = await _mediator.Send(new GetAllFeeds { });
                 foreach (var feed in feeds)
                 {
-
+                    _logger.LogInformation($"{feed.Title}, {feed.Description}, {feed.Link}");
+                    for(int i=0; i< feed.FeedItems.Count; i++)
+                    {
+                        _logger.LogInformation($"{feed.FeedItems[i].Title}");
+                    }
                 }
+
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
             }
 
-            var feedChannel = await _mediator.Send(new AddFeed
-            {
-                 Url = "https://www.melihercan.org"
-            });
-
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                await Task.Delay(1000, stoppingToken);
-            }
+            //while (!stoppingToken.IsCancellationRequested)
+            //{
+              //  _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                //await Task.Delay(1000, stoppingToken);
+            //}
         }
     }
 }

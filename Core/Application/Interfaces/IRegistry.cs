@@ -7,6 +7,6 @@ namespace Application.Interfaces
 {
     public interface IRegistry
     {
-        public IEnumerable<Feed> Feeds { get; set; }
+        public List<Feed> Feeds { get; set; }
     }
 }

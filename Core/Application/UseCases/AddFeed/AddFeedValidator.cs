@@ -11,9 +11,9 @@ namespace Application.UseCases
         {
             RuleFor(addFeed => addFeed.Url).Must(url =>
             {
-                //// TODO: Validate URL
-                return true;
-            }).WithMessage("Not a valid feed URL");
+                return Uri.TryCreate(url, UriKind.Absolute, out Uri uriResult) &&
+                    (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+            }).WithMessage("Not a valid URL");
         }
     }
 }

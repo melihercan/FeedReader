@@ -10,7 +10,7 @@ namespace Domain.Entities
         public string Title { get; set; }
         public string Description { get; set; }
         public string Link { get; set; }
-        public IEnumerator<FeedItem> FeedItems { get; set; }
+        public List<FeedItem> FeedItems { get; set; }
         ////public Feed Feed { get; set; }
     }
 }
