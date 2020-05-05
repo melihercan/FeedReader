@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WebUi.Shared
+namespace Domain.Entities
 {
     public class WeatherForecast
     {
@@ -13,5 +13,6 @@ namespace WebUi.Shared
         public string Summary { get; set; }
 
         public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+
     }
 }

@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Shared\WebUi.Shared.csproj" />
+    <ProjectReference Include="..\..\..\Core\Domain\Domain.csproj" />
   </ItemGroup>
 
 </Project>

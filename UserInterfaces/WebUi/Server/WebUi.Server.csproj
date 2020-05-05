@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\Domain\Domain.csproj" />
     <ProjectReference Include="..\Client\WebUi.Client.csproj" />
-    <ProjectReference Include="..\Shared\WebUi.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
