@@ -43,7 +43,7 @@ namespace Application.UseCases
                 {
                     if(_registry.Feeds.FirstOrDefault(feed => feed.FeedChannel.Link == request.Url) != null)
                     {
-                        throw new Exception("Feed URL alread exist");
+                        throw new Exception("Feed URL already exist");
                     }
 
                     try

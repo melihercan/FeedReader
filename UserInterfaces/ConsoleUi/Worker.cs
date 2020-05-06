@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.UseCases;
+using Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -23,35 +24,57 @@ namespace ConsoleUi
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            try
+            var resultFeedChannel = await _mediator.Send(new AddFeed
             {
-                var feedChannel = await _mediator.Send(new AddFeed
-                {
-                    Url = "https://www.cnbc.com/id/100003114/device/rss/rss.html"
-                });
+                Url = "https://www.cnbc.com/id/100003114/device/rss/rss.html"
+            });
+            if(resultFeedChannel.Success)
+            {
+                ShowFeedChannel(resultFeedChannel.Value);
+            }
+            else
+            {
+                _logger.LogError(resultFeedChannel.Error);
+            }
 
-                var feeds = await _mediator.Send(new GetAllFeeds { });
-                foreach (var feed in feeds)
+            var resultFeedChannels = await _mediator.Send(new GetAllFeeds { });
+            if (resultFeedChannels.Success)
+            {
+                foreach (var feedChannel in resultFeedChannels.Value)
                 {
-                    _logger.LogInformation($"{feed.Title}, {feed.Description}, {feed.Link}");
-                    for(int i=0; i< feed.FeedItems.Count; i++)
-                    {
-                        _logger.LogInformation($"{feed.FeedItems[i].Title}");
-                    }
+                    ShowFeedChannel(feedChannel);
                 }
-
-
             }
-            catch (Exception ex)
+            else
             {
-                _logger.LogError(ex.Message);
+                _logger.LogError(resultFeedChannels.Error);
             }
+
+
 
             //while (!stoppingToken.IsCancellationRequested)
             //{
-              //  _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                //await Task.Delay(1000, stoppingToken);
+            //  _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+            //await Task.Delay(1000, stoppingToken);
             //}
+        }
+
+        private void ShowFeedChannel(FeedChannel feedChannel)
+        {
+            var msg = string.Empty;
+            msg += Environment.NewLine;
+            msg += $"======== FEED CHANNEL ========{Environment.NewLine}";
+            msg += $"Title: {feedChannel.Title}{Environment.NewLine}";
+            msg += $"Description: {feedChannel.Description}{Environment.NewLine}";
+            msg += $"Link: {feedChannel.Link}{Environment.NewLine}";
+            foreach (var feedItem in feedChannel.FeedItems)
+            {
+                msg += $"-------- FEED CHANNEL --------{Environment.NewLine}";
+                msg += $"Title: {feedItem.Title}{Environment.NewLine}";
+                msg += $"Description: {feedItem.Description}{Environment.NewLine}";
+                msg += $"Link: {feedItem.Link}{Environment.NewLine}";
+            }
+            _logger.LogInformation(msg);
         }
     }
 }

@@ -9,11 +9,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Application.Interfaces;
+using Application.Helpers;
 using System.Linq;
 
 namespace Application.UseCases
 {
-    public class GetAllFeedsHandler : IRequestHandler<GetAllFeeds, IEnumerable<FeedChannel>>
+    public class GetAllFeedsHandler : IRequestHandler<GetAllFeeds, Result<IEnumerable<FeedChannel>>>
     {
         private readonly ILogger<GetAllFeedsHandler> _logger;
         private readonly IRegistry _registry;
@@ -24,16 +25,21 @@ namespace Application.UseCases
             _registry = ModuleInitializer.ServiceProvider.GetService<IRegistry>();
         }
 
-        public async Task<IEnumerable<FeedChannel>> Handle(GetAllFeeds request, CancellationToken cancellationToken)
+        async Task<Result<IEnumerable<FeedChannel>>> IRequestHandler<GetAllFeeds, Result<IEnumerable<FeedChannel>>>.Handle(GetAllFeeds request, CancellationToken cancellationToken)
         {
-            _logger.LogInformation("============== GetAllFeedsHandler");
-            
-            await Task.CompletedTask;
-
-            return _registry.Feeds.Select(feed => feed.FeedChannel);
-
+            var result = new Result<IEnumerable<FeedChannel>>();
+            try
+            {
+                _logger.LogInformation($"{Utils.GetCurrentMethod()}");
+                await Task.CompletedTask;
+                result.Value = _registry.Feeds.Select(feed => feed.FeedChannel);
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.Error = ex.Message;
+            }
+            return result;
         }
     }
-
-
 }

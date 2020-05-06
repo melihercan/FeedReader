@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.UseCases
 {
-    public class GetAllFeeds : IRequest<IEnumerable<FeedChannel>>
+    public class GetAllFeeds : IRequest<Result<IEnumerable<FeedChannel>>>
     {
     }
 }
