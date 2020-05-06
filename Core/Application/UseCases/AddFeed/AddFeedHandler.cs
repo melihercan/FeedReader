@@ -17,7 +17,7 @@ using System.ServiceModel.Syndication;
 
 namespace Application.UseCases
 {
-    public class AddFeedHandler : IRequestHandler<AddFeed, FeedChannel>
+    public class AddFeedHandler : IRequestHandler<AddFeed, Result<FeedChannel>>
     {
         private readonly ILogger<AddFeedHandler> _logger;
         private readonly IRegistry _registry;
@@ -28,12 +28,15 @@ namespace Application.UseCases
             _registry = ModuleInitializer.ServiceProvider.GetService<IRegistry>();
         }
 
-        public async Task<FeedChannel> Handle(AddFeed request, CancellationToken cancellationToken)
+        async Task<Result<FeedChannel>> IRequestHandler<AddFeed, Result<FeedChannel>>.Handle(AddFeed request, CancellationToken cancellationToken)
         {
+            var result = new Result<FeedChannel>();
+
             try
             {
                 _logger.LogInformation($"{Utils.GetCurrentMethod()}");
 
+                Feed feed;
                 var validator = new AddFeedValidator();
                 var validationResult = validator.Validate(request);
                 if (validationResult.IsValid)
@@ -46,7 +49,7 @@ namespace Application.UseCases
                     try
                     {
                         var syndicationFeed = SyndicationFeed.Load(XmlReader.Create(request.Url));
-                        _registry.Feeds.Add(new Feed 
+                        feed = new Feed 
                         { 
                              Id = 0,
                              FeedChannel = new FeedChannel
@@ -54,19 +57,17 @@ namespace Application.UseCases
                                  Id = 0,
                                  Title = syndicationFeed.Title.Text,
                                  Description = syndicationFeed.Description.Text,
-                                 Link = syndicationFeed.Links[0].Uri.OriginalString,
+                                 Link = syndicationFeed.Links[0].Uri.AbsoluteUri,
                                  FeedItems = syndicationFeed.Items.Select(item => new FeedItem 
                                  { 
                                      Id = 0,
                                      Title = item.Title.Text,
                                      Description = item.Summary.Text,
-                                     Link = item.Links[0].Uri.OriginalString,
-                                     ////FeedChannel = 
-                                     
+                                     Link = item.Links[0].Uri.AbsoluteUri,
                                  }).ToList()
                              },
                              SyndicationFeed = syndicationFeed
-                        });
+                        };
                     }
                     catch
                     {
@@ -80,12 +81,17 @@ namespace Application.UseCases
                 }
 
                 await Task.CompletedTask;
-                return null;
+                
+                feed.FeedChannel.FeedItems.Select(item => item.FeedChannel = feed.FeedChannel).ToList();
+                _registry.Feeds.Add(feed);
+                result.Value = feed.FeedChannel;
             }
             catch(Exception ex)
             {
-                throw ex;
+                result.Success = false;
+                result.Error = ex.Message;
             }
+            return result;
         }
     }
 }
