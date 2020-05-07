@@ -1,5 +1,41 @@
 ﻿@inherits LayoutComponentBase
 
+
+<style>
+    app {
+        height: 100vh;
+    }
+
+    .main {
+        display: flex;
+        background-color: orange;
+        flex-direction: column;    }
+
+    .top-row {
+        flex: 0 1 auto;
+    }
+
+    .content {
+        background-color: cyan;
+        flex: 1 1 auto;
+    }
+
+    .bottom-row
+    {
+        height: 2.5rem;
+        display: flex;
+        align-items: center;
+        flex: 0 1 auto;
+        background-color: #f7f7f7;
+        border-top: 1px solid #d6d5d5;
+        justify-content: flex-end;
+    }
+
+    .main .top-row:not(.auth) {
+        display: flex;
+    }
+</style>
+
 <div class="sidebar">
     <NavMenu />
 </div>
@@ -13,4 +49,9 @@
     <div class="content px-4">
         @Body
     </div>
+
+    <div class="bottom-row px-4">
+        melihercan@2020
+    </div>
+
 </div>
