@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using BlazorSplit.Components
 
 <style>
     .content {
@@ -7,8 +8,16 @@
 </style>
 
 <div class="d-flex flex-wrap h-100">
-    <div class="w-50" style="background-color:orange">This is Orange</div>
-    <div class="w-50" style="background-color:lightblue">This is Blue</div>
+    <Split>
+        <SplitArea>
+            <div class="h-100" style="background-color:beige">This is Channels
+            </div>
+        </SplitArea>
+        <SplitArea>
+            <div class="h-100" style="background-color:ghostwhite">This is Items
+            </div>
+        </SplitArea>
+    </Split>
 </div>
 
 
@@ -17,3 +26,4 @@
 @code {
 
 }
+
