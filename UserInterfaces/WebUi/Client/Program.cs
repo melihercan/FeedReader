@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Blazored.Modal;
+using MediatR;
+using System.Reflection;
 
 namespace WebUi.Client
 {
@@ -18,13 +21,19 @@ namespace WebUi.Client
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
-            builder.Services.AddHttpClient("WebUi.ServerAPI", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
+            builder.Services.AddBlazoredModal();
+            builder.Services.AddMediatR(new Assembly[] { typeof(Application.UseCases.AddFeed).Assembly  /*Application.ModuleInitializer.Assembly*/ });
+
+            builder.Services.AddHttpClient("WebUi.ServerAPI", client => client.BaseAddress = 
+                new Uri(builder.HostEnvironment.BaseAddress))
                 .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
             // Supply HttpClient instances that include access tokens when making requests to the server project
-            builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("WebUi.ServerAPI"));
+            builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
+                .CreateClient("WebUi.ServerAPI"));
 
             builder.Services.AddApiAuthorization();
+
 
             await builder.Build().RunAsync();
         }

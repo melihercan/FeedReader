@@ -14,26 +14,6 @@ namespace ConsoleUi
         public static /*async Task*/ void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
-            ///            
-
-#if false
-            var host = new HostBuilder()
-                .ConfigureServices((context, services) =>
-                {
-                    //services.AddMediatR(typeof(CreateFeedCommand).GetTypeInfo().Assembly);
-
-
-                    services.AddSingleton<IIdentity, Identity>();
-                    services.AddSingleton<IFeedRepository, FeedRepository>();
-
-                    services.AddSingleton<Interactors.Startup>();
-
-                    services.AddHostedService<Worker>();
-                });
-
-            await host.RunConsoleAsync();
-#endif
-
         }
 
 #if true
@@ -41,29 +21,8 @@ namespace ConsoleUi
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-
-                    // Add MediatR for each assembly that uses it.
-                    ////var assemblies = new Assembly[] 
-                    ////{ 
-                    ////Assembly.GetExecutingAssembly(),
-
-                    ///};
-                    ////services.AddMediatR(Assembly.GetExecutingAssembly());
-                    //                    services.AddMediatR(new Assembly[] { Core.Assembly.Value });
                     services.AddMediatR(new Assembly[] { Application.ModuleInitializer.Assembly });
-
-
-
-                    //                    services.AddMediatR(typeof(CreateFeedCommand).GetTypeInfo().Assembly);
-
-                    //                  services.AddSingleton<IFeedRepository, Gateways.FeedRepository.Lib.FeedRepository>();
-                    //                services.AddSingleton<IIdentity, Identity>();
                     services.AddHostedService<Worker>();
-
-////                    var provider = services.BuildServiceProvider();
-
-
-
                 });
 #endif
     }

@@ -1,5 +1,5 @@
 ﻿@page "/"
-@using BlazorSplit.Components
+
 
 
 <style>
@@ -23,9 +23,34 @@
                             <a href="#" class="m-2 btn btn-primary">Search</a>
                         </div>
                     </div>
+
                     <div class="card-body">
-                        Feed Channels
-                        and all
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Link</th>
+                                    <th>Channel</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var feedChannel in _feedChannels)
+                                {
+                                    @foreach (var item in feedChannel.FeedItems)
+                                    {
+                                        <tr>
+                                            <td>@item.Id</td>
+                                            <td>@item.Title</td>
+                                            <td>@item.Description</td>
+                                            <td>@item.Link</td>
+                                            <td>@item.FeedChannel</td>
+                                        </tr>
+                                     }
+                                 }
+                            </tbody>
+                        </table>
                     </div>
                     <div class="card-footer text-right text-muted">
                         150 feeds
@@ -36,17 +61,11 @@
 
             </div>
         </SplitArea>
+
         <SplitArea>
             <div class="h-100" style="background-color:ghostwhite">
+
             </div>
         </SplitArea>
     </Split>
 </div>
-
-
-
-
-@code {
-
-}
-
