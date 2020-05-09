@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using BlazorSplit.Components
 
+
 <style>
     .content {
         padding-top: 0;
@@ -10,11 +11,33 @@
 <div class="d-flex flex-wrap h-100">
     <Split>
         <SplitArea>
-            <div class="h-100" style="background-color:beige">This is Channels
+            <div class="h-100" style="background-color:beige">
+
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h4 class="text-center">Feed Channels</h4>
+                        <div class="d-flex justify-content-end">
+                            <a href="#" class="m-2 btn btn-primary">Add</a>
+                            <a href="#" class="m-2 btn btn-primary">Refresh</a>
+                            <a href="#" class="m-2 btn btn-primary">Remove</a>
+                            <a href="#" class="m-2 btn btn-primary">Search</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        Feed Channels
+                        and all
+                    </div>
+                    <div class="card-footer text-right text-muted">
+                        150 feeds
+                    </div>
+                </div>
+
+
+
             </div>
         </SplitArea>
         <SplitArea>
-            <div class="h-100" style="background-color:ghostwhite">This is Items
+            <div class="h-100" style="background-color:ghostwhite">
             </div>
         </SplitArea>
     </Split>
