@@ -15,7 +15,7 @@ namespace Application.UseCases
 
         public RemoveAllFeedsHandler()
         {
-            _logger = ModuleInitializer.ServiceProvider.GetService<ILogger<RemoveAllFeedsHandler>>();
+            _logger = ServiceCollectionExtension.ServiceProvider.GetService<ILogger<RemoveAllFeedsHandler>>();
         }
 
         public async Task<Unit> Handle(RemoveAllFeeds request, CancellationToken cancellationToken)

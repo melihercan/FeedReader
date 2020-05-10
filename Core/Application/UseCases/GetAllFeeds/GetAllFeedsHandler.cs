@@ -21,8 +21,8 @@ namespace Application.UseCases
 
         public GetAllFeedsHandler()
         {
-            _logger = ModuleInitializer.ServiceProvider.GetService<ILogger<GetAllFeedsHandler>>();
-            _registry = ModuleInitializer.ServiceProvider.GetService<IRegistry>();
+            _logger = ServiceCollectionExtension.ServiceProvider.GetService<ILogger<GetAllFeedsHandler>>();
+            _registry = ServiceCollectionExtension.ServiceProvider.GetService<IRegistry>();
         }
 
         async Task<Result<IEnumerable<FeedChannel>>> IRequestHandler<GetAllFeeds, Result<IEnumerable<FeedChannel>>>.Handle(GetAllFeeds request, CancellationToken cancellationToken)

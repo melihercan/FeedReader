@@ -11,6 +11,9 @@ using Microsoft.Extensions.Logging;
 using Blazored.Modal;
 using MediatR;
 using System.Reflection;
+using System.Runtime.CompilerServices;
+using Microsoft.Extensions.Hosting;
+using Application;
 
 namespace WebUi.Client
 {
@@ -21,8 +24,9 @@ namespace WebUi.Client
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
+            builder.Services.AddApplicationServices();
             builder.Services.AddBlazoredModal();
-            builder.Services.AddMediatR(new Assembly[] { typeof(Application.UseCases.AddFeed).Assembly  /*Application.ModuleInitializer.Assembly*/ });
+            builder.Services.AddMediatR(new Assembly[] { typeof(ServiceCollectionExtension).Assembly });
 
             builder.Services.AddHttpClient("WebUi.ServerAPI", client => client.BaseAddress = 
                 new Uri(builder.HostEnvironment.BaseAddress))

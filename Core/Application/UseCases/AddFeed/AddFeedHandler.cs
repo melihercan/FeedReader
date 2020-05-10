@@ -24,8 +24,8 @@ namespace Application.UseCases
 
         public AddFeedHandler()
         {
-            _logger = ModuleInitializer.ServiceProvider.GetService<ILogger<AddFeedHandler>>();
-            _registry = ModuleInitializer.ServiceProvider.GetService<IRegistry>();
+            _logger = ServiceCollectionExtension.ServiceProvider.GetService<ILogger<AddFeedHandler>>();
+            _registry = ServiceCollectionExtension.ServiceProvider.GetService<IRegistry>();
         }
 
         async Task<Result<FeedChannel>> IRequestHandler<AddFeed, Result<FeedChannel>>.Handle(AddFeed request, CancellationToken cancellationToken)
