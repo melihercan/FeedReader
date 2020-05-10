@@ -32,7 +32,6 @@ namespace Application.UseCases
             try
             {
                 _logger.LogInformation($"{Utils.GetCurrentMethod()}");
-                await Task.CompletedTask;
                 result.Value = _registry.Feeds.Select(feed => feed.FeedChannel);
             }
             catch (Exception ex)
@@ -40,6 +39,7 @@ namespace Application.UseCases
                 result.Success = false;
                 result.Error = ex.Message;
             }
+            await Task.CompletedTask;
             return result;
         }
     }

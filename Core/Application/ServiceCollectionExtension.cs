@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using MediatR;
+using System.Reflection;
 
 namespace Application
 {
@@ -14,6 +16,13 @@ namespace Application
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            services.AddMediatR(new Assembly[] 
+            {
+                typeof(User).Assembly,
+                typeof(FeedSource).Assembly,
+                typeof(FeedRepository).Assembly,
+            });
+
             services.AddSingleton<IRegistry, Registry>();
             services.AddSingleton<IFeedSource, FeedSource>();
             services.AddSingleton<IFeedRepository, FeedRepository>();

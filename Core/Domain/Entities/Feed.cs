@@ -7,7 +7,7 @@ namespace Domain.Entities
 {
     public class Feed
     {
-        public const string Url = nameof(Url);
+        public const string Url = "url";
 
         public int Id { get; set; }
         public FeedChannel FeedChannel { get; set; }

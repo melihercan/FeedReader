@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using System;
+using System.ComponentModel.Design;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.ServiceModel.Syndication;
@@ -13,9 +14,9 @@ namespace Infrastructure
         private readonly HttpClient _httpClient;
 
 
-        public FeedSource(HttpClient httpClient)
+        public FeedSource(/*HttpClient httpClient*/)
         {
-            _httpClient = httpClient;
+            //_httpClient = httpClient;
         }
 
         public async Task<SyndicationFeed> GetAsync(string url)

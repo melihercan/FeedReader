@@ -23,14 +23,17 @@ namespace Application.UseCases
     {
         private readonly ILogger<AddFeedHandler> _logger;
         private readonly IRegistry _registry;
+        private readonly IUser _user;
+        private readonly IFeedRepository _feedRepository;
         private readonly IFeedSource _feedSource;
 
         public AddFeedHandler()
         {
             _logger = ServiceCollectionExtension.ServiceProvider.GetService<ILogger<AddFeedHandler>>();
             _registry = ServiceCollectionExtension.ServiceProvider.GetService<IRegistry>();
+            _user = ServiceCollectionExtension.ServiceProvider.GetService<IUser>();
             _feedSource = ServiceCollectionExtension.ServiceProvider.GetService<IFeedSource>();
-
+            _feedRepository = ServiceCollectionExtension.ServiceProvider.GetService<IFeedRepository>();
         }
 
         public async Task<Result<FeedChannel>> Handle(AddFeed request, CancellationToken cancellationToken)
@@ -53,11 +56,6 @@ namespace Application.UseCases
 
                     try
                     {
-                        var x = XmlReader.Create(request.Url);
-                        feed = new Feed();
-
-
-
                         //var syndicationFeed = SyndicationFeed.Load(XmlReader.Create(request.Url));
                         var syndicationFeed = await _feedSource.GetAsync(request.Url);
                         _logger.LogInformation($"---- num of items: {syndicationFeed.Items.Count()}");
@@ -91,8 +89,6 @@ namespace Application.UseCases
                     throw new Exception(
                         string.Join(',', validationResult.Errors.Select(error => error.ErrorMessage)));
                 }
-
-                await Task.CompletedTask;
                 
                 feed.FeedChannel.FeedItems.Select(item => item.FeedChannel = feed.FeedChannel).ToList();
                 _registry.Feeds.Add(feed);
@@ -103,6 +99,7 @@ namespace Application.UseCases
                 result.Success = false;
                 result.Error = ex.Message;
             }
+            //await Task.CompletedTask;
             return result;
         }
     }
