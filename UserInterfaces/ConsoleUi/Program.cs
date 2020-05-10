@@ -7,6 +7,7 @@ using Application;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace ConsoleUi
 {
@@ -26,6 +27,10 @@ namespace ConsoleUi
                     services.AddMediatR(new Assembly[] { typeof(ServiceCollectionExtension).Assembly });
 
                     services.AddHostedService<Worker>();
+                })
+                .ConfigureLogging((context, builder) =>
+                {
+                    builder.AddConsole();
                 });
 #endif
     }

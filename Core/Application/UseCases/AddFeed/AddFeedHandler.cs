@@ -14,6 +14,8 @@ using Application.Helpers;
 using System.Linq;
 using System.Xml;
 using System.ServiceModel.Syndication;
+using System.Net.Http;
+using Infrastructure;
 
 namespace Application.UseCases
 {
@@ -21,20 +23,23 @@ namespace Application.UseCases
     {
         private readonly ILogger<AddFeedHandler> _logger;
         private readonly IRegistry _registry;
+        private readonly IFeedSource _feedSource;
 
         public AddFeedHandler()
         {
             _logger = ServiceCollectionExtension.ServiceProvider.GetService<ILogger<AddFeedHandler>>();
             _registry = ServiceCollectionExtension.ServiceProvider.GetService<IRegistry>();
+            _feedSource = ServiceCollectionExtension.ServiceProvider.GetService<IFeedSource>();
+
         }
 
-        async Task<Result<FeedChannel>> IRequestHandler<AddFeed, Result<FeedChannel>>.Handle(AddFeed request, CancellationToken cancellationToken)
+        public async Task<Result<FeedChannel>> Handle(AddFeed request, CancellationToken cancellationToken)
         {
             var result = new Result<FeedChannel>();
 
             try
             {
-                _logger.LogInformation($"{Utils.GetCurrentMethod()}");
+                _logger.LogInformation("start");
 
                 Feed feed;
                 var validator = new AddFeedValidator();
@@ -48,7 +53,14 @@ namespace Application.UseCases
 
                     try
                     {
-                        var syndicationFeed = SyndicationFeed.Load(XmlReader.Create(request.Url));
+                        var x = XmlReader.Create(request.Url);
+                        feed = new Feed();
+
+
+
+                        //var syndicationFeed = SyndicationFeed.Load(XmlReader.Create(request.Url));
+                        var syndicationFeed = await _feedSource.GetAsync(request.Url);
+                        _logger.LogInformation($"---- num of items: {syndicationFeed.Items.Count()}");
                         feed = new Feed 
                         { 
                              Id = 0,
@@ -58,20 +70,20 @@ namespace Application.UseCases
                                  Title = syndicationFeed.Title.Text,
                                  Description = syndicationFeed.Description.Text,
                                  Link = syndicationFeed.Links[0].Uri.AbsoluteUri,
-                                 FeedItems = syndicationFeed.Items.Select(item => new FeedItem 
-                                 { 
+                                 FeedItems = syndicationFeed.Items.Select(item => new FeedItem
+                                 {
                                      Id = 0,
                                      Title = item.Title.Text,
                                      Description = item.Summary.Text,
                                      Link = item.Links[0].Uri.AbsoluteUri,
                                  }).ToList()
                              },
-                             SyndicationFeed = syndicationFeed
+                            SyndicationFeed = syndicationFeed
                         };
                     }
-                    catch
+                    catch(Exception ex)
                     {
-                        throw new Exception("Invalid feed URL");
+                        throw new Exception("Invalid feed URL" + Environment.NewLine + ex.Message);
                     }
                 }
                 else

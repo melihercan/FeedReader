@@ -35,10 +35,8 @@ namespace WebUi.Client
             // Supply HttpClient instances that include access tokens when making requests to the server project
             builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
                 .CreateClient("WebUi.ServerAPI"));
-
             builder.Services.AddApiAuthorization();
-
-
+            
             await builder.Build().RunAsync();
         }
     }

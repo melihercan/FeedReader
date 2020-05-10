@@ -15,6 +15,7 @@ namespace Application
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddSingleton<IRegistry, Registry>();
+            services.AddSingleton<IFeedSource, FeedSource>();
             services.AddSingleton<IFeedRepository, FeedRepository>();
             services.AddSingleton<IUser, User>();
             ServiceProvider = services.BuildServiceProvider();

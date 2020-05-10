@@ -69,7 +69,7 @@ namespace ConsoleUi
             msg += $"Link: {feedChannel.Link}{Environment.NewLine}";
             foreach (var feedItem in feedChannel.FeedItems)
             {
-                msg += $"-------- FEED CHANNEL --------{Environment.NewLine}";
+                msg += $"-------- FEED ITEM --------{Environment.NewLine}";
                 msg += $"Title: {feedItem.Title}{Environment.NewLine}";
                 msg += $"Description: {feedItem.Description}{Environment.NewLine}";
                 msg += $"Link: {feedItem.Link}{Environment.NewLine}";

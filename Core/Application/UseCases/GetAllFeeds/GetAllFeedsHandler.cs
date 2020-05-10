@@ -25,7 +25,8 @@ namespace Application.UseCases
             _registry = ServiceCollectionExtension.ServiceProvider.GetService<IRegistry>();
         }
 
-        async Task<Result<IEnumerable<FeedChannel>>> IRequestHandler<GetAllFeeds, Result<IEnumerable<FeedChannel>>>.Handle(GetAllFeeds request, CancellationToken cancellationToken)
+        public async Task<Result<IEnumerable<FeedChannel>>> Handle(GetAllFeeds request, 
+            CancellationToken cancellationToken)
         {
             var result = new Result<IEnumerable<FeedChannel>>();
             try
