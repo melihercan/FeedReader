@@ -16,6 +16,7 @@ using System.Xml;
 using System.ServiceModel.Syndication;
 using System.Net.Http;
 using Infrastructure;
+using Microsoft.AspNetCore.Components;
 
 namespace Application.UseCases
 {
@@ -23,7 +24,6 @@ namespace Application.UseCases
     {
         private readonly ILogger<AddFeedHandler> _logger;
         private readonly IRegistry _registry;
-        private readonly IUser _user;
         private readonly IFeedRepository _feedRepository;
         private readonly IFeedSource _feedSource;
 
@@ -31,7 +31,6 @@ namespace Application.UseCases
         {
             _logger = ServiceCollectionExtension.ServiceProvider.GetService<ILogger<AddFeedHandler>>();
             _registry = ServiceCollectionExtension.ServiceProvider.GetService<IRegistry>();
-            _user = ServiceCollectionExtension.ServiceProvider.GetService<IUser>();
             _feedSource = ServiceCollectionExtension.ServiceProvider.GetService<IFeedSource>();
             _feedRepository = ServiceCollectionExtension.ServiceProvider.GetService<IFeedRepository>();
         }

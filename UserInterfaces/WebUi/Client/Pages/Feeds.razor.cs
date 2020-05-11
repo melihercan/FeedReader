@@ -28,7 +28,6 @@ namespace WebUi.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
-
             //// TESTING
             var resultFeedChannel = await _mediator.Send(new AddFeed
             {

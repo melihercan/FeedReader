@@ -24,7 +24,6 @@ namespace WebUi.Client
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
-            builder.Services.AddApplicationServices();
             builder.Services.AddBlazoredModal();
             builder.Services.AddMediatR(new Assembly[] { typeof(ServiceCollectionExtension).Assembly });
 
@@ -36,7 +35,9 @@ namespace WebUi.Client
             builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
                 .CreateClient("WebUi.ServerAPI"));
             builder.Services.AddApiAuthorization();
-            
+
+            builder.Services.AddApplicationServices();
+
             await builder.Build().RunAsync();
         }
     }

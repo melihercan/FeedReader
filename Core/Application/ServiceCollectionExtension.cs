@@ -16,15 +16,18 @@ namespace Application
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            services.AddFeedSourceServices();
+
+
             services.AddMediatR(new Assembly[] 
             {
                 typeof(User).Assembly,
-                typeof(FeedSource).Assembly,
+//                typeof(FeedSource).Assembly,
                 typeof(FeedRepository).Assembly,
             });
 
             services.AddSingleton<IRegistry, Registry>();
-            services.AddSingleton<IFeedSource, FeedSource>();
+//            services.AddSingleton<IFeedSource, FeedSource>();
             services.AddSingleton<IFeedRepository, FeedRepository>();
             services.AddSingleton<IUser, User>();
             ServiceProvider = services.BuildServiceProvider();
