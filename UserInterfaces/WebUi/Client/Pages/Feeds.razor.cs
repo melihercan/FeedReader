@@ -17,9 +17,7 @@ namespace WebUi.Client.Pages
 {
     public partial class Feeds
     {
-        private IEnumerable<FeedChannel> _feedChannels;
-   private FeedChannel _feedChannel;
-   private FeedItem _feedItem;
+        private FeedChannel[] _feedChannels;
 
         [Inject]
         private ILogger<Feeds> _logger { get; set; }
@@ -29,9 +27,6 @@ namespace WebUi.Client.Pages
 
         [Inject]
         private IModalService _modalService { get; set; }
-
-        [Inject]
-        private HttpClient _httpClient { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -54,9 +49,7 @@ namespace WebUi.Client.Pages
             var resultFeedChannels = await _mediator.Send(new GetAllFeeds { });
             if (resultFeedChannels.Success)
             {
-                _feedChannels = resultFeedChannels.Value;
-                _feedChannel = _feedChannels.FirstOrDefault();
-                _feedItem = _feedChannel.FeedItems[0];
+                _feedChannels = resultFeedChannels.Value.ToArray();
                 Console.WriteLine($"---- feedChannels: {_feedChannels.Count()}, feedItems:{_feedChannels.FirstOrDefault().FeedItems.Count()}");
                 foreach( var feedChannel in _feedChannels)
                 {
@@ -68,6 +61,7 @@ namespace WebUi.Client.Pages
                 _logger.LogError(resultFeedChannels.Error);
                 _modalService.Show<Feeds>(resultFeedChannels.Error);
             }
+
             await base.OnInitializedAsync();
         }
 
