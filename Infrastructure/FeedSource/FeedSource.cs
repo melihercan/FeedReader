@@ -25,7 +25,10 @@ namespace Infrastructure
 
         public async Task<SyndicationFeed> GetAsync(string url)
         {
-            var uriBuilder = new UriBuilder(new Uri("SyndicationFeed"));
+            var endpoint = _httpClient.BaseAddress.AbsoluteUri + "api/SyndicationFeed";
+            Console.WriteLine($"endpoint: {endpoint}");
+
+            var uriBuilder = new UriBuilder(new Uri(endpoint));
             var query = HttpUtility.ParseQueryString(uriBuilder.Query);
             query[Feed.Url] = url;
             uriBuilder.Query = query.ToString();
