@@ -32,17 +32,27 @@ namespace WebUi.Client.Pages
         {
 
             //// TESTING
-            var resultFeedChannel = await _mediator.Send(new AddFeed
+            ///
+            var urls = new string[]
             {
-                Url = "https://www.cnbc.com/id/100003114/device/rss/rss.html"
-            });
-            if (resultFeedChannel.Success)
+                "http://feeds.bbci.co.uk/news/world/rss.xml",
+                "https://www.nasa.gov/rss/dyn/breaking_news.rss",
+                "https://www.cnbc.com/id/100003114/device/rss/rss.html"
+            };
+            foreach (var url in urls)
             {
-                //ShowFeedChannel(resultFeedChannel.Value);
-            }
-            else
-            {
-                _logger.LogError(resultFeedChannel.Error);
+                var resultFeedChannel = await _mediator.Send(new AddFeed
+                {
+                    Url = url
+                });
+                if (resultFeedChannel.Success)
+                {
+                    //ShowFeedChannel(resultFeedChannel.Value);
+                }
+                else
+                {
+                    _logger.LogError(resultFeedChannel.Error);
+                }
             }
             //// END TESTING
 

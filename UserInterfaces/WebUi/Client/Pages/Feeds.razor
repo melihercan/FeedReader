@@ -29,24 +29,37 @@ else
                         </div>
 
                         <div class="card-body">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Title</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var feedChannel in _feedChannels)
-                                    {
-                                        @foreach (var feedItem in feedChannel.FeedItems)
-                                        {
-                                            <tr>
-                                                <td>@feedItem.Title</td>
-                                            </tr>
-                                        }
-                                    }
-                                </tbody>
-                            </table>
+
+                            <div class="accordion">
+
+                                @foreach (var feedChannel in _feedChannels)
+                                {
+                                    <div class="card">
+                                        <div class="card-header" id="@($"{feedChannel.Id}h")">
+                                            <h5 class="mb-0">
+                                                <button class="btn btn-link"
+                                                        type="button"
+                                                        data-toggle="collapse"
+                                                        data-target="#x"
+                                                        aria-expanded="true"
+                                                        aria-controls="x">
+                                                    @feedChannel.Title
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div id="x" class="collapse" aria-labelledby="@($"{feedChannel.Id}h")">
+                                            <div class="card-body">
+                                                @foreach (var feedItem in feedChannel.FeedItems)
+                                                {
+                                                    <p>@feedItem.Title</p>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+
                         </div>
 
 
