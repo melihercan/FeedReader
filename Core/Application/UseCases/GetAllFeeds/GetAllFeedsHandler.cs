@@ -32,7 +32,7 @@ namespace Application.UseCases
             try
             {
                 _logger.LogInformation($"{Utils.GetCurrentMethod()}");
-                result.Value = _registry.Feeds.Select(feed => feed.FeedChannel);
+                result.Value = _registry.FeedChannels;
             }
             catch (Exception ex)
             {

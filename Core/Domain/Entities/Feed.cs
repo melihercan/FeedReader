@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ServiceModel.Syndication;
 using System.Text;
 
 namespace Domain.Entities
@@ -11,6 +10,6 @@ namespace Domain.Entities
 
         public int Id { get; set; }
         public FeedChannel FeedChannel { get; set; }
-        public SyndicationFeed SyndicationFeed { get; set; }
+        //public SyndicationFeed SyndicationFeed { get; set; }
     }
 }

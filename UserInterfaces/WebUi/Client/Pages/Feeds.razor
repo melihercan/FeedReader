@@ -2,6 +2,7 @@
 
 
 
+
 <style>
     .content {
         padding-top: 0;
@@ -28,30 +29,33 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    @*<th>Id</th>
+                                      <th>Title</th>
+        <th>Description</th>
+        <th>Link</th>
+        <th>Channel</th>*@
                                     <th>Title</th>
-                                    <th>Description</th>
-                                    <th>Link</th>
-                                    <th>Channel</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var feedChannel in _feedChannels)
+                                <tr>
+                                    <td>@_feedItem.Id</td>
+                                </tr>
+                                @*@foreach (var feedItem in _feedChannel.FeedItems)
                                 {
-                                    @foreach (var item in feedChannel.FeedItems)
-                                    {
-                                        <tr>
-                                            <td>@item.Id</td>
-                                            <td>@item.Title</td>
-                                            <td>@item.Description</td>
-                                            <td>@item.Link</td>
-                                            <td>@item.FeedChannel</td>
-                                        </tr>
-                                     }
-                                 }
+                                    <tr>
+                                        <td>@feedItem.Id</td>
+                                        <td>@feedItem.Title</td>
+                                        <td>@feedItem.Description</td>
+                                        <td>@feedItem.Link</td>
+                                        <td>@feedItem.FeedChannel</td>
+                                     </tr>
+                                 }*@
                             </tbody>
                         </table>
                     </div>
+
+
                     <div class="card-footer text-right text-muted">
                         150 feeds
                     </div>

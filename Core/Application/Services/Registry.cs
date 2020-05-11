@@ -8,6 +8,6 @@ namespace Application.Services
 {
     public class Registry : IRegistry
     {
-        public List<Feed> Feeds { get; set; } = new List<Feed>();
+        public List<FeedChannel> FeedChannels { get; set; } = new List<FeedChannel>();
     }
 }

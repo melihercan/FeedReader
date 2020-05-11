@@ -3,7 +3,6 @@ using System;
 using System.ComponentModel.Design;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.ServiceModel.Syndication;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,9 +22,9 @@ namespace Infrastructure
             _httpClient = ServiceCollectionExtension.ServiceProvider.GetService<HttpClient>();
         }
 
-        public async Task<SyndicationFeed> GetAsync(string url)
+        public async Task<FeedChannel> GetAsync(string url)
         {
-            var endpoint = _httpClient.BaseAddress.AbsoluteUri + "api/SyndicationFeed";
+            var endpoint = _httpClient.BaseAddress.AbsoluteUri + "api/FeedSource";
             Console.WriteLine($"endpoint: {endpoint}");
 
             var uriBuilder = new UriBuilder(new Uri(endpoint));
@@ -33,7 +32,8 @@ namespace Infrastructure
             query[Feed.Url] = url;
             uriBuilder.Query = query.ToString();
             var uri = uriBuilder.ToString();
-            return await _httpClient.GetFromJsonAsync<SyndicationFeed>(uri);
+            var feedChannel = await _httpClient.GetFromJsonAsync<FeedChannel>(uri);
+            return feedChannel;
         }
     }
 }

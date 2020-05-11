@@ -10,12 +10,16 @@ using System.Threading.Tasks;
 using Blazored;
 using Blazored.Modal;
 using Blazored.Modal.Services;
+using System.Net.Http;
+using System.Net.Http.Json;
 
 namespace WebUi.Client.Pages
 {
     public partial class Feeds
     {
         private IEnumerable<FeedChannel> _feedChannels;
+   private FeedChannel _feedChannel;
+   private FeedItem _feedItem;
 
         [Inject]
         private ILogger<Feeds> _logger { get; set; }
@@ -26,8 +30,12 @@ namespace WebUi.Client.Pages
         [Inject]
         private IModalService _modalService { get; set; }
 
+        [Inject]
+        private HttpClient _httpClient { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
+
             //// TESTING
             var resultFeedChannel = await _mediator.Send(new AddFeed
             {
@@ -35,7 +43,7 @@ namespace WebUi.Client.Pages
             });
             if (resultFeedChannel.Success)
             {
-                ShowFeedChannel(resultFeedChannel.Value);
+                //ShowFeedChannel(resultFeedChannel.Value);
             }
             else
             {
@@ -43,12 +51,13 @@ namespace WebUi.Client.Pages
             }
             //// END TESTING
 
-
             var resultFeedChannels = await _mediator.Send(new GetAllFeeds { });
             if (resultFeedChannels.Success)
             {
                 _feedChannels = resultFeedChannels.Value;
-                Console.WriteLine($"---- Num of feeds: {_feedChannels.Count()}");
+                _feedChannel = _feedChannels.FirstOrDefault();
+                _feedItem = _feedChannel.FeedItems[0];
+                Console.WriteLine($"---- feedChannels: {_feedChannels.Count()}, feedItems:{_feedChannels.FirstOrDefault().FeedItems.Count()}");
                 foreach( var feedChannel in _feedChannels)
                 {
                     ShowFeedChannel(feedChannel);
@@ -59,7 +68,6 @@ namespace WebUi.Client.Pages
                 _logger.LogError(resultFeedChannels.Error);
                 _modalService.Show<Feeds>(resultFeedChannels.Error);
             }
-
             await base.OnInitializedAsync();
         }
 
@@ -67,7 +75,7 @@ namespace WebUi.Client.Pages
         {
             var msg = string.Empty;
             msg += Environment.NewLine;
-            msg += $"======== FEED CHANNEL ========{Environment.NewLine}";
+            msg += $"======== FEED CHANNELX ========{Environment.NewLine}";
             msg += $"Title: {feedChannel.Title}{Environment.NewLine}";
             msg += $"Description: {feedChannel.Description}{Environment.NewLine}";
             msg += $"Link: {feedChannel.Link}{Environment.NewLine}";
@@ -78,7 +86,7 @@ namespace WebUi.Client.Pages
                 msg += $"Description: {feedItem.Description}{Environment.NewLine}";
                 msg += $"Link: {feedItem.Link}{Environment.NewLine}";
             }
-            _logger.LogInformation(msg);
+            //_logger.LogInformation(msg);
             Console.WriteLine(msg);
         }
 

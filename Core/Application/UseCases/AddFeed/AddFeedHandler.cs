@@ -13,10 +13,8 @@ using System.Reflection;
 using Application.Helpers;
 using System.Linq;
 using System.Xml;
-using System.ServiceModel.Syndication;
 using System.Net.Http;
 using Infrastructure;
-using Microsoft.AspNetCore.Components;
 
 namespace Application.UseCases
 {
@@ -43,12 +41,12 @@ namespace Application.UseCases
             {
                 _logger.LogInformation("start");
 
-                Feed feed;
+                FeedChannel feedChannel;
                 var validator = new AddFeedValidator();
                 var validationResult = validator.Validate(request);
                 if (validationResult.IsValid)
                 {
-                    if(_registry.Feeds.FirstOrDefault(feed => feed.FeedChannel.Link == request.Url) != null)
+                    if(_registry.FeedChannels.FirstOrDefault(feedChannel => feedChannel.Link == request.Url) != null)
                     {
                         throw new Exception("Feed URL already exist");
                     }
@@ -56,27 +54,8 @@ namespace Application.UseCases
                     try
                     {
                         //var syndicationFeed = SyndicationFeed.Load(XmlReader.Create(request.Url));
-                        var syndicationFeed = await _feedSource.GetAsync(request.Url);
-                        _logger.LogInformation($"---- num of items: {syndicationFeed.Items.Count()}");
-                        feed = new Feed 
-                        { 
-                             Id = 0,
-                             FeedChannel = new FeedChannel
-                             {
-                                 Id = 0,
-                                 Title = syndicationFeed.Title.Text,
-                                 Description = syndicationFeed.Description.Text,
-                                 Link = syndicationFeed.Links[0].Uri.AbsoluteUri,
-                                 FeedItems = syndicationFeed.Items.Select(item => new FeedItem
-                                 {
-                                     Id = 0,
-                                     Title = item.Title.Text,
-                                     Description = item.Summary.Text,
-                                     Link = item.Links[0].Uri.AbsoluteUri,
-                                 }).ToList()
-                             },
-                            SyndicationFeed = syndicationFeed
-                        };
+                        feedChannel = await _feedSource.GetAsync(request.Url);
+                        _logger.LogInformation($"---- num of items: {feedChannel.FeedItems.Count()}");
                     }
                     catch(Exception ex)
                     {
@@ -89,9 +68,9 @@ namespace Application.UseCases
                         string.Join(',', validationResult.Errors.Select(error => error.ErrorMessage)));
                 }
                 
-                feed.FeedChannel.FeedItems.Select(item => item.FeedChannel = feed.FeedChannel).ToList();
-                _registry.Feeds.Add(feed);
-                result.Value = feed.FeedChannel;
+                feedChannel.FeedItems.Select(item => item.FeedChannel = feedChannel).ToList();
+                _registry.FeedChannels.Add(feedChannel);
+                result.Value = feedChannel;
             }
             catch(Exception ex)
             {
