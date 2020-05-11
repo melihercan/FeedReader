@@ -35,23 +35,26 @@ else
                                 @foreach (var feedChannel in _feedChannels)
                                 {
                                     <div class="card">
-                                        <div class="card-header" id="@($"{feedChannel.Id}h")">
+                                        <div class="card-header" id="a@(feedChannel.Id)">
                                             <h5 class="mb-0">
                                                 <button class="btn btn-link"
                                                         type="button"
                                                         data-toggle="collapse"
-                                                        data-target="#x"
+                                                        data-target="#b@(feedChannel.Id)"
                                                         aria-expanded="true"
-                                                        aria-controls="x">
+                                                        aria-controls="b@(feedChannel.Id)">
                                                     @feedChannel.Title
                                                 </button>
                                             </h5>
                                         </div>
-                                        <div id="x" class="collapse" aria-labelledby="@($"{feedChannel.Id}h")">
+                                        <div id="b@(feedChannel.Id)" class="collapse" 
+                                             aria-labelledby="a@(feedChannel.Id)">
                                             <div class="card-body">
                                                 @foreach (var feedItem in feedChannel.FeedItems)
                                                 {
                                                     <p>@feedItem.Title</p>
+                                                    <p>"a@(feedChannel.Id)"</p>
+                                                    <p>"#a@(feedChannel.Id)"</p>
                                                 }
                                             </div>
                                         </div>

@@ -18,7 +18,7 @@ namespace WebUi.Client.Pages
     public partial class Feeds
     {
         private FeedChannel[] _feedChannels;
-
+ 
         [Inject]
         private ILogger<Feeds> _logger { get; set; }
 
