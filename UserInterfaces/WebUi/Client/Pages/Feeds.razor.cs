@@ -19,6 +19,7 @@ namespace WebUi.Client.Pages
     public partial class Feeds
     {
         private FeedChannel[] _feedChannels;
+        private string _item = "string.Empty";
  
         [Inject]
         private ILogger<Feeds> _logger { get; set; }
@@ -97,6 +98,7 @@ namespace WebUi.Client.Pages
         private void ItemSelected(MouseEventArgs e, FeedItem feedItem)
         {
             Console.WriteLine($"Item {feedItem.Title} clicked");
+            _item = feedItem.Description;
         }
 
     }
