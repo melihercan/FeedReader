@@ -31,40 +31,20 @@ else
 
                     <div class="card h-100">
                         <div class="card-header">
-                            <h4 class="text-center">Feed Channels</h4>
-                            <div class="d-flex justify-content-center">
-                                <a href="#" class="m-2 btn btn-primary">Add</a>
-                                <a href="#" class="m-2 btn btn-primary">Refresh</a>
-                                <a href="#" class="m-2 btn btn-primary">Remove</a>
-                                <a href="#" class="m-2 btn btn-primary">Search</a>
-                            </div>
+                            <h4 class="text-center">Feed channels</h4>
                         </div>
 
                         <div class="card-body">
 
-
-                            <div class="accordion">
-                                <div class="card mb-0">
-                                    @foreach (var feedChannel in _feedChannels)
-                                    {
-                                        <div class="card-header collapsed" data-toggle="collapse" 
-                                             href="#a@(feedChannel.Id)">
-                                            <button class="btn btn-link"><h5>@feedChannel.Title</h5></button>
-                                        </div>
-                                        <div id="a@(feedChannel.Id)" class="card-body collapse">
-                                            @foreach (var feedItem in feedChannel.FeedItems)
-                                            {
-                                                <p class="pl-4">
-                                                    <a href="feeds" role="button" 
-                                                       @onclick="@(e => ItemSelected(e, feedItem))">
-                                                        @feedItem.Title
-                                                    </a>
-                                                </p>
-                                            }
-                                        </div>
-                                    }
-                                </div>
-                            </div>
+                            @foreach (var feedChannel in _feedChannels)
+                            {
+                                <a href="/feeds" class="btn btn-light btn-block text-left"> 
+                                    <img src="@feedChannel.ImageUrl"/>
+                                    <span>
+                                        @feedChannel.Title
+                                    </span>
+                                </a>
+                            }
 
                         </div>
 
@@ -92,3 +72,34 @@ else
         </Split>
     </div>
 }
+
+
+@*
+                              <div class="d-flex justify-content-center">
+                                    <a href="#" class="m-2 btn btn-primary">Add</a>
+                                    <a href="#" class="m-2 btn btn-primary">Refresh</a>
+                                    <a href="#" class="m-2 btn btn-primary">Remove</a>
+                                    <a href="#" class="m-2 btn btn-primary">Search</a>
+                                </div>
+        <div class="accordion">
+        <div class="card mb-0">
+            @foreach (var feedChannel in _feedChannels)
+            {
+                <div class="card-header collapsed" data-toggle="collapse"
+                     href="#a@(feedChannel.Id)">
+                    <button class="btn btn-link"><h5>@feedChannel.Title</h5></button>
+                </div>
+                <div id="a@(feedChannel.Id)" class="card-body collapse">
+                    @foreach (var feedItem in feedChannel.FeedItems)
+                    {
+                        <p class="pl-4">
+                            <a href="feeds" role="button"
+                               @onclick="@(e => ItemSelected(e, feedItem))">
+                                @feedItem.Title
+                            </a>
+                        </p>
+                    }
+                </div>
+            }
+        </div>
+    </div>*@

@@ -38,7 +38,7 @@ namespace WebUi.Client.Pages
             {
                 "http://feeds.bbci.co.uk/news/world/rss.xml",
                 "https://www.nasa.gov/rss/dyn/breaking_news.rss",
-                "https://www.cnbc.com/id/100003114/device/rss/rss.html"
+                //"https://www.cnbc.com/id/100003114/device/rss/rss.html"
             };
             foreach (var url in urls)
             {
@@ -80,16 +80,21 @@ namespace WebUi.Client.Pages
         {
             var msg = string.Empty;
             msg += Environment.NewLine;
-            msg += $"======== FEED CHANNELX ========{Environment.NewLine}";
+            msg += $"======== FEED CHANNEL ========{Environment.NewLine}";
+            msg += $"Id: {feedChannel.Id}{Environment.NewLine}";
             msg += $"Title: {feedChannel.Title}{Environment.NewLine}";
             msg += $"Description: {feedChannel.Description}{Environment.NewLine}";
             msg += $"Link: {feedChannel.Link}{Environment.NewLine}";
+            msg += $"ImageUrl: {feedChannel.ImageUrl}{Environment.NewLine}";
             foreach (var feedItem in feedChannel.FeedItems)
             {
                 msg += $"-------- FEED ITEM --------{Environment.NewLine}";
+                msg += $"Id: {feedChannel.Id}{Environment.NewLine}";
                 msg += $"Title: {feedItem.Title}{Environment.NewLine}";
                 msg += $"Description: {feedItem.Description}{Environment.NewLine}";
                 msg += $"Link: {feedItem.Link}{Environment.NewLine}";
+                msg += $"PublishDate: {feedItem.PublishDate}{Environment.NewLine}";
+                msg += $"ImageUrl: {feedItem.ImageUrl}{Environment.NewLine}";
             }
             //_logger.LogInformation(msg);
             Console.WriteLine(msg);

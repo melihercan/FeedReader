@@ -28,12 +28,19 @@ namespace WebUi.Server.Controllers
                 Title = syndicationFeed.Title.Text,
                 Description = syndicationFeed.Description.Text,
                 Link = syndicationFeed.Links[0].Uri.AbsoluteUri,
+                ImageUrl = "https://icons.feedercdn.com/www.bbc.co.uk",// syndicationFeed.ImageUrl?.ToString(),
                 FeedItems = syndicationFeed.Items.Select(item => new FeedItem
                 {
                     Id = _id++,
+                    IsRead = false,
                     Title = item.Title.Text,
                     Description = item.Summary.Text,
                     Link = item.Links[0].Uri.AbsoluteUri,
+                    PublishDate = item.PublishDate.DateTime,
+                    //// TODO; GET FEED IMAGE????
+                    ////ImageUrl = item.ElementExtensions.Count == 0 ? null : 
+                    ///
+                    ImageUrl = null
                 }).ToList()
             };
 
