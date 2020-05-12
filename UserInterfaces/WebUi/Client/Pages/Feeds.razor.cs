@@ -30,7 +30,6 @@ namespace WebUi.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
-
             //// TESTING
             ///
             var urls = new string[]
@@ -94,7 +93,10 @@ namespace WebUi.Client.Pages
             Console.WriteLine(msg);
         }
 
-
+        private void ItemSelected()
+        {
+            Console.WriteLine("Item clicked");
+        }
 
     }
 }

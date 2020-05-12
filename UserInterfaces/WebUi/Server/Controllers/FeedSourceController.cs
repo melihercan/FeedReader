@@ -15,6 +15,8 @@ namespace WebUi.Server.Controllers
     [ApiController]
     public class FeedSourceController : ControllerBase
     {
+        private static int _id = 0;
+
         // GET: api/FeedSource
         [HttpGet]
         public FeedChannel Get(string url)
@@ -22,13 +24,13 @@ namespace WebUi.Server.Controllers
             var syndicationFeed = SyndicationFeed.Load(XmlReader.Create(url));
             var feedChannel = new FeedChannel
             {
-                Id = 0,
+                Id = _id++,
                 Title = syndicationFeed.Title.Text,
                 Description = syndicationFeed.Description.Text,
                 Link = syndicationFeed.Links[0].Uri.AbsoluteUri,
                 FeedItems = syndicationFeed.Items.Select(item => new FeedItem
                 {
-                    Id = 0,
+                    Id = _id++,
                     Title = item.Title.Text,
                     Description = item.Summary.Text,
                     Link = item.Links[0].Uri.AbsoluteUri,
