@@ -55,7 +55,10 @@ else
                                             @foreach (var feedItem in feedChannel.FeedItems)
                                             {
                                                 <p class="pl-4">
-                                                    <a href="feeds" role="button" @onclick="ItemSelected">@feedItem.Title</a>
+                                                    <a href="feeds" role="button" 
+                                                       @onclick="@(e => ItemSelected(e, feedItem))">
+                                                        @feedItem.Title
+                                                    </a>
                                                 </p>
                                             }
                                         </div>

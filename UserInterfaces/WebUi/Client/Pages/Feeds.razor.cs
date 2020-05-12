@@ -12,6 +12,7 @@ using Blazored.Modal;
 using Blazored.Modal.Services;
 using System.Net.Http;
 using System.Net.Http.Json;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace WebUi.Client.Pages
 {
@@ -93,9 +94,9 @@ namespace WebUi.Client.Pages
             Console.WriteLine(msg);
         }
 
-        private void ItemSelected()
+        private void ItemSelected(MouseEventArgs e, FeedItem feedItem)
         {
-            Console.WriteLine("Item clicked");
+            Console.WriteLine($"Item {feedItem.Title} clicked");
         }
 
     }
