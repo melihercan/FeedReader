@@ -83,7 +83,10 @@ else
 
             <SplitArea>
                 <div class="h-100" style="background-color:ghostwhite">
-                    @_item
+                    @if (_feedItem != null)
+                    {
+                        <iframe src="@_feedItem.Link" />
+                    }
                 </div>
             </SplitArea>
         </Split>
