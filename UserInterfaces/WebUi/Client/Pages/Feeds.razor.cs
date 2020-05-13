@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace WebUi.Client.Pages
 {
-    public partial class Feeds
+    public partial class Feeds : ComponentBase
     {
         private FeedChannel[] _feedChannels;
         private FeedChannel _selectedFeedChannel;

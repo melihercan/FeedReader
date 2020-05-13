@@ -62,6 +62,11 @@ else
             <div class="h-100" style="background-color:ghostwhite">
                 @if(_selectedFeedChannel != null)
                 {
+                    <div class="jumbotron text-center" style="padding-top: 1.5rem; padding-bottom: 1.5rem">
+                        <h2>@_selectedFeedChannel.Title</h2>
+                    </div>
+
+
                     foreach(var feedItem in _selectedFeedChannel.FeedItems)
                     {
                         <p>@feedItem.Title</p>
