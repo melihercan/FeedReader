@@ -13,6 +13,7 @@ using Blazored.Modal.Services;
 using System.Net.Http;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
 
 namespace WebUi.Client.Pages
 {
@@ -21,7 +22,13 @@ namespace WebUi.Client.Pages
         private FeedChannel[] _feedChannels;
         private FeedChannel _selectedFeedChannel;
         private FeedItem _selectedFeedItem;
- 
+
+        [Inject]
+        private NavigationManager _navigationManager { get; set; }
+
+        [Inject]
+        private IJSRuntime _jsRuntime { get; set; }
+
         [Inject]
         private ILogger<Feeds> _logger { get; set; }
 
@@ -107,10 +114,24 @@ namespace WebUi.Client.Pages
             _selectedFeedChannel = feedChannel;
         }
 
-        private void ItemSelected(MouseEventArgs e, FeedItem feedItem)
+        private async Task ItemSelected(MouseEventArgs e, FeedItem feedItem)
         {
             Console.WriteLine($"Item {feedItem.Title} selected");
             _selectedFeedItem = feedItem;
+
+            await NavigateToUrlAsync(_selectedFeedItem.Link);
+        }
+
+        private async Task NavigateToUrlAsync(string url, bool openInNewTab = true)
+        {
+            if (openInNewTab)
+            {
+                await _jsRuntime.InvokeAsync<object>("open", url, "_blank");
+            }
+            else
+            {
+                _navigationManager.NavigateTo(url);
+            }
         }
 
     }
