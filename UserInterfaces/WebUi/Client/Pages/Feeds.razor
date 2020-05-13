@@ -62,14 +62,24 @@ else
             <div class="h-100" style="background-color:ghostwhite">
                 @if(_selectedFeedChannel != null)
                 {
-                    <div class="jumbotron text-center" style="padding-top: 1.5rem; padding-bottom: 1.5rem">
-                        <h2>@_selectedFeedChannel.Title</h2>
-                    </div>
+                <div class="jumbotron text-center" style="padding-top: 1.5rem; padding-bottom: 1.5rem">
+                    <h2>@_selectedFeedChannel.Title</h2>
+                </div>
 
 
                     foreach(var feedItem in _selectedFeedChannel.FeedItems)
                     {
-                        <p>@feedItem.Title</p>
+                        <a href="/feeds" class="btn btn-light btn-block text-left" role="button"
+                           @onclick="@(e => ItemSelected(e, feedItem))">
+                            <div class="card">
+                                <img class="card-img-top" src="@feedItem.ImageUrl" alt=" " />
+                                <div class="card-body">
+
+                                    <p class="card-text">@feedItem.Title</p>
+
+                                </div>
+                            </div>
+                        </a>
                     }
                 }
             </div>
