@@ -19,7 +19,8 @@ namespace WebUi.Client.Pages
     public partial class Feeds
     {
         private FeedChannel[] _feedChannels;
-        private FeedItem _feedItem;
+        private FeedChannel _selectedFeedChannel;
+        private FeedItem _selectedFeedItem;
  
         [Inject]
         private ILogger<Feeds> _logger { get; set; }
@@ -100,10 +101,16 @@ namespace WebUi.Client.Pages
             Console.WriteLine(msg);
         }
 
+        private void ChannelSelected(MouseEventArgs e, FeedChannel feedChannel)
+        {
+            Console.WriteLine($"Channel {feedChannel.Title} selected");
+            _selectedFeedChannel = feedChannel;
+        }
+
         private void ItemSelected(MouseEventArgs e, FeedItem feedItem)
         {
-            Console.WriteLine($"Item {feedItem.Title} clicked");
-            _feedItem = feedItem;
+            Console.WriteLine($"Item {feedItem.Title} selected");
+            _selectedFeedItem = feedItem;
         }
 
     }
