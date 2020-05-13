@@ -71,12 +71,13 @@ else
                     {
                         <a href="/feeds" class="btn btn-light btn-block text-left" role="button"
                            @onclick="@(e => ItemSelected(e, feedItem))">
-                            <div class="card">
-                                <img class="card-img-top" src="@feedItem.ImageUrl" alt=" " />
-                                <div class="card-body">
-
-                                    <p class="card-text">@feedItem.Title</p>
-
+                            <div class="card flex-row">
+                                <div class="card-header border-0">
+                                    <img src="//placehold.it/100" alt=" ">
+                                </div>
+                                <div class="card-body px-2">
+                                    <h4 class="card-title">@feedItem.Title</h4>
+                                    <p class="card-text">@feedItem.Description</p>
                                 </div>
                             </div>
                         </a>
