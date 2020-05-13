@@ -16,6 +16,8 @@
         content: "\e0aa";
         float: right;
     }
+
+
 </style>
 
 @if (_feedChannels == null)
@@ -36,15 +38,21 @@ else
 
                         <div class="card-body">
 
-                            @foreach (var feedChannel in _feedChannels)
-                            {
-                                <a href="/feeds" class="btn btn-light btn-block text-left"> 
-                                    <img src="@feedChannel.ImageUrl"/>
-                                    <span>
-                                        @feedChannel.Title
-                                    </span>
-                                </a>
-                            }
+
+                                @foreach (var feedChannel in _feedChannels)
+                                {
+                                <div style="height:2.5rem">
+                                    <a href="/feeds" class="btn btn-light btn-block text-left">
+                                        <div class="d-flex">
+                                            <div style="width:5rem">
+                                                <img class="img-fluid" style="height:2rem" src="@feedChannel.ImageUrl" />
+                                            </div>
+                                            @feedChannel.Title
+                                        </div>
+                                    </a>
+                                </div>
+                                <p/>
+                                }
 
                         </div>
 
