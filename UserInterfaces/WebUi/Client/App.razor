@@ -1,7 +1,7 @@
 <CascadingAuthenticationState>
     <Router AppAssembly="@typeof(Program).Assembly">
         <Found Context="routeData">
-            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(FeedReaderLayout)">
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(FeedReaderLayoutOld)">
                 <NotAuthorized>
                     @if (!context.User.Identity.IsAuthenticated)
                     {

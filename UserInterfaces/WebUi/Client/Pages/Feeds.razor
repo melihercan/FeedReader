@@ -1,10 +1,6 @@
-﻿@page "/feeds"
+﻿@layout FeedReaderLayout
+@page "/feeds"
 
-<style>
-    .content {
-        padding-top: 0;
-    }
-</style>
 
 @if (_feedChannels == null)
 {
@@ -12,134 +8,11 @@
 }
 else
 {
-<div class="d-flex flex-wrap h-100">
-    <Split>
-        <SplitArea>
-            <div class="h-100" style="background-color:beige">
-
-                <div class="card h-100">
-                    <div class="card-header">
-                        <h4 class="text-center">Feed channels</h4>
-                    </div>
-
-                    <div class="card-body">
-
-
-                        @foreach (var feedChannel in _feedChannels)
-                                {
-                        <div style="height:2.5rem">
-                            <a href="/feeds" class="btn btn-light btn-block text-left" role="button" 
-                               @onclick="@(e => ChannelSelected(e, feedChannel))">
-                                <div class="d-flex">
-                                    <div style="width:5rem">
-                                        <img class="img-fluid broken-link" style="height:2rem"
-                                             src="@feedChannel.ImageUrl"
-                                             alt=" " />
-                                    </div>
-                                    @feedChannel.Title
-                                </div>
-                            </a>
-                        </div>
-                        <p />
-                                }
-
-                    </div>
-
-
-                    <div class="card-footer text-right text-muted">
-                        Total @(_feedChannels
-                                .Select(feedChannel => feedChannel.FeedItems.Count)
-                                .Aggregate((sum,next) => sum+next)) feeds
-                    </div>
-                </div>
-
-
-
-            </div>
-        </SplitArea>
-
-        <SplitArea>
-            <div class="h-100" style="background-color:ghostwhite">
-                @if(_selectedFeedChannel != null)
-                {
-                <div class="jumbotron text-center" style="padding-top: 1.5rem; padding-bottom: 1.5rem">
-                    <h2>@_selectedFeedChannel.Title</h2>
-                </div>
-
-
-                    foreach(var feedItem in _selectedFeedChannel.FeedItems)
-                    {
-                        <a href="/feeds" class="btn btn-light btn-block text-left" role="button"
-                           @onclick="@(e => ItemSelected(e, feedItem))">
-                            <div class="card flex-row">
-                                <div class="card-header border-0">
-                                    <img class="img-fluid" style="width:100px; max-height:100px"
-                                         src="@feedItem.ImageUrl" alt=" ">
-                                </div>
-                                <div class="card-body px-2">
-                                    <h4 class="card-title">@feedItem.Title</h4>
-                                    <p class="card-text">@feedItem.Description</p>
-                                </div>
-                            </div>
-                        </a>
-                    }
-                }
-            </div>
-        </SplitArea>
-    </Split>
-</div>
+    <h1>hello</h1>
 }
 
 
+
+
 @*
-
-
-    .accordion .card-header:after {
-        font-family: 'Icons';
-        content: "\e09d";
-        float: right;
-    }
-
-    .accordion .card-header.collapsed:after {
-        font-family: 'Icons';
-        content: "\e0aa";
-        float: right;
-    }
-
-    img.broken-link {
-        font-family: 'Icons';
-        font-size: 9em;
-        display: inline-block;
-    }
-
-
-                                                     src="@feedChannel.ImageUrl"
-
-                              <div class="d-flex justify-content-center">
-                                    <a href="#" class="m-2 btn btn-primary">Add</a>
-                                    <a href="#" class="m-2 btn btn-primary">Refresh</a>
-                                    <a href="#" class="m-2 btn btn-primary">Remove</a>
-                                    <a href="#" class="m-2 btn btn-primary">Search</a>
-                                </div>
-        <div class="accordion">
-        <div class="card mb-0">
-            @foreach (var feedChannel in _feedChannels)
-            {
-                <div class="card-header collapsed" data-toggle="collapse"
-                     href="#a@(feedChannel.Id)">
-                    <button class="btn btn-link"><h5>@feedChannel.Title</h5></button>
-                </div>
-                <div id="a@(feedChannel.Id)" class="card-body collapse">
-                    @foreach (var feedItem in feedChannel.FeedItems)
-                    {
-                        <p class="pl-4">
-                            <a href="feeds" role="button"
-                               @onclick="@(e => ItemSelected(e, feedItem))">
-                                @feedItem.Title
-                            </a>
-                        </p>
-                    }
-                </div>
-            }
-        </div>
-    </div>*@
+*@

@@ -14,7 +14,7 @@ using Microsoft.JSInterop;
 
 namespace WebUi.Client.Pages
 {
-    public partial class Feeds : ComponentBase
+    public partial class FeedsOld : ComponentBase
     {
         private FeedChannel[] _feedChannels;
         private FeedChannel _selectedFeedChannel;
@@ -65,7 +65,7 @@ namespace WebUi.Client.Pages
             {
                 _feedChannels = resultFeedChannels.Value.ToArray();
                 Console.WriteLine($"---- feedChannels: {_feedChannels.Count()}, feedItems:{_feedChannels.FirstOrDefault().FeedItems.Count()}");
-                foreach( var feedChannel in _feedChannels)
+                foreach (var feedChannel in _feedChannels)
                 {
                     ShowFeedChannel(feedChannel);
                 }

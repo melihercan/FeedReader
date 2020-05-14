@@ -8,12 +8,14 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Blazored.Modal;
 using MediatR;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Hosting;
 using Application;
+using Blazorise;
+using Blazorise.Bootstrap;
+using Blazorise.Icons.FontAwesome;
 
 namespace WebUi.Client
 {
@@ -24,7 +26,6 @@ namespace WebUi.Client
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
-            builder.Services.AddBlazoredModal();
             builder.Services.AddMediatR(new Assembly[] { typeof(ServiceCollectionExtension).Assembly });
 
             builder.Services.AddHttpClient("WebUi.ServerAPI", client => client.BaseAddress = 
@@ -36,9 +37,22 @@ namespace WebUi.Client
                 .CreateClient("WebUi.ServerAPI"));
             builder.Services.AddApiAuthorization();
 
+            builder.Services
+                .AddBlazorise(options =>
+                {
+                    options.ChangeTextOnKeyPress = true;
+                })
+                .AddBootstrapProviders()
+                .AddFontAwesomeIcons();
             builder.Services.AddApplicationServices();
 
-            await builder.Build().RunAsync();
+            var host = builder.Build();
+
+            host.Services
+                .UseBootstrapProviders()
+                .UseFontAwesomeIcons();
+
+            await host.RunAsync();
         }
     }
 }
