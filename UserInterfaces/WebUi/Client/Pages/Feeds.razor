@@ -68,9 +68,11 @@ else
 
             </LayoutContent>
             <LayoutFooter>
-                Total @(_feedChannels
-                    .Select(feedChannel => feedChannel.FeedItems.Count)
-                    .Aggregate((sum,next) => sum+next)) feeds
+                <div class="px-4 text-right text-muted">
+                    Total @(_feedChannels
+                        .Select(feedChannel => feedChannel.FeedItems.Count)
+                        .Aggregate((sum,next) => sum+next)) feeds
+                </div>
             </LayoutFooter>
         </Layout>
     </Layout>

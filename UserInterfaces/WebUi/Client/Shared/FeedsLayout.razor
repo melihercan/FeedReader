@@ -1,5 +1,33 @@
 ﻿@inherits LayoutComponentBase
 
+    <style>
+    /* Override sidebar width. */
+    .sidebar {
+        min-width: 320px !important;
+        max-width: 320px !important;
+    }
+    .sidebar-sticky .sidebar-content {
+        width: 220px !important;
+    }
+    .sidebar:not(.sidebar-collapsed).show {
+        margin-left: -320px !important;
+    }
+    .sidebar-collapsed.show {
+        margin-left: -320px !important;
+    }
+    .sidebar-bottom {
+        min-width: 320px !important;
+        max-width: 3
+        20px !important;
+    }
+    @@media (min-width:1px) and (max-width:767.98px) {
+        .sidebar:not(.sidebar-collapsed) {
+            margin-left: -320px;
+        }
+    }
+
+    </style>
+
 @Body
 
 @*<Layout Sider="true">
