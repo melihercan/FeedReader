@@ -1,0 +1,29 @@
+﻿@inherits LayoutComponentBase
+
+@Body
+
+@*<Layout Sider="true">
+    <LayoutSider>
+        <LayoutSiderContent>
+            <Sidebar @ref="sidebar">
+                Sider
+            </Sidebar>
+        </LayoutSiderContent>
+    </LayoutSider>
+    <Layout>
+        <LayoutHeader Fixed="true">
+            Header
+        </LayoutHeader>
+        <LayoutContent Padding="Padding.Is4.OnX">
+            @Body
+        </LayoutContent>
+        <LayoutFooter>
+            Footer
+        </LayoutFooter>
+    </Layout>
+</Layout>
+
+
+@code{
+    Sidebar sidebar;
+}*@

@@ -11,11 +11,14 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
+using Blazorise.Sidebar;
 
 namespace WebUi.Client.Pages
 {
-    public partial class Feeds : ComponentBase
+    public partial class Feeds //: ComponentBase
     {
+
+
         private FeedChannel[] _feedChannels;
         private FeedChannel _selectedFeedChannel;
         private FeedItem _selectedFeedItem;
@@ -35,6 +38,9 @@ namespace WebUi.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            if(sidebar == null)
+                Console.WriteLine($"sidebar is null");
+
             //// TESTING
             ///
             var urls = new string[]
