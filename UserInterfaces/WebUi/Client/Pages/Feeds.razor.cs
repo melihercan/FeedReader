@@ -47,6 +47,7 @@ namespace WebUi.Client.Pages
             {
                 "http://feeds.bbci.co.uk/news/world/rss.xml",
                 "https://www.nasa.gov/rss/dyn/breaking_news.rss",
+                "https://feeds.fireside.fm/xamarinpodcast/rss",
                 //"https://www.cnbc.com/id/100003114/device/rss/rss.html"
             };
             foreach (var url in urls)
