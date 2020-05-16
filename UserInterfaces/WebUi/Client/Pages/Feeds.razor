@@ -10,7 +10,6 @@
 
     #sidebar-wrapper button {
         height: 4rem;
-        /*background: #343a40 !important;*/
     }
 </style>
 
@@ -22,73 +21,73 @@
 else
 {
     <Layout Sider="true">
-        <LayoutSider>
-            <LayoutSiderContent>
-                <Sidebar @ref="sidebar">
+            <LayoutSider>
+                <LayoutSiderContent>
+                    <Sidebar @ref="sidebar">
 
-                    <div class="sidebar">
+                        <div class="sidebar">
 
-                        <div class="top-row justify-content-center">
-                            <div class="text-white lead">Feed channels</div>
-                        </div>
-
-                        <div class="list-group list-group-flush" id="sidebar-wrapper">
-                            @foreach (var feedChannel in _feedChannels)
-                            {
-                                <button type="button"
-                                        class="list-group-item list-group-item-action bg-dark text-white btn shadow-none"
-                                        @onclick="@(e => ChannelSelected(e, feedChannel))">
-                                    <span>
-                                        <img class="img-fluid" src="@feedChannel.ImageUrl" alt=" " />
-                                    </span>
-                                    @feedChannel.Title
-                                </button>
-                            }
-                        </div>
-                    </div>
-                </Sidebar>
-            </LayoutSiderContent>
-        </LayoutSider>
-        <Layout>
-            <LayoutHeader Fixed="true">
-                Header
-            </LayoutHeader>
-            <LayoutContent Padding="Padding.Is4.OnX">
-                @if (_selectedFeedChannel != null)
-                {
-                    <div class="jumbotron text-center" style="padding-top: 1.5rem; padding-bottom: 1.5rem">
-                        <h2>@_selectedFeedChannel.Title</h2>
-                    </div>
-
-
-                    foreach (var feedItem in _selectedFeedChannel.FeedItems)
-                    {
-                        <a href="feeds" class="btn btn-light btn-block text-left" role="button"
-                           @onclick="@(e => ItemSelected(e, feedItem))">
-                            <div class="card flex-row">
-                                <div class="card-header border-0">
-                                    <img class="img-fluid" style="width:100px; max-height:100px"
-                                         src="@feedItem.ImageUrl" alt=" ">
-                                </div>
-                                <div class="card-body px-2">
-                                    <h4 class="card-title">@feedItem.Title</h4>
-                                    <p class="card-text">@feedItem.Description</p>
-                                </div>
+                            <div class="top-row justify-content-center">
+                                <div class="text-white lead">Feed channels</div>
                             </div>
-                        </a>
-                    }
-                }
 
-            </LayoutContent>
-            <LayoutFooter>
-                <div class="px-4 text-right text-muted">
-                    Total @(_feedChannels
-                        .Select(feedChannel => feedChannel.FeedItems.Count)
-                        .Aggregate((sum,next) => sum+next)) feeds
-                </div>
-            </LayoutFooter>
+                            <div class="list-group list-group-flush" id="sidebar-wrapper">
+                                @foreach (var feedChannel in _feedChannels)
+                                {
+                                    <button type="button"
+                                            class="list-group-item list-group-item-action bg-dark text-white btn shadow-none"
+                                            @onclick="@(e => ChannelSelected(e, feedChannel))">
+                                        <span>
+                                            <img class="img-fluid" src="@feedChannel.ImageUrl" alt=" " />
+                                        </span>
+                                        @feedChannel.Title
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    </Sidebar>
+                </LayoutSiderContent>
+            </LayoutSider>
+            <Layout>
+                <LayoutHeader Fixed="true">
+                    @if (_selectedFeedChannel != null)
+                    {
+                        <div class="jumbotron text-center" style="padding-top: 1.5rem; padding-bottom: 1.5rem">
+                            <h2>@_selectedFeedChannel.Title</h2>
+                        </div>
+                    }
+                </LayoutHeader>
+                <LayoutContent Padding="Padding.Is4.OnX">
+                    @if (_selectedFeedChannel != null)
+                    {
+                        foreach (var feedItem in _selectedFeedChannel.FeedItems)
+                        {
+                            <a href="feeds" class="btn btn-light btn-block text-left" role="button"
+                               @onclick="@(e => ItemSelected(e, feedItem))">
+                                <div class="card flex-row">
+                                    <div class="card-header border-0">
+                                        <img class="img-fluid" style="width:100px; max-height:100px"
+                                             src="@feedItem.ImageUrl" alt=" ">
+                                    </div>
+                                    <div class="card-body px-2">
+                                        <h4 class="card-title">@feedItem.Title</h4>
+                                        <p class="card-text">@feedItem.Description</p>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    }
+
+                </LayoutContent>
+                <LayoutFooter>
+                    <div class="px-4 text-right text-muted">
+                        Total @(_feedChannels
+                            .Select(feedChannel => feedChannel.FeedItems.Count)
+                            .Aggregate((sum,next) => sum+next)) feeds
+                    </div>
+                </LayoutFooter>
+            </Layout>
         </Layout>
-    </Layout>
 }
 
 @code{
