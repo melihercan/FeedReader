@@ -46,10 +46,10 @@ else
                 {
                     foreach (var feedItem in _selectedFeedChannel.FeedItems)
                     {
-                        <a href="" class="btn btn-light btn-block text-left" role="button"
+                        <a href="" class="btn btn-light btn-block text-left p-0" role="button"
                            @onclick="@(e => ItemSelected(e, feedItem))">
-                            <div class="card flex-row">
-                                <div class="card-header border-0">
+                            <div class="card flex-row" style="background: #dedfd6;">
+                                <div class="card-header border-0" style="flex: 0 0 140px">
                                     <img class="img-fluid" style="width:100px; max-height:100px"
                                          src="@feedItem.ImageUrl" alt=" ">
                                 </div>
