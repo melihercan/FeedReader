@@ -13,9 +13,6 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Hosting;
 using Application;
-using Blazorise;
-using Blazorise.Bootstrap;
-using Blazorise.Icons.FontAwesome;
 
 namespace WebUi.Client
 {
@@ -37,22 +34,9 @@ namespace WebUi.Client
                 .CreateClient("WebUi.ServerAPI"));
             builder.Services.AddApiAuthorization();
 
-            builder.Services
-                .AddBlazorise(options =>
-                {
-                    options.ChangeTextOnKeyPress = true;
-                })
-                .AddBootstrapProviders()
-                .AddFontAwesomeIcons();
             builder.Services.AddApplicationServices();
 
-            var host = builder.Build();
-
-            host.Services
-                .UseBootstrapProviders()
-                .UseFontAwesomeIcons();
-
-            await host.RunAsync();
+            await builder.Build().RunAsync();
         }
     }
 }

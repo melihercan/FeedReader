@@ -11,7 +11,6 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
-using Blazorise.Sidebar;
 
 namespace WebUi.Client.Pages
 {
@@ -38,8 +37,6 @@ namespace WebUi.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            if(sidebar == null)
-                Console.WriteLine($"sidebar is null");
 
             //// TESTING
             ///
