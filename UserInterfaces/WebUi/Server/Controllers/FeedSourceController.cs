@@ -44,10 +44,10 @@ namespace WebUi.Server.Controllers
                     Description = item.Summary.Text,
                     Link = item.Links[0].Uri.AbsoluteUri,
                     PublishDate = item.PublishDate.DateTime,
+                    ImageUrl = null, //item.Links.
+
                     //// TODO; GET FEED IMAGE????
-                    ////ImageUrl = item.ElementExtensions.Count == 0 ? null : 
                     ///
-                    ImageUrl = null
                 }).ToList()
             };
 

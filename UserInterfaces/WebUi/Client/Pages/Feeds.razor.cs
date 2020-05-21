@@ -14,7 +14,7 @@ using Microsoft.JSInterop;
 
 namespace WebUi.Client.Pages
 {
-    public partial class Feeds //: ComponentBase
+    public partial class Feeds : ComponentBase
     {
 
 
@@ -42,10 +42,10 @@ namespace WebUi.Client.Pages
             ///
             var urls = new string[]
             {
-                "http://feeds.bbci.co.uk/news/world/rss.xml",
                 "https://www.nasa.gov/rss/dyn/breaking_news.rss",
+                "http://feeds.bbci.co.uk/news/world/rss.xml",
                 "https://feeds.fireside.fm/xamarinpodcast/rss",
-                //"https://www.cnbc.com/id/100003114/device/rss/rss.html"
+                "https://www.cnbc.com/id/100003114/device/rss/rss.html"
             };
             foreach (var url in urls)
             {
