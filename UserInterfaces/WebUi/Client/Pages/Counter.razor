@@ -1,15 +1,10 @@
 ﻿@page "/counter"
 
-<div class="main">
-    <div class="content" px-4>
-
         <h1>Counter</h1>
 
         <p>Current count: @currentCount</p>
 
         <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-    </div>
-</div>
 
 @code {
     private int currentCount = 0;

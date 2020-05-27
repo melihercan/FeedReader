@@ -1,53 +1,7 @@
-﻿@page "/"
+﻿@page "/oldfeeds"
+@layout OldFeedsLayout
 
 <style>
-    .main {
-        display: flex;
-        flex-direction: column;
-    }
-
-    @@media (min-width: 768px) {
-
-        .sidebar {
-            width: 65px;
-            overflow-y: auto;
-            overflow-x: hidden;
-            background-image: linear-gradient(180deg, #283e4a, #dcdbe4);
-        }
-
-            .sidebar .nav-item a {
-                height: 2rem;
-                width: 2rem;
-            }
-
-            .sidebar .oi {
-                font-size: 1rem;
-                left: -8px;
-            }
-    }
-
-    .content {
-        padding: 0;
-        flex-grow: 1;
-    }
-
-    .local-content {
-        /* remove the padding from ".main > div" */
-        margin-left: -2rem;
-        margin-right: -1.5rem;
-    }
-
-    #sidebarWrapper img {
-        width: 2.5rem;
-        max-height: 2.5rem;
-        margin-right: 0.5rem;
-    }
-
-    #sidebarWrapper button {
-        height: 4rem;
-    }
-
-
 </style>
 
 
@@ -57,8 +11,6 @@
 }
 else
 {
-<div class="row h-100 local-content">
-
     <div class="col-3 mh-100 overflow-auto bg-secondary px-0" id="sidebarWrapper">
 
         <div class="text-center py-4" style="background: #283e4a;">
@@ -115,6 +67,5 @@ else
             </div>
         </div>
     </div>
-    </div>
-    }
+}
 
