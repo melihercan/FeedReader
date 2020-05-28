@@ -44,7 +44,9 @@ namespace WebUi.Server.Controllers
                     Description = item.Summary.Text,
                     Link = item.Links[0].Uri.AbsoluteUri,
                     PublishDate = item.PublishDate.DateTime,
-                    ImageUrl = null, //item.Links.
+                    ImageUrl = item.Links
+                        .Where(link => link.MediaType != null && link.MediaType.Contains("image"))
+                        .FirstOrDefault()?.Uri.AbsoluteUri,
 
                     //// TODO; GET FEED IMAGE????
                     ///
