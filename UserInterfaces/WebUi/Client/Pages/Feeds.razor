@@ -1,41 +1,6 @@
 ﻿@page "/"
 
 <style>
-    .main {
-        display: flex;
-        flex-direction: column;
-    }
-
-    @@media (min-width: 768px) {
-
-        .sidebar {
-            width: 65px;
-            overflow-y: auto;
-            overflow-x: hidden;
-            background-image: linear-gradient(180deg, #283e4a, #dcdbe4);
-        }
-
-            .sidebar .nav-item a {
-                height: 2rem;
-                width: 2rem;
-            }
-
-            .sidebar .oi {
-                font-size: 1rem;
-                left: -8px;
-            }
-    }
-
-    .content {
-        padding: 0;
-        flex-grow: 1;
-    }
-
-    .local-content {
-        /* remove the padding from ".main > div" */
-        margin-left: -2rem;
-        margin-right: -1.5rem;
-    }
 
     #sidebarWrapper img {
         width: 2.5rem;
@@ -47,6 +12,19 @@
         height: 4rem;
     }
 
+    .local-content {
+        /* remove the padding from ".main > div" */
+        margin-left: -2rem;
+        margin-right: -1.5rem;
+        height: 100vh;
+        padding-bottom: 3.5rem;
+    }
+
+    .local-col {
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: 100%;
+    }
 
 </style>
 
@@ -57,9 +35,9 @@
 }
 else
 {
-<div class="row h-100 local-content">
+<div class="row local-content">
 
-    <div class="col-3 mh-100 overflow-auto bg-secondary px-0" id="sidebarWrapper">
+    <div class="col-3 local-col bg-secondary px-0" id="sidebarWrapper">
 
         <div class="text-center py-4" style="background: #283e4a;">
             <div class="text-white lead">Feed channels</div>
@@ -79,7 +57,7 @@ else
         </div>
 
     </div>
-    <div class="col mh-100 overflow-auto">
+    <div class="col-9 local-col">
         <div class="row flex-shrink-0 sticky-top">
             @if (_selectedFeedChannel != null)
             {
@@ -89,7 +67,7 @@ else
             }
         </div>
         <div class="row flex-grow-1">
-            <div class="col mh-100 overflow-auto py-2">
+            <div class="col mh-100 py-2">
 
                 @if (_selectedFeedChannel != null)
                 {
