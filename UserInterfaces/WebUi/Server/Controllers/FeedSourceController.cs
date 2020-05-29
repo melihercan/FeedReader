@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.ServiceModel.Syndication;
 using System.Threading.Tasks;
 using System.Xml;
 using Domain.Entities;
+using HtmlAgilityPack;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace WebUi.Server.Controllers
 {
@@ -16,13 +19,6 @@ namespace WebUi.Server.Controllers
     public class FeedSourceController : ControllerBase
     {
         private static int _id = 0;
-
-        //string[] imageUrls =
-        //{
-        //    "https://icons.feedercdn.com/www.bbc.co.uk",
-        //    "https://i4.hurimg.com/i/hurriyet/75/900x350/5ebad82a18c773176020a28b.jpg"
-        //};
-        //static int index = 0;
 
         // GET: api/FeedSource
         [HttpGet]
@@ -35,7 +31,7 @@ namespace WebUi.Server.Controllers
                 Title = syndicationFeed.Title.Text,
                 Description = syndicationFeed.Description.Text,
                 Link = syndicationFeed.Links[0].Uri.AbsoluteUri,
-                ImageUrl = /*imageUrls[index++ % 2],*/ syndicationFeed.ImageUrl?.ToString(),
+                ImageUrl = syndicationFeed.ImageUrl?.ToString(),
                 FeedItems = syndicationFeed.Items.Select(item => new FeedItem
                 {
                     Id = _id++,
@@ -47,13 +43,11 @@ namespace WebUi.Server.Controllers
                     ImageUrl = item.Links
                         .Where(link => link.MediaType != null && link.MediaType.Contains("image"))
                         .FirstOrDefault()?.Uri.AbsoluteUri,
-
-                    //// TODO; GET FEED IMAGE????
-                    ///
                 }).ToList()
             };
 
             return feedChannel;
+
         }
     }
 }

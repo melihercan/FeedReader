@@ -13,6 +13,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Hosting;
 using Application;
+using WebUi;
 
 namespace WebUi.Client
 {

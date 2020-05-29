@@ -12,7 +12,7 @@ using System.Net.Http.Json;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 
-namespace WebUi.Client.Pages
+namespace WebUi.Pages
 {
     public partial class Feeds : ComponentBase
     {
