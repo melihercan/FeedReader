@@ -28,14 +28,14 @@ namespace WebUi.Server.Controllers
             var syndicationFeed = SyndicationFeed.Load(XmlReader.Create(url));
             var feedChannel = new FeedChannel
             {
-                Id = _id++,
+                FeedChannelId = _id++,
                 Title = syndicationFeed.Title.Text,
                 Description = syndicationFeed.Description.Text,
                 Link = syndicationFeed.Links[0].Uri.AbsoluteUri,
                 ImageUrl = syndicationFeed.ImageUrl?.ToString(),
                 FeedItems = syndicationFeed.Items.Select(item => new FeedItem
                 {
-                    Id = _id++,
+                    FeedItemId = _id++,
                     IsRead = false,
                     Title = item.Title.Text,
                     Description = item.Summary.Text,

@@ -87,7 +87,7 @@ namespace WebUi.Pages
             var msg = string.Empty;
             msg += Environment.NewLine;
             msg += $"======== FEED CHANNEL ========{Environment.NewLine}";
-            msg += $"Id: {feedChannel.Id}{Environment.NewLine}";
+            msg += $"Id: {feedChannel.FeedChannelId}{Environment.NewLine}";
             msg += $"Title: {feedChannel.Title}{Environment.NewLine}";
             msg += $"Description: {feedChannel.Description}{Environment.NewLine}";
             msg += $"Link: {feedChannel.Link}{Environment.NewLine}";
@@ -95,7 +95,7 @@ namespace WebUi.Pages
             foreach (var feedItem in feedChannel.FeedItems)
             {
                 msg += $"-------- FEED ITEM --------{Environment.NewLine}";
-                msg += $"Id: {feedChannel.Id}{Environment.NewLine}";
+                msg += $"Id: {feedChannel.FeedChannelId}{Environment.NewLine}";
                 msg += $"Title: {feedItem.Title}{Environment.NewLine}";
                 msg += $"Description: {feedItem.Description}{Environment.NewLine}";
                 msg += $"Link: {feedItem.Link}{Environment.NewLine}";
