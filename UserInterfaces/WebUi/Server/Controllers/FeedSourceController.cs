@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 using System.Xml;
 using Domain.Entities;
 using HtmlAgilityPack;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Internal;
 
 namespace WebUi.Server.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FeedSourceController : ControllerBase
