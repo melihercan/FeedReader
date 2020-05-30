@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Internal;
 
-namespace WebUi.Server.Controllers
+namespace Infrastructure.Server.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
