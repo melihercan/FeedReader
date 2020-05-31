@@ -12,6 +12,10 @@ namespace Infrastructure.Server.Data
 {
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
+        public DbSet<Domain.Entities.FeedChannel> FeedChannels { get; set; }
+
+        public DbSet<Domain.Entities.FeedItem> FeedItems { get; set; }
+
         public ApplicationDbContext(
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)

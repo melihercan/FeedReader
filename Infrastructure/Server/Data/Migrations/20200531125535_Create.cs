@@ -64,6 +64,22 @@ namespace Infrastructure.Server.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FeedChannels",
+                columns: table => new
+                {
+                    FeedChannelId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Link = table.Column<string>(nullable: true),
+                    ImageUrl = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FeedChannels", x => x.FeedChannelId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PersistedGrants",
                 columns: table => new
                 {
@@ -186,6 +202,31 @@ namespace Infrastructure.Server.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "FeedItems",
+                columns: table => new
+                {
+                    FeedItemId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IsRead = table.Column<bool>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Link = table.Column<string>(nullable: true),
+                    PublishDate = table.Column<DateTime>(nullable: false),
+                    ImageUrl = table.Column<string>(nullable: true),
+                    FeedChannelId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FeedItems", x => x.FeedItemId);
+                    table.ForeignKey(
+                        name: "FK_FeedItems_FeedChannels_FeedChannelId",
+                        column: x => x.FeedChannelId,
+                        principalTable: "FeedChannels",
+                        principalColumn: "FeedChannelId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -237,6 +278,11 @@ namespace Infrastructure.Server.Data.Migrations
                 column: "Expiration");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FeedItems_FeedChannelId",
+                table: "FeedItems",
+                column: "FeedChannelId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PersistedGrants_Expiration",
                 table: "PersistedGrants",
                 column: "Expiration");
@@ -268,6 +314,9 @@ namespace Infrastructure.Server.Data.Migrations
                 name: "DeviceCodes");
 
             migrationBuilder.DropTable(
+                name: "FeedItems");
+
+            migrationBuilder.DropTable(
                 name: "PersistedGrants");
 
             migrationBuilder.DropTable(
@@ -275,6 +324,9 @@ namespace Infrastructure.Server.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "FeedChannels");
         }
     }
 }
