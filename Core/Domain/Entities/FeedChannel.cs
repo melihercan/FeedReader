@@ -13,5 +13,7 @@ namespace Domain.Entities
         public string ImageUrl { get; set; }
 
         public List<FeedItem> FeedItems { get; set; } = new List<FeedItem>();
+
+        public List<ApplicationUserFeedChannel> ApplicationUsersLink { get; set; }
     }
 }

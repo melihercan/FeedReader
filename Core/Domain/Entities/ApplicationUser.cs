@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Server.Models
+namespace Domain.Entities
 {
     public class ApplicationUser : IdentityUser
     {
+        public List<ApplicationUserFeedChannel> FeedChannelsLink { get; set; }
     }
 }

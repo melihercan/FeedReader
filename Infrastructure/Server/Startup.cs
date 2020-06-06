@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
 using Infrastructure.Server.Data;
-using Infrastructure.Server.Models;
+using Domain.Entities;
 
 namespace Infrastructure.Server
 {
