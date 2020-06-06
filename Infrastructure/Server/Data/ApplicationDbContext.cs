@@ -21,5 +21,20 @@ namespace Infrastructure.Server.Data
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ApplicationUserFeedChannel>()
+                .HasKey(t => new { t.ApplicationUserId, t.FeedChannelId });
+
+            modelBuilder.Entity<ApplicationUserFeedChannel>()
+                .HasOne(aufc => aufc.ApplicationUser)
+                .WithMany(aufc => aufc.FeedChannelsLink)
+                .HasForeignKey(aufc => aufc.ApplicationUserId);
+            modelBuilder.Entity<ApplicationUserFeedChannel>()
+                .HasOne(aufc => aufc.FeedChannel)
+                .WithMany(aufc => aufc.ApplicationUsersLink)
+                .HasForeignKey(aufc => aufc.FeedChannelId);
+        }
     }
 }

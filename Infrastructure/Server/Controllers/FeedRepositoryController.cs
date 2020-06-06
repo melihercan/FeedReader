@@ -7,25 +7,43 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using Infrastructure.Server.Data;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace Infrastructure.Server.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class FeedChannelsController : ControllerBase
+    public class FeedRepositoryController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public FeedChannelsController(ApplicationDbContext context)
+        public FeedRepositoryController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: api/FeedChannels
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FeedChannel>>> GetFeedChannel()
+        public async Task<ActionResult<IEnumerable<FeedChannel>>> GetFeedChannels()
         {
-            return await _context.FeedChannels.ToListAsync();
+            var user = await _userManager.GetUserAsync(User);
+            ///            var feedChannels = _context.Users
+            ///             .Include(p => p.FeedChannelsLink)
+            ///          .ThenInclude(p => p.FeedChannel)
+            ///       .Single(p => p.UserName == user.UserName);
+            ///       
+
+            var feedChannels = await _context.FeedChannels
+                .Where(feedChannel => feedChannel.ApplicationUsersLink
+                .Any(aufc => aufc.ApplicationUserId == user.Id)).ToListAsync();
+
+            return feedChannels;
+
+            ////return await _context.FeedChannels.ToListAsync();
         }
 
         // GET: api/FeedChannels/5
