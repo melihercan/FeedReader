@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Server.Data.Migrations
 {
-    public partial class Create : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -203,6 +203,30 @@ namespace Infrastructure.Server.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ApplicationUserFeedChannel",
+                columns: table => new
+                {
+                    ApplicationUserId = table.Column<string>(nullable: false),
+                    FeedChannelId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationUserFeedChannel", x => new { x.ApplicationUserId, x.FeedChannelId });
+                    table.ForeignKey(
+                        name: "FK_ApplicationUserFeedChannel_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ApplicationUserFeedChannel_FeedChannels_FeedChannelId",
+                        column: x => x.FeedChannelId,
+                        principalTable: "FeedChannels",
+                        principalColumn: "FeedChannelId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "FeedItems",
                 columns: table => new
                 {
@@ -226,6 +250,11 @@ namespace Infrastructure.Server.Data.Migrations
                         principalColumn: "FeedChannelId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ApplicationUserFeedChannel_FeedChannelId",
+                table: "ApplicationUserFeedChannel",
+                column: "FeedChannelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -295,6 +324,9 @@ namespace Infrastructure.Server.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "ApplicationUserFeedChannel");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 

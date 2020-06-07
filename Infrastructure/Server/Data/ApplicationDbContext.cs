@@ -24,6 +24,8 @@ namespace Infrastructure.Server.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<ApplicationUserFeedChannel>()
                 .HasKey(t => new { t.ApplicationUserId, t.FeedChannelId });
 

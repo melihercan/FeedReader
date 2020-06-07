@@ -31,11 +31,11 @@ namespace Infrastructure.Server.Controllers
         public async Task<ActionResult<IEnumerable<FeedChannel>>> GetFeedChannels()
         {
             var user = await _userManager.GetUserAsync(User);
-            ///            var feedChannels = _context.Users
-            ///             .Include(p => p.FeedChannelsLink)
-            ///          .ThenInclude(p => p.FeedChannel)
-            ///       .Single(p => p.UserName == user.UserName);
-            ///       
+            //var feedChannelsx = _context.Users
+              //  .Include(p => p.FeedChannelsLink)
+                //.ThenInclude(p => p.FeedChannel)
+                //.Single(p => p.UserName == user.UserName)
+                //.FeedChannelsLink.Select(p => p.FeedChannel);
 
             var feedChannels = await _context.FeedChannels
                 .Where(feedChannel => feedChannel.ApplicationUsersLink
