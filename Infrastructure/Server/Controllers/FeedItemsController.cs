@@ -23,7 +23,7 @@ namespace Infrastructure.Server.Controllers
 
         // GET: api/FeedItems
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FeedItem>>> GetFeedItem()
+        public async Task<ActionResult<IEnumerable<FeedItem>>> GetFeedItems()
         {
             return await _context.FeedItems.ToListAsync();
         }

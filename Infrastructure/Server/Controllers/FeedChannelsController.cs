@@ -15,12 +15,12 @@ namespace Infrastructure.Server.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class FeedRepositoryController : ControllerBase
+    public class FeedChannelsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public FeedRepositoryController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public FeedChannelsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -96,17 +96,17 @@ namespace Infrastructure.Server.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<FeedChannel>> PostFeedChannel(FeedChannel feedChannel)
+        public async Task<IActionResult> PostFeedChannel(FeedChannel feedChannel)
         {
             _context.FeedChannels.Add(feedChannel);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFeedChannel", new { id = feedChannel.FeedChannelId }, feedChannel);
+            return NoContent();
         }
 
         // DELETE: api/FeedChannels/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<FeedChannel>> DeleteFeedChannel(int id)
+        public async Task<IActionResult> DeleteFeedChannel(int id)
         {
             var feedChannel = await _context.FeedChannels.FindAsync(id);
             if (feedChannel == null)
@@ -117,7 +117,7 @@ namespace Infrastructure.Server.Controllers
             _context.FeedChannels.Remove(feedChannel);
             await _context.SaveChangesAsync();
 
-            return feedChannel;
+            return NoContent();
         }
 
         private bool FeedChannelExists(int id)
