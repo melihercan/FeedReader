@@ -11,13 +11,12 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace WebUi.Pages
 {
     public partial class Feeds : ComponentBase
     {
-
-
         private FeedChannel[] _feedChannels;
         private FeedChannel _selectedFeedChannel;
         private FeedItem _selectedFeedItem;
@@ -49,7 +48,7 @@ namespace WebUi.Pages
             };
             foreach (var url in urls)
             {
-                var resultFeedChannel = await _mediator.Send(new AddFeed
+                var resultFeedChannel = await _mediator.Send(new Application.UseCases.AddFeed
                 {
                     Url = url
                 });

@@ -98,6 +98,16 @@ namespace Infrastructure.Server.Controllers
         [HttpPost]
         public async Task<IActionResult> PostFeedChannel(FeedChannel feedChannel)
         {
+            var user = await _userManager.GetUserAsync(User);
+            feedChannel.ApplicationUsersLink = new List<ApplicationUserFeedChannel>
+            {
+                new ApplicationUserFeedChannel
+                {
+                    ApplicationUser = user,
+                    FeedChannel = feedChannel
+                }
+            };
+
             _context.FeedChannels.Add(feedChannel);
             await _context.SaveChangesAsync();
 
