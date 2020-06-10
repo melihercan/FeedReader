@@ -111,12 +111,17 @@ namespace WebUi.Pages
             _selectedFeedChannel = feedChannel;
         }
 
-        private async Task ItemSelected(MouseEventArgs e, FeedItem feedItem)
+        private async void ItemSelected(MouseEventArgs e, FeedItem feedItem)
         {
             Console.WriteLine($"Item {feedItem.Title} selected");
             _selectedFeedItem = feedItem;
 
             await NavigateToUrlAsync(_selectedFeedItem.Link);
+        }
+
+        private async void AddNewChannel()
+        {
+            // TODO: START POPUP TO GET CHANNEL URL AND ADD
         }
 
         private async Task NavigateToUrlAsync(string url, bool openInNewTab = true)

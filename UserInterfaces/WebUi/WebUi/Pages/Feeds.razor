@@ -41,9 +41,19 @@ else
 
         <div class="col-3 local-col bg-secondary px-0" id="sidebarWrapper">
 
-            <div class="text-center py-4" style="background: #283e4a;">
-                <div class="text-white lead">Feed channels</div>
+            <div class="d-flex" style="background: #283e4a;">
+                <div class="text-center py-4 flex-fill" >
+                    <div class="text-white lead">Feed channels</div>
+                </div>
+
+                <button type="button"
+                        class="text-white btn shadow-none" data-toggle="tooltip" 
+                        data-placement="bottom" title="Add a new channel"
+                        @onclick="@AddNewChannel">
+                    <span class="oi oi-plus"/>
+                </button>
             </div>
+
             <div class="list-group" id="sidebar-wrapper">
                 @foreach (var feedChannel in _feedChannels)
                 {
@@ -51,7 +61,7 @@ else
                             class="list-group-item list-group-item-action bg-secondary text-white btn shadow-none"
                             @onclick="@(e => ChannelSelected(e, feedChannel))">
                         <span>
-                            <img class="img-fluid" src="@feedChannel.ImageUrl" alt=" " />
+                            <img class="img-fluid" src="@feedChannel.ImageUrl" />
                         </span>
                         @feedChannel.Title
                     </button>
@@ -80,7 +90,7 @@ else
                                 <div class="card flex-row" style="background: #dedfd6;">
                                     <div class="card-header border-0" style="flex: 0 0 140px">
                                         <img class="img-fluid" style="width:100px; max-height:100px"
-                                             src="@feedItem.ImageUrl" alt=" ">
+                                             src="@feedItem.ImageUrl">
                                     </div>
                                     <div class="card-body px-2">
                                         <h4 class="card-title">@feedItem.Title</h4>
