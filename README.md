@@ -24,6 +24,7 @@ This is the core of the application. It contains:
 ### Infrastructure
 
 Implementation of the interfaces:
+- Feed
 - Repositrory
 - User
 
@@ -32,6 +33,7 @@ Implementation of the interfaces:
 This layer presents user interfaces:
 - Web UI
 - Mobile UI
+- Desktop UI
 - Console UI
 
 ## License
