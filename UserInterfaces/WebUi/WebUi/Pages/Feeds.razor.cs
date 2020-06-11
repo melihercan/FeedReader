@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Blazored.Modal.Services;
+using WebUi.Models;
 
 namespace WebUi.Pages
 {
@@ -47,8 +48,8 @@ namespace WebUi.Pages
             {
                 "https://www.nasa.gov/rss/dyn/breaking_news.rss",
                 "http://feeds.bbci.co.uk/news/world/rss.xml",
-                "https://feeds.fireside.fm/xamarinpodcast/rss",
-                "https://www.cnbc.com/id/100003114/device/rss/rss.html"
+                //"https://feeds.fireside.fm/xamarinpodcast/rss",
+                //"https://www.cnbc.com/id/100003114/device/rss/rss.html"
             };
             foreach (var url in urls)
             {
@@ -123,9 +124,15 @@ namespace WebUi.Pages
             await NavigateToUrlAsync(_selectedFeedItem.Link);
         }
 
-        private void AddNewChannel()
+        private async void AddNewChannel()
         {
-            _modal.Show<AddFeed>("Add new feed");
+            var modal = _modal.Show<AddFeed>("Add new feed");
+            var result = await modal.Result;
+
+            if (!result.Cancelled)
+            {
+                Console.WriteLine($"Modal was closed: {((FeedUrl)result.Data).Url}");
+            }
         }
 
         private async Task NavigateToUrlAsync(string url, bool openInNewTab = true)
