@@ -12,6 +12,7 @@ using System.Net.Http.Json;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Blazored.Modal.Services;
 
 namespace WebUi.Pages
 {
@@ -32,6 +33,9 @@ namespace WebUi.Pages
 
         [Inject]
         private IMediator _mediator { get; set; }
+
+        [Inject]
+        private IModalService _modal { get; set; }
 
 
         protected override async Task OnInitializedAsync()
@@ -119,9 +123,9 @@ namespace WebUi.Pages
             await NavigateToUrlAsync(_selectedFeedItem.Link);
         }
 
-        private async void AddNewChannel()
+        private void AddNewChannel()
         {
-            // TODO: START POPUP TO GET CHANNEL URL AND ADD
+            _modal.Show<AddFeed>("Add new feed");
         }
 
         private async Task NavigateToUrlAsync(string url, bool openInNewTab = true)
