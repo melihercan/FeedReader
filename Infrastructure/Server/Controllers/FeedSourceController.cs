@@ -24,29 +24,36 @@ namespace Infrastructure.Server.Controllers
         [HttpGet]
         public FeedChannel Get(string url)
         {
-            var syndicationFeed = SyndicationFeed.Load(XmlReader.Create(url));
-            var feedChannel = new FeedChannel
+            try
             {
-                FeedChannelId = _id++,
-                Title = syndicationFeed.Title.Text,
-                Description = syndicationFeed.Description.Text,
-                Link = syndicationFeed.Links[0].Uri.AbsoluteUri,
-                ImageUrl = syndicationFeed.ImageUrl?.ToString(),
-                FeedItems = syndicationFeed.Items.Select(item => new FeedItem
+                var syndicationFeed = SyndicationFeed.Load(XmlReader.Create(url));
+                var feedChannel = new FeedChannel
                 {
-                    FeedItemId = _id++,
-                    IsRead = false,
-                    Title = item.Title.Text,
-                    Description = item.Summary.Text,
-                    Link = item.Links[0].Uri.AbsoluteUri,
-                    PublishDate = item.PublishDate.DateTime,
-                    ImageUrl = item.Links
-                        .Where(link => link.MediaType != null && link.MediaType.Contains("image"))
-                        .FirstOrDefault()?.Uri.AbsoluteUri,
-                }).ToList()
-            };
+                    FeedChannelId = _id++,
+                    Title = syndicationFeed.Title.Text,
+                    Description = syndicationFeed.Description.Text,
+                    Link = syndicationFeed.Links[0].Uri.AbsoluteUri,
+                    ImageUrl = syndicationFeed.ImageUrl?.ToString(),
+                    FeedItems = syndicationFeed.Items.Select(item => new FeedItem
+                    {
+                        FeedItemId = _id++,
+                        IsRead = false,
+                        Title = item.Title.Text,
+                        Description = item.Summary.Text,
+                        Link = item.Links[0].Uri.AbsoluteUri,
+                        PublishDate = item.PublishDate.DateTime,
+                        ImageUrl = item.Links
+                            .Where(link => link.MediaType != null && link.MediaType.Contains("image"))
+                            .FirstOrDefault()?.Uri.AbsoluteUri,
+                    }).ToList()
+                };
 
-            return feedChannel;
+                return feedChannel;
+            }
+            catch
+            {
+                return null;
+            }
 
         }
     }

@@ -8,6 +8,7 @@ namespace WebUi.Models
     public class FeedUrl
     {
         [Required]
+        [Url]
         public string Url { get; set; }
     }
 }

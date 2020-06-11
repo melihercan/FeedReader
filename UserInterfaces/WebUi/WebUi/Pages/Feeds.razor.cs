@@ -19,7 +19,7 @@ namespace WebUi.Pages
 {
     public partial class Feeds : ComponentBase
     {
-        private FeedChannel[] _feedChannels;
+        private List<FeedChannel> _feedChannels;
         private FeedChannel _selectedFeedChannel;
         private FeedItem _selectedFeedItem;
 
@@ -44,35 +44,35 @@ namespace WebUi.Pages
 
             //// TESTING
             ///
-            var urls = new string[]
-            {
-                "https://www.nasa.gov/rss/dyn/breaking_news.rss",
-                "http://feeds.bbci.co.uk/news/world/rss.xml",
-                //"https://feeds.fireside.fm/xamarinpodcast/rss",
-                //"https://www.cnbc.com/id/100003114/device/rss/rss.html"
-            };
-            foreach (var url in urls)
-            {
-                var resultFeedChannel = await _mediator.Send(new Application.UseCases.AddFeed
-                {
-                    Url = url
-                });
-                if (resultFeedChannel.Success)
-                {
-                    //ShowFeedChannel(resultFeedChannel.Value);
-                }
-                else
-                {
-                    _logger.LogError(resultFeedChannel.Error);
-                }
-            }
+            //var urls = new string[]
+            //{
+            //    "https://www.nasa.gov/rss/dyn/breaking_news.rss",
+            //    "http://feeds.bbci.co.uk/news/world/rss.xml",
+            //    //"https://feeds.fireside.fm/xamarinpodcast/rss",
+            //    //"https://www.cnbc.com/id/100003114/device/rss/rss.html"
+            //};
+            //foreach (var url in urls)
+            //{
+            //    var resultFeedChannel = await _mediator.Send(new Application.UseCases.AddFeed
+            //    {
+            //        Url = url
+            //    });
+            //    if (resultFeedChannel.Success)
+            //    {
+            //        //ShowFeedChannel(resultFeedChannel.Value);
+            //    }
+            //    else
+            //    {
+            //        _logger.LogError(resultFeedChannel.Error);
+            //    }
+            //}
             //// END TESTING
 
             var resultFeedChannels = await _mediator.Send(new GetAllFeeds { });
             if (resultFeedChannels.Success)
             {
-                _feedChannels = resultFeedChannels.Value.ToArray();
-                Console.WriteLine($"---- feedChannels: {_feedChannels.Count()}, feedItems:{_feedChannels.FirstOrDefault().FeedItems.Count()}");
+                _feedChannels = resultFeedChannels.Value.ToList();
+                Console.WriteLine($"---- feedChannels: {_feedChannels.Count()}");
                 foreach( var feedChannel in _feedChannels)
                 {
                     ShowFeedChannel(feedChannel);
@@ -131,7 +131,23 @@ namespace WebUi.Pages
 
             if (!result.Cancelled)
             {
-                Console.WriteLine($"Modal was closed: {((FeedUrl)result.Data).Url}");
+                var url = ((FeedUrl)result.Data).Url;
+
+                var resultFeedChannel = await _mediator.Send(new Application.UseCases.AddFeed
+                {
+                    Url = url
+                });
+                if (resultFeedChannel.Success)
+                {
+                    ShowFeedChannel(resultFeedChannel.Value);
+                    _feedChannels.Add(resultFeedChannel.Value);
+                }
+                else
+                {
+                    _logger.LogError(resultFeedChannel.Error);
+                }
+
+
             }
         }
 
