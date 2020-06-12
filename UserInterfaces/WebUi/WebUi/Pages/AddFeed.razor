@@ -1,18 +1,4 @@
-﻿@*<div class="container-fluid d-flex h-100">
-        <EditForm class="col align-self-center" Model="@_feedUrl" OnValidSubmit="OnValidSubmit">
-
-            <div class="d-flex">
-                <label class="pr-1" for="url">Feed URL:</label>
-                <InputText placeholder="Paste or enter feed URL string..." class="pl-1 flex-grow-1" id="url" @bind-Value="@_feedUrl.Url" />
-            </div>
-            <div class="d-flex flex-grow-1 mt-3 justify-content-center">
-                <button type="submit">Submit</button>
-            </div>
-
-        </EditForm>
-    </div>*@
-
-<div class="" style="width:80vw">
+﻿<div class="" style="width:80vw">
     <EditForm Model="@_feedUrl" OnValidSubmit="OnValidSubmit">
         <DataAnnotationsValidator />
         <ValidationSummary />

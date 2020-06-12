@@ -153,6 +153,26 @@ namespace WebUi.Pages
 
         private async void RemoveChannel()
         {
+            var modal = _modal.Show<RemoveFeed>("Remove the feed?");
+            var modalResult = await modal.Result;
+
+            if (!modalResult.Cancelled)
+            {
+                var feedResult = await _mediator.Send(new Application.UseCases.RemoveFeed
+                {
+                    Id = 0
+                });
+                if (feedResult.Status == ResultStatus.Ok)
+                {
+                    _feedChannels.Remove(_selectedFeedChannel);
+                    _selectedFeedChannel = null;
+                    StateHasChanged();
+                }
+                else
+                {
+                    _logger.LogError(string.Join(",", feedResult.Errors));
+                }
+            }
 
         }
 

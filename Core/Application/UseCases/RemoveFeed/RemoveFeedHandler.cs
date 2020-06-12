@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Ardalis.Result;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Application.UseCases
 {
-    public class RemoveFeedHandler : IRequestHandler<RemoveFeed, bool>
+    public class RemoveFeedHandler : IRequestHandler<RemoveFeed, Result<bool>>
     {
-        public async Task<bool> Handle(RemoveFeed request, CancellationToken cancellationToken)
+        public async Task<Result<bool>> Handle(RemoveFeed request, CancellationToken cancellationToken)
         {
             var validator = new RemoveFeedValidator();
             var validationResult = validator.Validate(request);
@@ -19,9 +20,7 @@ namespace Application.UseCases
             }
 
             await Task.CompletedTask;
-            return false;
-
-
+            return Result<bool>.Success(true);
         }
     }
 }
