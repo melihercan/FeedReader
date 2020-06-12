@@ -47,7 +47,7 @@ else
                 </div>
 
                 <button type="button"
-                        class="text-white btn shadow-none" data-toggle="tooltip" 
+                        class="text-white btn border border-white shadow-none" data-toggle="tooltip" 
                         data-placement="bottom" title="Add a new channel"
                         @onclick="@AddNewChannel">
                     <span class="oi oi-plus"/>
@@ -73,9 +73,21 @@ else
             <div class="row flex-shrink-0 sticky-top">
                 @if (_selectedFeedChannel != null)
                 {
-                    <div class="jumbotron text-center w-100" style="padding-top: 1.5rem; padding-bottom: 1.5rem">
-                        <h2>@_selectedFeedChannel.Title</h2>
+                <div class="d-flex w-100">
+                    <div class="flex-fill">
+                        <div class="jumbotron text-center w-100" style="padding-top: 1.5rem; padding-bottom: 1.5rem">
+                            <h2>@_selectedFeedChannel.Title</h2>
+                        </div>
                     </div>
+
+                    <button type="button" style="background: #e9ecef; margin-bottom:2rem"
+                            class="btn border border-dark shadow-none" data-toggle="tooltip"
+                            data-placement="bottom" title="Remove the channel"
+                            @onclick="@RemoveChannel">
+                        <span class="oi oi-minus" />
+                    </button>
+
+                </div>
                 }
             </div>
             <div class="row flex-grow-1">

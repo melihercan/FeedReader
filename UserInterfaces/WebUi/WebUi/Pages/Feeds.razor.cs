@@ -151,6 +151,11 @@ namespace WebUi.Pages
             }
         }
 
+        private async void RemoveChannel()
+        {
+
+        }
+
         private async Task NavigateToUrlAsync(string url, bool openInNewTab = true)
         {
             if (openInNewTab)
