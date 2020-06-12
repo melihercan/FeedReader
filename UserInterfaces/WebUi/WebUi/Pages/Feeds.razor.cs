@@ -14,6 +14,7 @@ using Microsoft.JSInterop;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Blazored.Modal.Services;
 using WebUi.Models;
+using Ardalis.Result;
 
 namespace WebUi.Pages
 {
@@ -68,10 +69,10 @@ namespace WebUi.Pages
             //}
             //// END TESTING
 
-            var resultFeedChannels = await _mediator.Send(new GetAllFeeds { });
-            if (resultFeedChannels.Status == Ardalis.Result.ResultStatus.Ok)
+            var result = await _mediator.Send(new GetAllFeeds { });
+            if (result.Status == ResultStatus.Ok)
             {
-                _feedChannels = resultFeedChannels.Value.ToList();
+                _feedChannels = result.Value.ToList();
                 Console.WriteLine($"---- feedChannels: {_feedChannels.Count()}");
                 foreach( var feedChannel in _feedChannels)
                 {
@@ -80,7 +81,7 @@ namespace WebUi.Pages
             }
             else
             {
-                _logger.LogError(string.Join(",", resultFeedChannels.Errors));
+                _logger.LogError(string.Join(",", result.Errors));
             }
 
             await base.OnInitializedAsync();
@@ -127,24 +128,25 @@ namespace WebUi.Pages
         private async void AddNewChannel()
         {
             var modal = _modal.Show<AddFeed>("Add new feed");
-            var result = await modal.Result;
+            var modalResult = await modal.Result;
 
-            if (!result.Cancelled)
+            if (!modalResult.Cancelled)
             {
-                var url = ((FeedUrl)result.Data).Url;
+                var url = ((FeedUrl)modalResult.Data).Url;
 
-                var resultFeedChannel = await _mediator.Send(new Application.UseCases.AddFeed
+                var feedResult = await _mediator.Send(new Application.UseCases.AddFeed
                 {
                     Url = url
                 });
-                if (resultFeedChannel.Status == Ardalis.Result.ResultStatus.Ok)
+                if (feedResult.Status == ResultStatus.Ok)
                 {
-                    ShowFeedChannel(resultFeedChannel.Value);
-                    _feedChannels.Add(resultFeedChannel.Value);
+                    ShowFeedChannel(feedResult.Value);
+                    _feedChannels.Add(feedResult.Value);
+                    StateHasChanged();
                 }
                 else
                 {
-                    _logger.LogError(string.Join(",", resultFeedChannel.Errors));
+                    _logger.LogError(string.Join(",", feedResult.Errors));
                 }
             }
         }
