@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Ardalis.Result;
+using Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;

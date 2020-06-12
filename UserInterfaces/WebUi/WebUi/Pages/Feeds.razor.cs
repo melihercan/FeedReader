@@ -69,7 +69,7 @@ namespace WebUi.Pages
             //// END TESTING
 
             var resultFeedChannels = await _mediator.Send(new GetAllFeeds { });
-            if (resultFeedChannels.Success)
+            if (resultFeedChannels.Status == Ardalis.Result.ResultStatus.Ok)
             {
                 _feedChannels = resultFeedChannels.Value.ToList();
                 Console.WriteLine($"---- feedChannels: {_feedChannels.Count()}");
@@ -80,7 +80,7 @@ namespace WebUi.Pages
             }
             else
             {
-                _logger.LogError(resultFeedChannels.Error);
+                _logger.LogError(string.Join(",", resultFeedChannels.Errors));
             }
 
             await base.OnInitializedAsync();
@@ -137,17 +137,15 @@ namespace WebUi.Pages
                 {
                     Url = url
                 });
-                if (resultFeedChannel.Success)
+                if (resultFeedChannel.Status == Ardalis.Result.ResultStatus.Ok)
                 {
                     ShowFeedChannel(resultFeedChannel.Value);
                     _feedChannels.Add(resultFeedChannel.Value);
                 }
                 else
                 {
-                    _logger.LogError(resultFeedChannel.Error);
+                    _logger.LogError(string.Join(",", resultFeedChannel.Errors));
                 }
-
-
             }
         }
 

@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Application.Interfaces;
 using Application.Helpers;
 using System.Linq;
+using Ardalis.Result;
 
 namespace Application.UseCases
 {
@@ -28,16 +29,15 @@ namespace Application.UseCases
         public async Task<Result<IEnumerable<FeedChannel>>> Handle(GetAllFeeds request, 
             CancellationToken cancellationToken)
         {
-            var result = new Result<IEnumerable<FeedChannel>>();
+            Result<IEnumerable<FeedChannel>> result;
             try
             {
                 _logger.LogInformation($"{Utils.GetCurrentMethod()}");
-                result.Value = _registry.FeedChannels;
+                result = Result<IEnumerable<FeedChannel>>.Success(_registry.FeedChannels);
             }
             catch (Exception ex)
             {
-                result.Success = false;
-                result.Error = ex.Message;
+                result = Result<IEnumerable<FeedChannel>>.Error(ex.Message);
             }
             await Task.CompletedTask;
             return result;

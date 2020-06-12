@@ -15,6 +15,7 @@ using System.Linq;
 using System.Xml;
 using System.Net.Http;
 using Infrastructure;
+using Ardalis.Result;
 
 namespace Application.UseCases
 {
@@ -35,8 +36,6 @@ namespace Application.UseCases
 
         public async Task<Result<FeedChannel>> Handle(AddFeed request, CancellationToken cancellationToken)
         {
-            var result = new Result<FeedChannel>();
-
             try
             {
                 _logger.LogInformation("start");
@@ -70,15 +69,13 @@ namespace Application.UseCases
                 
                 feedChannel.FeedItems.Select(item => item.FeedChannel = feedChannel).ToList();
                 _registry.FeedChannels.Add(feedChannel);
-                result.Value = feedChannel;
+                return Result<FeedChannel>.Success(feedChannel);
             }
             catch(Exception ex)
             {
-                result.Success = false;
-                result.Error = ex.Message;
+                return Result<FeedChannel>.Error(ex.Message);
             }
             //await Task.CompletedTask;
-            return result;
         }
     }
 }
