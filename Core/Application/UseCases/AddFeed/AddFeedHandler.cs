@@ -52,7 +52,6 @@ namespace Application.UseCases
 
                     try
                     {
-                        //var syndicationFeed = SyndicationFeed.Load(XmlReader.Create(request.Url));
                         feedChannel = await _feedSource.GetAsync(request.Url);
                         _logger.LogInformation($"---- num of items: {feedChannel.FeedItems.Count()}");
                     }

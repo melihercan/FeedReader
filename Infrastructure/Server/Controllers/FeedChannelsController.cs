@@ -38,8 +38,8 @@ namespace Infrastructure.Server.Controllers
                 //.FeedChannelsLink.Select(p => p.FeedChannel);
 
             var feedChannels = await _context.FeedChannels
-                .Where(feedChannel => feedChannel.ApplicationUsersLink
-                .Any(aufc => aufc.ApplicationUserId == user.Id)).ToListAsync();
+                .Where(feedChannel => feedChannel.ApplicationUsersLink.Any(aufc => aufc.ApplicationUserId == user.Id))
+                .ToListAsync();
 
             return feedChannels;
 
@@ -99,6 +99,15 @@ namespace Infrastructure.Server.Controllers
         public async Task<IActionResult> PostFeedChannel(FeedChannel feedChannel)
         {
             var user = await _userManager.GetUserAsync(User);
+
+            // Check if channel is already created for that user.
+            if(_context.FeedChannels
+                .Where(feedChannel => feedChannel.ApplicationUsersLink.Any(aufc => aufc.ApplicationUserId == user.Id))
+                .FirstOrDefault(feedChannel => feedChannel.Link == feedChannel.Link) != null)
+            {
+                return Conflict();
+            }
+
             feedChannel.ApplicationUsersLink = new List<ApplicationUserFeedChannel>
             {
                 new ApplicationUserFeedChannel

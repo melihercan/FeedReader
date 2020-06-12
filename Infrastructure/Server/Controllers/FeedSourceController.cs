@@ -22,7 +22,7 @@ namespace Infrastructure.Server.Controllers
 
         // GET: api/FeedSource
         [HttpGet]
-        public FeedChannel Get(string url)
+        public ActionResult<FeedChannel> Get(string url)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace Infrastructure.Server.Controllers
             }
             catch
             {
-                return null;
+                return BadRequest();
             }
 
         }
