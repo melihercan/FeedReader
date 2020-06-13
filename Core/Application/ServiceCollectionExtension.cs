@@ -30,6 +30,9 @@ namespace Application
 //            services.AddSingleton<IFeedSource, FeedSource>();
             services.AddSingleton<IFeedRepository, FeedRepository>();
             services.AddSingleton<IUser, User>();
+            services.AddSingleton<IFeedManager, FeedManager>();
+
+
             ServiceProvider = services.BuildServiceProvider();
             return services;
         }
