@@ -11,6 +11,8 @@ namespace Domain.Entities
         public string Description { get; set; }
         public string Link { get; set; }
         public string ImageUrl { get; set; }
+        public DateTime LastUpdateTime { get; set; }
+
 
         public List<FeedItem> FeedItems { get; set; } = new List<FeedItem>();
 
