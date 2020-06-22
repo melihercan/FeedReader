@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using System.Linq;
 using Infrastructure.Server.Data;
 using Domain.Entities;
+using System.Security.Claims;
 
 namespace Infrastructure.Server
 {
@@ -44,6 +45,10 @@ namespace Infrastructure.Server
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            // Otherwise UserManager.GetUserAsync(User) returns null.
+            services.Configure<IdentityOptions>(options =>
+                options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
