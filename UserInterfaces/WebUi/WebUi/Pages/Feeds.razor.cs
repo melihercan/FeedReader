@@ -160,7 +160,7 @@ namespace WebUi.Pages
             {
                 var feedResult = await _mediator.Send(new Application.UseCases.RemoveFeed
                 {
-                    Id = 0
+                    Id = _selectedFeedChannel.FeedChannelId
                 });
                 if (feedResult.Status == ResultStatus.Ok)
                 {

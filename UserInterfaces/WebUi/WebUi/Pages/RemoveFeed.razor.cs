@@ -14,7 +14,6 @@ namespace WebUi.Pages
 
         private void OnOk()
         {
-            
             Modal.Close();
         }
 
