@@ -19,13 +19,13 @@ namespace Application.UseCases
     public class GetAllFeedsHandler : IRequestHandler<GetAllFeeds, Result<IEnumerable<FeedChannel>>>
     {
         private readonly ILogger<GetAllFeedsHandler> _logger;
-        private readonly IRegistry _registry;
+////        private readonly IRegistry _registry;
         private readonly IFeedRepository _feedRepository;
 
         public GetAllFeedsHandler()
         {
             _logger = ServiceCollectionExtension.ServiceProvider.GetService<ILogger<GetAllFeedsHandler>>();
-            _registry = ServiceCollectionExtension.ServiceProvider.GetService<IRegistry>();
+////            _registry = ServiceCollectionExtension.ServiceProvider.GetService<IRegistry>();
             _feedRepository = ServiceCollectionExtension.ServiceProvider.GetService<IFeedRepository>();
         }
 

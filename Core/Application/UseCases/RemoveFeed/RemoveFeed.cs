@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.UseCases
 {
-    public class RemoveFeed : IRequest<Result<bool>>
+    public class RemoveFeed : IRequest<Result<object>>
     {
         public int Id { get; set; }
     }

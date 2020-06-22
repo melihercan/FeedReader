@@ -1,26 +1,50 @@
 ﻿using Ardalis.Result;
+using Infrastructure;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 
 namespace Application.UseCases
 {
-    public class RemoveFeedHandler : IRequestHandler<RemoveFeed, Result<bool>>
+    public class RemoveFeedHandler : IRequestHandler<RemoveFeed, Result<object>>
     {
-        public async Task<Result<bool>> Handle(RemoveFeed request, CancellationToken cancellationToken)
+        private readonly ILogger<RemoveFeedHandler> _logger;
+        private readonly IFeedRepository _feedRepository;
+
+        public RemoveFeedHandler()
         {
-            var validator = new RemoveFeedValidator();
-            var validationResult = validator.Validate(request);
-            if (validationResult.IsValid)
+            _logger = ServiceCollectionExtension.ServiceProvider.GetService<ILogger<RemoveFeedHandler>>();
+            _feedRepository = ServiceCollectionExtension.ServiceProvider.GetService<IFeedRepository>();
+        }
+
+        public async Task<Result<object>> Handle(RemoveFeed request, CancellationToken cancellationToken)
+        {
+            try
             {
+                var validator = new RemoveFeedValidator();
+                var validationResult = validator.Validate(request);
+                if (validationResult.IsValid)
+                {
 
+                    await _feedRepository.RemoveFeedChannelAsync(request.Id);
+                    return Result<object>.Success(null);
+                }
+                else
+                {
+                    throw new Exception(
+                        string.Join(',', validationResult.Errors.Select(error => error.ErrorMessage)));
+                }
             }
-
-            await Task.CompletedTask;
-            return Result<bool>.Success(true);
+            catch (Exception ex)
+            {
+                return Result<object>.Error(ex.Message);
+            }
         }
     }
 }

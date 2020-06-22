@@ -7,6 +7,6 @@ namespace Application.Interfaces
 {
     public interface IRegistry
     {
-        public List<FeedChannel> FeedChannels { get; set; }
+        ////public List<FeedChannel> FeedChannels { get; set; }
     }
 }

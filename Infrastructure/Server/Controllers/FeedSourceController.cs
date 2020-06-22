@@ -18,7 +18,7 @@ namespace Infrastructure.Server.Controllers
     [ApiController]
     public class FeedSourceController : ControllerBase
     {
-        private static int _id = 0;
+////        private static int _id = 0;
 
         // GET: api/FeedSource
         [HttpGet]
@@ -29,14 +29,15 @@ namespace Infrastructure.Server.Controllers
                 var syndicationFeed = SyndicationFeed.Load(XmlReader.Create(url));
                 var feedChannel = new FeedChannel
                 {
-                    FeedChannelId = _id++,
+                    ////                FeedChannelId = _id++,
                     Title = syndicationFeed.Title.Text,
                     Description = syndicationFeed.Description.Text,
                     Link = syndicationFeed.Links[0].Uri.AbsoluteUri,
                     ImageUrl = syndicationFeed.ImageUrl?.ToString(),
+                    LastUpdateTime = DateTime.Now,
                     FeedItems = syndicationFeed.Items.Select(item => new FeedItem
                     {
-                        FeedItemId = _id++,
+        ////                FeedItemId = _id++,
                         IsRead = false,
                         Title = item.Title.Text,
                         Description = item.Summary.Text,

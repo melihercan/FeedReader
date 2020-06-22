@@ -10,6 +10,8 @@ namespace Infrastructure
     {
         Task<IEnumerable<FeedChannel>> GetFeedChannelsAsync();
         
-        Task Create(FeedChannel feedChannel);
+        Task AddFeedChannelAsync(FeedChannel feedChannel);
+        
+        Task RemoveFeedChannelAsync(int id);
     }
 }
