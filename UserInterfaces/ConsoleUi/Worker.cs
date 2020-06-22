@@ -28,17 +28,17 @@ namespace ConsoleUi
             {
                 Url = "https://www.cnbc.com/id/100003114/device/rss/rss.html"
             });
-            if(resultFeedChannel.Success)
+            if(resultFeedChannel.Status == Ardalis.Result.ResultStatus.Ok)
             {
                 ShowFeedChannel(resultFeedChannel.Value);
             }
             else
             {
-                _logger.LogError(resultFeedChannel.Error);
+                _logger.LogError(string.Join(',', resultFeedChannel.Errors));
             }
 
             var resultFeedChannels = await _mediator.Send(new GetAllFeeds { });
-            if (resultFeedChannels.Success)
+            if (resultFeedChannels.Status == Ardalis.Result.ResultStatus.Ok)
             {
                 foreach (var feedChannel in resultFeedChannels.Value)
                 {
@@ -47,7 +47,7 @@ namespace ConsoleUi
             }
             else
             {
-                _logger.LogError(resultFeedChannels.Error);
+                _logger.LogError(string.Join(',', resultFeedChannel.Errors));
             }
 
 

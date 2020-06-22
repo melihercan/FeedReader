@@ -19,6 +19,8 @@
     <Compile Remove="Data\Migrations\20200530112822_Create.Designer.cs" />
     <Compile Remove="Data\Migrations\20200531124938_AddedFeeds.cs" />
     <Compile Remove="Data\Migrations\20200531124938_AddedFeeds.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200622082017_LastUpdateTime.cs" />
+    <Compile Remove="Data\Migrations\20200622082017_LastUpdateTime.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
