@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Domain.Entities
 {
@@ -15,6 +16,8 @@ namespace Domain.Entities
         public string ImageUrl { get; set; }
 
         public int FeedChannelId { get; set; }
+        
+        [JsonIgnore]
         public FeedChannel FeedChannel { get; set; }
     }
 }

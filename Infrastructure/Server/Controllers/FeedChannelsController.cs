@@ -39,6 +39,7 @@ namespace Infrastructure.Server.Controllers
 
             var feedChannels = await _context.FeedChannels
                 .Where(feedChannel => feedChannel.ApplicationUsersLink.Any(aufc => aufc.ApplicationUserId == user.Id))
+                .Include(feedChannel => feedChannel.FeedItems)
                 .ToListAsync();
 
             return feedChannels;
