@@ -17,18 +17,18 @@ namespace Application
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddFeedSourceServices();
-
+            services.AddFeedRepositoryServices();
 
             services.AddMediatR(new Assembly[] 
             {
                 typeof(User).Assembly,
 //                typeof(FeedSource).Assembly,
-                typeof(FeedRepository).Assembly,
+//                typeof(FeedRepository).Assembly,
             });
 
             services.AddSingleton<IRegistry, Registry>();
 //            services.AddSingleton<IFeedSource, FeedSource>();
-            services.AddSingleton<IFeedRepository, FeedRepository>();
+//            services.AddSingleton<IFeedRepository, FeedRepository>();
             services.AddSingleton<IUser, User>();
             services.AddSingleton<IFeedManager, FeedManager>();
 

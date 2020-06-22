@@ -8,6 +8,8 @@ namespace Infrastructure
 {
     public interface IFeedRepository
     {
+        Task<IEnumerable<FeedChannel>> GetFeedChannelsAsync();
+        
         Task Create(FeedChannel feedChannel);
     }
 }

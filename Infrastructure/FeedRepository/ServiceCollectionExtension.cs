@@ -1,7 +1,7 @@
-﻿using MediatR;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using MediatR;
 using System.Reflection;
 using System.Text;
 
@@ -11,15 +11,15 @@ namespace Infrastructure
     {
         public static IServiceProvider ServiceProvider { get; private set; }
 
-        public static IServiceCollection AddFeedSourceServices(this IServiceCollection services)
+        public static IServiceCollection AddFeedRepositoryServices(this IServiceCollection services)
         {
             services.AddMediatR(new Assembly[]
             {
-                typeof(FeedSource).Assembly,
+                typeof(FeedRepository).Assembly,
             });
 
-            services.AddSingleton<IFeedSource, FeedSource>();
-            ServiceProvider = services .BuildServiceProvider();
+            services.AddSingleton<IFeedRepository, FeedRepository>();
+            ServiceProvider = services.BuildServiceProvider();
             return services;
         }
     }

@@ -15,7 +15,6 @@ namespace Infrastructure
         private readonly ILogger<FeedSource> _logger;
         private readonly HttpClient _httpClient;
 
-
         public FeedSource(/*HttpClient httpClient*/)
         {
             _logger = ServiceCollectionExtension.ServiceProvider.GetService<ILogger<FeedSource>>();
