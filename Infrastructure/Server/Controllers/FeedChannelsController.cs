@@ -72,23 +72,23 @@ namespace Infrastructure.Server.Controllers
                 return BadRequest();
             }
 
-            //_context.Entry(feedChannel).State = EntityState.Modified;
+            _context.Entry(feedChannel).State = EntityState.Modified;
 
-            //try
-            //{
-            //    await _context.SaveChangesAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!FeedChannelExists(id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!FeedChannelExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             return NoContent();
         }
