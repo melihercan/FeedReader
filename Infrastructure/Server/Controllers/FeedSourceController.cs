@@ -29,7 +29,7 @@ namespace Infrastructure.Server.Controllers
                 {
                     Title = syndicationFeed.Title.Text,
                     Description = syndicationFeed.Description.Text,
-                    Link = syndicationFeed.Links[0].Uri.AbsoluteUri,
+                    Link = url,//// syndicationFeed.Links[0].Uri.AbsoluteUri,
                     ImageUrl = syndicationFeed.ImageUrl?.ToString(),
                     LastUpdateTime = DateTime.Now,
                     FeedItems = syndicationFeed.Items.Select(item => new FeedItem

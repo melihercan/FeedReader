@@ -30,7 +30,7 @@ namespace WebUi.Server.Controllers
                 FeedChannelId = _id++,
                 Title = syndicationFeed.Title.Text,
                 Description = syndicationFeed.Description.Text,
-                Link = syndicationFeed.Links[0].Uri.AbsoluteUri,
+                Link = url,////syndicationFeed.Links[0].Uri.AbsoluteUri,
                 ImageUrl = syndicationFeed.ImageUrl?.ToString(),
                 FeedItems = syndicationFeed.Items.Select(item => new FeedItem
                 {
