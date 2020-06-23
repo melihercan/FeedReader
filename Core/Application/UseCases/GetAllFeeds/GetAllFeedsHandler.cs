@@ -19,32 +19,26 @@ namespace Application.UseCases
     public class GetAllFeedsHandler : IRequestHandler<GetAllFeeds, Result<IEnumerable<FeedChannel>>>
     {
         private readonly ILogger<GetAllFeedsHandler> _logger;
-////        private readonly IRegistry _registry;
         private readonly IFeedRepository _feedRepository;
 
         public GetAllFeedsHandler()
         {
             _logger = ServiceCollectionExtension.ServiceProvider.GetService<ILogger<GetAllFeedsHandler>>();
-////            _registry = ServiceCollectionExtension.ServiceProvider.GetService<IRegistry>();
             _feedRepository = ServiceCollectionExtension.ServiceProvider.GetService<IFeedRepository>();
         }
 
         public async Task<Result<IEnumerable<FeedChannel>>> Handle(GetAllFeeds request, 
             CancellationToken cancellationToken)
         {
-            Result<IEnumerable<FeedChannel>> result;
             try
             {
                 _logger.LogInformation($"{Utils.GetCurrentMethod()}");
-                //result = Result<IEnumerable<FeedChannel>>.Success(_registry.FeedChannels);
-                result = Result<IEnumerable<FeedChannel>>.Success(await _feedRepository.GetFeedChannelsAsync());
+                return Result<IEnumerable<FeedChannel>>.Success(await _feedRepository.GetFeedChannelsAsync());
             }
             catch (Exception ex)
             {
-                result = Result<IEnumerable<FeedChannel>>.Error(ex.Message);
+                return Result<IEnumerable<FeedChannel>>.Error(ex.Message);
             }
-            await Task.CompletedTask;
-            return result;
         }
     }
 }

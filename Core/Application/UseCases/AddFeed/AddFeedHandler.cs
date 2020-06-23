@@ -22,14 +22,12 @@ namespace Application.UseCases
     public class AddFeedHandler : IRequestHandler<AddFeed, Result<FeedChannel>>
     {
         private readonly ILogger<AddFeedHandler> _logger;
-////        private readonly IRegistry _registry;
         private readonly IFeedRepository _feedRepository;
         private readonly IFeedSource _feedSource;
 
         public AddFeedHandler()
         {
             _logger = ServiceCollectionExtension.ServiceProvider.GetService<ILogger<AddFeedHandler>>();
-////            _registry = ServiceCollectionExtension.ServiceProvider.GetService<IRegistry>();
             _feedSource = ServiceCollectionExtension.ServiceProvider.GetService<IFeedSource>();
             _feedRepository = ServiceCollectionExtension.ServiceProvider.GetService<IFeedRepository>();
         }
@@ -38,18 +36,13 @@ namespace Application.UseCases
         {
             try
             {
-                _logger.LogInformation("start");
+                _logger.LogDebug("start");
 
                 FeedChannel feedChannel;
                 var validator = new AddFeedValidator();
                 var validationResult = validator.Validate(request);
                 if (validationResult.IsValid)
                 {
-                    //if(_registry.FeedChannels.FirstOrDefault(feedChannel => feedChannel.Link == request.Url) != null)
-                    //{
-                    //    throw new Exception("Feed URL already exist");
-                    //}
-
                     try
                     {
                         feedChannel = await _feedSource.GetAsync(request.Url);
@@ -66,8 +59,6 @@ namespace Application.UseCases
                         string.Join(',', validationResult.Errors.Select(error => error.ErrorMessage)));
                 }
                 
-                ////feedChannel.FeedItems.Select(item => item.FeedChannel = feedChannel).ToList();
-                ////_registry.FeedChannels.Add(feedChannel);
                 await _feedRepository.AddFeedChannelAsync(feedChannel);
                 return Result<FeedChannel>.Success(feedChannel);
             }
@@ -75,7 +66,6 @@ namespace Application.UseCases
             {
                 return Result<FeedChannel>.Error(ex.Message);
             }
-            //await Task.CompletedTask;
         }
     }
 }

@@ -13,5 +13,7 @@ namespace Infrastructure
         Task AddFeedChannelAsync(FeedChannel feedChannel);
         
         Task RemoveFeedChannelAsync(int id);
+
+        Task UpdateFeedChannelAsync(FeedChannel feedChannel);
     }
 }

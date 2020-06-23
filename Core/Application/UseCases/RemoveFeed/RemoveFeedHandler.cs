@@ -27,19 +27,8 @@ namespace Application.UseCases
         {
             try
             {
-                var validator = new RemoveFeedValidator();
-                var validationResult = validator.Validate(request);
-                if (validationResult.IsValid)
-                {
-
-                    await _feedRepository.RemoveFeedChannelAsync(request.Id);
-                    return Result<object>.Success(null);
-                }
-                else
-                {
-                    throw new Exception(
-                        string.Join(',', validationResult.Errors.Select(error => error.ErrorMessage)));
-                }
+                await _feedRepository.RemoveFeedChannelAsync(request.Id);
+                return Result<object>.Success(null);
             }
             catch (Exception ex)
             {

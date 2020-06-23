@@ -35,5 +35,10 @@ namespace Infrastructure
         {
             await _httpClient.DeleteAsync($"api/FeedChannels/{id}");
         }
+
+        public async Task UpdateFeedChannelAsync(FeedChannel feedChannel)
+        {
+            await _httpClient.PutAsJsonAsync($"api/FeedChannels/{feedChannel.FeedChannelId}", feedChannel);
+        }
     }
 }
