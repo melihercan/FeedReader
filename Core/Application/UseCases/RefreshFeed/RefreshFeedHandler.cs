@@ -36,16 +36,17 @@ namespace Application.UseCases
                 var feedChannel = await _feedSource.GetAsync(request.FeedChannel.Link);
                 feedChannel.FeedChannelId = request.FeedChannel.FeedChannelId;
                 feedChannel.ApplicationUsersLink = request.FeedChannel.ApplicationUsersLink;
-                feedChannel.FeedItems.Select(newItem => 
+                var items = feedChannel.FeedItems.Select(newItem => 
                 {
                     var oldItem = request.FeedChannel.FeedItems.SingleOrDefault(oldItem => oldItem.Link == newItem.Link);
                     if (oldItem != null)
                     {
                         newItem = oldItem;
                     }
-                    return newItem; 
+                    return newItem;
                 }).ToList();
 
+                feedChannel.FeedItems = items;
                 await _feedRepository.UpdateFeedChannelAsync(feedChannel);
 
                 //// TODO: ADD NOTIFY FEED UPDATE
