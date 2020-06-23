@@ -74,7 +74,7 @@ namespace WebUi.Pages
             {
                 _feedChannels = result.Value.ToList();
                 Console.WriteLine($"---- feedChannels: {_feedChannels.Count()}");
-                foreach( var feedChannel in _feedChannels)
+                foreach (var feedChannel in _feedChannels)
                 {
                     ShowFeedChannel(feedChannel);
                 }
@@ -174,6 +174,22 @@ namespace WebUi.Pages
                 }
             }
 
+        }
+
+        private async void RefreshChannel()
+        {
+            var feedResult = await _mediator.Send(new Application.UseCases.RefreshFeed
+            {
+                FeedChannel = _selectedFeedChannel
+            });
+            if (feedResult.Status == ResultStatus.Ok)
+            {
+                StateHasChanged();
+            }
+            else
+            {
+                _logger.LogError(string.Join(",", feedResult.Errors));
+            }
         }
 
         private async Task NavigateToUrlAsync(string url, bool openInNewTab = true)

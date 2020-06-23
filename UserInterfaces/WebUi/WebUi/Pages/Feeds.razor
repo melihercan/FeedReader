@@ -80,13 +80,20 @@ else
                         </div>
                     </div>
 
-                    <button type="button" style="background: #e9ecef; margin-bottom:2rem"
-                            class="btn border border-dark shadow-none" data-toggle="tooltip"
-                            data-placement="bottom" title="Remove the channel"
-                            @onclick="@RemoveChannel">
-                        <span class="oi oi-minus" />
-                    </button>
-
+                    <div class="d-flex flex-column" style="background: #e9ecef; margin-bottom:2rem">
+                        <button type="button" style="background: #e9ecef"
+                                class="btn border border-dark shadow-none" data-toggle="tooltip"
+                                data-placement="bottom" title="Remove the channel"
+                                @onclick="@RemoveChannel">
+                            <span class="oi oi-minus" />
+                        </button>
+                        <button type="button" style="background: #e9ecef"
+                                class="btn border border-dark shadow-none" data-toggle="tooltip"
+                                data-placement="bottom" title="Refresh the channel"
+                                @onclick="@RefreshChannel">
+                            <span class="oi oi-reload" />
+                        </button>
+                    </div>
                 </div>
                 }
             </div>
