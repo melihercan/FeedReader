@@ -103,8 +103,8 @@ namespace Infrastructure.Server.Controllers
 
             // Check if channel is already created for that user.
             if(_context.FeedChannels
-                .Where(feedChannel => feedChannel.ApplicationUsersLink.Any(aufc => aufc.ApplicationUserId == user.Id))
-                .FirstOrDefault(feedChannel => feedChannel.Link == feedChannel.Link) != null)
+                .Where(fc => fc.ApplicationUsersLink.Any(aufc => aufc.ApplicationUserId == user.Id))
+                .FirstOrDefault(fc => fc.Link == feedChannel.Link) != null)
             {
                 return Conflict();
             }
