@@ -14,7 +14,6 @@ using Application.Helpers;
 using System.Linq;
 using System.Xml;
 using System.Net.Http;
-using Infrastructure;
 using Ardalis.Result;
 
 namespace Application.UseCases

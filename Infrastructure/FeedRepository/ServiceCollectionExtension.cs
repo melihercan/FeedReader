@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using MediatR;
 using System.Reflection;
 using System.Text;
+using Application.Interfaces;
+using Infrastructure;
 
 namespace Infrastructure
 {
@@ -13,10 +15,10 @@ namespace Infrastructure
 
         public static IServiceCollection AddFeedRepositoryServices(this IServiceCollection services)
         {
-            services.AddMediatR(new Assembly[]
-            {
-                typeof(FeedRepository).Assembly,
-            });
+////            services.AddMediatR(new Assembly[]
+////            {
+////                typeof(FeedRepository).Assembly,
+////            });
 
             services.AddSingleton<IFeedRepository, FeedRepository>();
             ServiceProvider = services.BuildServiceProvider();

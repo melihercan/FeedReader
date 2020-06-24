@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Application.Interfaces;
+using System;
 using System.Threading.Tasks;
 
 namespace Infrastructure

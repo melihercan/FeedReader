@@ -6,7 +6,6 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Domain.Entities;
 using Microsoft.Extensions.Logging;
-using Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.Services

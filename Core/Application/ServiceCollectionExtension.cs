@@ -1,6 +1,5 @@
 ﻿using Application.Interfaces;
 using Application.Services;
-using Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -16,16 +15,16 @@ namespace Application
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            services.AddFeedSourceServices();
-            services.AddFeedRepositoryServices();
+////            services.AddFeedSourceServices();
+////            services.AddFeedRepositoryServices();
 
             services.AddMediatR(new Assembly[] 
             {
-                typeof(User).Assembly,
+                typeof(ServiceCollectionExtension).Assembly,
             });
 
             services.AddSingleton<IRegistry, Registry>();
-            services.AddSingleton<IUser, User>();
+////            services.AddSingleton<IUser, User>();
             services.AddSingleton<IFeedManager, FeedManager>();
 
             ServiceProvider = services.BuildServiceProvider();

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net.Http.Json;
+using Application.Interfaces;
 
 namespace Infrastructure
 {

@@ -1,7 +1,6 @@
 ﻿using Application.Helpers;
 using Ardalis.Result;
 using Domain.Entities;
-using Infrastructure;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
+using Application.Interfaces;
 
 namespace Application.UseCases
 {

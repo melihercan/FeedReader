@@ -14,6 +14,7 @@ using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Hosting;
 using Application;
 using WebUi;
+using Infrastructure;
 
 namespace WebUi.Client
 {
@@ -24,7 +25,7 @@ namespace WebUi.Client
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
-            builder.Services.AddMediatR(new Assembly[] { typeof(Application.ServiceCollectionExtension).Assembly });
+            ///builder.Services.AddMediatR(new Assembly[] { typeof(Application.ServiceCollectionExtension).Assembly });
 
             builder.Services.AddHttpClient("WebUi.ServerAPI", client => client.BaseAddress = 
                 new Uri(builder.HostEnvironment.BaseAddress))
@@ -36,6 +37,11 @@ namespace WebUi.Client
             builder.Services.AddApiAuthorization();
 
             builder.Services.AddWebUiServices();
+            builder.Services.AddUserServices();
+            builder.Services.AddFeedSourceServices();
+            builder.Services.AddFeedRepositoryServices();
+            
+            // Do this after Infrastructure service inits.
             builder.Services.AddApplicationServices();
 
             await builder.Build().RunAsync();

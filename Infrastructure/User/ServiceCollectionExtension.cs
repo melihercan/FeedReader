@@ -1,10 +1,8 @@
 ﻿using Application.Interfaces;
 using Infrastructure;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Text;
 
 namespace Infrastructure
@@ -13,15 +11,15 @@ namespace Infrastructure
     {
         public static IServiceProvider ServiceProvider { get; private set; }
 
-        public static IServiceCollection AddFeedSourceServices(this IServiceCollection services)
+        public static IServiceCollection AddUserServices(this IServiceCollection services)
         {
-///            services.AddMediatR(new Assembly[]
+////            services.AddMediatR(new Assembly[]
 ////            {
-////                typeof(FeedSource).Assembly,
+////                typeof(User).Assembly,
 ////            });
 
-            services.AddSingleton<IFeedSource, FeedSource>();
-            ServiceProvider = services .BuildServiceProvider();
+            services.AddSingleton<IUser, User>();
+            ServiceProvider = services.BuildServiceProvider();
             return services;
         }
     }

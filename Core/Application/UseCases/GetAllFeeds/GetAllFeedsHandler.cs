@@ -12,7 +12,6 @@ using Application.Interfaces;
 using Application.Helpers;
 using System.Linq;
 using Ardalis.Result;
-using Infrastructure;
 
 namespace Application.UseCases
 {
