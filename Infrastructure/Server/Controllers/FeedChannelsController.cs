@@ -67,6 +67,40 @@ namespace Infrastructure.Server.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutFeedChannel(int id, FeedChannel feedChannel)
         {
+            var dbFeedChannel = _context.FeedChannels
+                .Include(feedChannel => feedChannel.FeedItems)
+                .Single(feedChannel => feedChannel.FeedChannelId == id);
+
+            // Update parent.
+            feedChannel.FeedChannelId = id;
+            _context.Entry(dbFeedChannel).CurrentValues.SetValues(feedChannel);
+
+            // Remove child items. Update of items is not possible.
+            var dbFeedItems = dbFeedChannel.FeedItems.ToList();
+            foreach (var dbFeedItem in dbFeedItems)
+            {
+                var feedItem = feedChannel.FeedItems.SingleOrDefault(fi => fi.Link == dbFeedItem.Link);
+                if (feedItem == null)
+                {
+                    _context.Remove(dbFeedItem);
+                }
+            }
+
+            // Add new items.
+            foreach (var feedItem in feedChannel.FeedItems)
+            {
+                if(dbFeedItems.All(fi => fi.Link != feedItem.Link))
+                {
+                    dbFeedChannel.FeedItems.Add(feedItem);
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+
+
+
+
             //if (id != feedChannel.FeedChannelId)
             //{
             //    return BadRequest();

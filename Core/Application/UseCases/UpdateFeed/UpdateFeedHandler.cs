@@ -34,7 +34,7 @@ namespace Application.UseCases
                 _logger.LogDebug($"{Utils.GetCurrentMethod()}");
 
                 var feedChannel = await _feedSource.GetAsync(request.FeedChannel.Link);
-////                feedChannel.FeedChannelId = request.FeedChannel.FeedChannelId;
+///                feedChannel.FeedChannelId = request.FeedChannel.FeedChannelId;
 ////                feedChannel.ApplicationUsersLink = request.FeedChannel.ApplicationUsersLink;
 ////                var items = feedChannel.FeedItems.Select(newItem => 
 ////                {
