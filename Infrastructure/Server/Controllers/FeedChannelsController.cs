@@ -67,28 +67,28 @@ namespace Infrastructure.Server.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutFeedChannel(int id, FeedChannel feedChannel)
         {
-            if (id != feedChannel.FeedChannelId)
-            {
-                return BadRequest();
-            }
+            //if (id != feedChannel.FeedChannelId)
+            //{
+            //    return BadRequest();
+            //}
 
-            _context.Entry(feedChannel).State = EntityState.Modified;
+            //_context.Entry(feedChannel).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!FeedChannelExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            //try
+            //{
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!FeedChannelExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
 
             return NoContent();
         }

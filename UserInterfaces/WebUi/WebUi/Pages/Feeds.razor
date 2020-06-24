@@ -89,8 +89,8 @@ else
                         </button>
                         <button type="button" style="background: #e9ecef"
                                 class="btn border border-dark shadow-none" data-toggle="tooltip"
-                                data-placement="bottom" title="Refresh the channel"
-                                @onclick="@RefreshChannel">
+                                data-placement="bottom" title="Update the channel"
+                                @onclick="@UpdateChannel">
                             <span class="oi oi-reload" />
                         </button>
                     </div>
@@ -102,7 +102,9 @@ else
 
                     @if (_selectedFeedChannel != null)
                     {
-                        foreach (var feedItem in _selectedFeedChannel.FeedItems)
+                        var sortedItems = _selectedFeedChannel.FeedItems.OrderByDescending(feedItem => 
+                            feedItem.PublishDate);
+                        foreach (var feedItem in sortedItems)
                         {
                             <a href="" class="btn btn-light btn-block text-left p-0" role="button"
                                @onclick="@(e => ItemSelected(e, feedItem))">
@@ -114,6 +116,7 @@ else
                                     <div class="card-body px-2">
                                         <h4 class="card-title">@feedItem.Title</h4>
                                         <p class="card-text">@feedItem.Description</p>
+                                        <p>@feedItem.PublishDate</p>
                                     </div>
                                 </div>
                             </a>

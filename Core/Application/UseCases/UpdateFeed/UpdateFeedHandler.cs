@@ -14,40 +14,40 @@ using System.Linq;
 
 namespace Application.UseCases
 {
-    public class RefreshFeedHandler : IRequestHandler<RefreshFeed, Result<FeedChannel>>
+    public class UpdateFeedHandler : IRequestHandler<UpdateFeed, Result<FeedChannel>>
     {
-        private readonly ILogger<RefreshFeedHandler> _logger;
+        private readonly ILogger<UpdateFeedHandler> _logger;
         private readonly IFeedRepository _feedRepository;
         private readonly IFeedSource _feedSource;
 
-        public RefreshFeedHandler()
+        public UpdateFeedHandler()
         {
-            _logger = ServiceCollectionExtension.ServiceProvider.GetService<ILogger<RefreshFeedHandler>>();
+            _logger = ServiceCollectionExtension.ServiceProvider.GetService<ILogger<UpdateFeedHandler>>();
             _feedSource = ServiceCollectionExtension.ServiceProvider.GetService<IFeedSource>();
             _feedRepository = ServiceCollectionExtension.ServiceProvider.GetService<IFeedRepository>();
         }
 
-        public async Task<Result<FeedChannel>> Handle(RefreshFeed request, CancellationToken cancellationToken)
+        public async Task<Result<FeedChannel>> Handle(UpdateFeed request, CancellationToken cancellationToken)
         {
             try
             {
                 _logger.LogDebug($"{Utils.GetCurrentMethod()}");
 
                 var feedChannel = await _feedSource.GetAsync(request.FeedChannel.Link);
-                feedChannel.FeedChannelId = request.FeedChannel.FeedChannelId;
-                feedChannel.ApplicationUsersLink = request.FeedChannel.ApplicationUsersLink;
-                var items = feedChannel.FeedItems.Select(newItem => 
-                {
-                    var oldItem = request.FeedChannel.FeedItems.SingleOrDefault(oldItem => oldItem.Link == newItem.Link);
-                    if (oldItem != null)
-                    {
-                        newItem = oldItem;
-                    }
-                    return newItem;
-                }).ToList();
+////                feedChannel.FeedChannelId = request.FeedChannel.FeedChannelId;
+////                feedChannel.ApplicationUsersLink = request.FeedChannel.ApplicationUsersLink;
+////                var items = feedChannel.FeedItems.Select(newItem => 
+////                {
+////                    var oldItem = request.FeedChannel.FeedItems.SingleOrDefault(oldItem => oldItem.Link == newItem.Link);
+////                    if (oldItem != null)
+////                    {
+////                        newItem = oldItem;
+////                    }
+////                    return newItem;
+////                }).ToList();
 
-                feedChannel.FeedItems = items;
-                await _feedRepository.UpdateFeedChannelAsync(feedChannel);
+////                feedChannel.FeedItems = items;
+                await _feedRepository.UpdateFeedChannelAsync(request.FeedChannel.FeedChannelId, feedChannel);
 
                 //// TODO: ADD NOTIFY FEED UPDATE
 

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Application.UseCases
 {
-    public class RefreshFeed : IRequest<Result<FeedChannel>>
+    public class UpdateFeed : IRequest<Result<FeedChannel>>
     {
         public FeedChannel FeedChannel { get; set; }
     }

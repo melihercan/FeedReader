@@ -176,9 +176,9 @@ namespace WebUi.Pages
 
         }
 
-        private async void RefreshChannel()
+        private async void UpdateChannel()
         {
-            var feedResult = await _mediator.Send(new Application.UseCases.RefreshFeed
+            var feedResult = await _mediator.Send(new Application.UseCases.UpdateFeed
             {
                 FeedChannel = _selectedFeedChannel
             });
