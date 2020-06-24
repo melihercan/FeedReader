@@ -25,8 +25,6 @@ namespace WebUi.Client
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
-            ///builder.Services.AddMediatR(new Assembly[] { typeof(Application.ServiceCollectionExtension).Assembly });
-
             builder.Services.AddHttpClient("WebUi.ServerAPI", client => client.BaseAddress = 
                 new Uri(builder.HostEnvironment.BaseAddress))
                 .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();

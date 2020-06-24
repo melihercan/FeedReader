@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Application;
+using Infrastructure;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,8 +24,10 @@ namespace ConsoleUi
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
+                    services.AddUserServices();
+                    services.AddFeedSourceServices();
+                    services.AddFeedRepositoryServices();
                     services.AddApplicationServices();
-                    services.AddMediatR(new Assembly[] { typeof(ServiceCollectionExtension).Assembly });
 
                     services.AddHostedService<Worker>();
                 })
