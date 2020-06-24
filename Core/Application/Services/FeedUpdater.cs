@@ -12,7 +12,7 @@ using System.Threading;
 
 namespace Application.Services
 {
-    public class FeedUpdater : BackgroundService
+    public class FeedUpdater
     {
         private readonly ILogger<FeedUpdater> _logger;
         private readonly IFeedRepository _feedRepository;
@@ -23,15 +23,11 @@ namespace Application.Services
             _feedRepository = ServiceCollectionExtension.ServiceProvider.GetService<IFeedRepository>();
 
             //Observable.FromAsync()
-        }
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                await Task.Delay(10000, stoppingToken);
-            }
+            new Timer((_) => {
+                Console.WriteLine($"============================ Timer tick: {DateTime.Now}");
+            }, null, 0, 10000);
+
         }
     }
 }

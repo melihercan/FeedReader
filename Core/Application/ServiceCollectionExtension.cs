@@ -20,9 +20,13 @@ namespace Application
                 typeof(ServiceCollectionExtension).Assembly,
             });
 
-            services.AddHostedService<FeedUpdater>();
+            services.AddSingleton<FeedUpdater>();
 
             ServiceProvider = services.BuildServiceProvider();
+
+            // Kick start the service.
+            _ = ServiceProvider.GetService<FeedUpdater>();
+
             return services;
         }
     }

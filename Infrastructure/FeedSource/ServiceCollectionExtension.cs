@@ -15,11 +15,6 @@ namespace Infrastructure
 
         public static IServiceCollection AddFeedSourceServices(this IServiceCollection services)
         {
-///            services.AddMediatR(new Assembly[]
-////            {
-////                typeof(FeedSource).Assembly,
-////            });
-
             services.AddSingleton<IFeedSource, FeedSource>();
             ServiceProvider = services .BuildServiceProvider();
             return services;

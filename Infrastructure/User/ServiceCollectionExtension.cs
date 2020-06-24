@@ -13,11 +13,6 @@ namespace Infrastructure
 
         public static IServiceCollection AddUserServices(this IServiceCollection services)
         {
-////            services.AddMediatR(new Assembly[]
-////            {
-////                typeof(User).Assembly,
-////            });
-
             services.AddSingleton<IUser, User>();
             ServiceProvider = services.BuildServiceProvider();
             return services;
