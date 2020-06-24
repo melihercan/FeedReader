@@ -26,6 +26,11 @@ namespace Infrastructure
             return await _httpClient.GetFromJsonAsync<FeedChannel[]>("api/FeedChannels");
         }
 
+        public async Task<FeedChannel> GetFeedChannelAsync(int id)
+        {
+            return await _httpClient.GetFromJsonAsync<FeedChannel>($"api/FeedChannels/{id}");
+        }
+
         public async Task AddFeedChannelAsync(FeedChannel feedChannel)
         {
             await _httpClient.PostAsJsonAsync("api/FeedChannels", feedChannel);
@@ -40,5 +45,6 @@ namespace Infrastructure
         {
             await _httpClient.PutAsJsonAsync($"api/FeedChannels/{id}", feedChannel);
         }
+
     }
 }

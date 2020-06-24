@@ -9,6 +9,7 @@ using Domain.Entities;
 using Infrastructure.Server.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Infrastructure.Server.Controllers
 {
@@ -49,9 +50,11 @@ namespace Infrastructure.Server.Controllers
 
         // GET: api/FeedChannels/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<FeedChannel>> GetFeedChannel(int id)
+        public ActionResult<FeedChannel> GetFeedChannel(int id)
         {
-            var feedChannel = await _context.FeedChannels.FindAsync(id);
+            var feedChannel = _context.FeedChannels
+                .Include(feedChannel => feedChannel.FeedItems)
+                .SingleOrDefault(feedChannel => feedChannel.FeedChannelId == id);
 
             if (feedChannel == null)
             {
@@ -96,34 +99,6 @@ namespace Infrastructure.Server.Controllers
             }
 
             await _context.SaveChangesAsync();
-
-
-
-
-
-            //if (id != feedChannel.FeedChannelId)
-            //{
-            //    return BadRequest();
-            //}
-
-            //_context.Entry(feedChannel).State = EntityState.Modified;
-
-            //try
-            //{
-            //    await _context.SaveChangesAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!FeedChannelExists(id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
-
             return NoContent();
         }
 
@@ -172,11 +147,6 @@ namespace Infrastructure.Server.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool FeedChannelExists(int id)
-        {
-            return _context.FeedChannels.Any(e => e.FeedChannelId == id);
         }
     }
 }

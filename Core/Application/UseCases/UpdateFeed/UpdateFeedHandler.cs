@@ -33,26 +33,16 @@ namespace Application.UseCases
             {
                 _logger.LogDebug($"{Utils.GetCurrentMethod()}");
 
+                // Get the latest from source.
                 var feedChannel = await _feedSource.GetAsync(request.FeedChannel.Link);
-///                feedChannel.FeedChannelId = request.FeedChannel.FeedChannelId;
-////                feedChannel.ApplicationUsersLink = request.FeedChannel.ApplicationUsersLink;
-////                var items = feedChannel.FeedItems.Select(newItem => 
-////                {
-////                    var oldItem = request.FeedChannel.FeedItems.SingleOrDefault(oldItem => oldItem.Link == newItem.Link);
-////                    if (oldItem != null)
-////                    {
-////                        newItem = oldItem;
-////                    }
-////                    return newItem;
-////                }).ToList();
 
-////                feedChannel.FeedItems = items;
+                // Update in repository.
                 await _feedRepository.UpdateFeedChannelAsync(request.FeedChannel.FeedChannelId, feedChannel);
 
-                //// TODO: ADD NOTIFY FEED UPDATE
+                // Get the updated from repository.
+                feedChannel = await _feedRepository.GetFeedChannelAsync(request.FeedChannel.FeedChannelId);
 
-
-               return Result<FeedChannel>.Success(new FeedChannel());
+                return Result<FeedChannel>.Success(feedChannel);
             }
             catch (Exception ex)
             {

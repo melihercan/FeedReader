@@ -184,6 +184,7 @@ namespace WebUi.Pages
             });
             if (feedResult.Status == ResultStatus.Ok)
             {
+                _selectedFeedChannel = feedResult.Value;
                 StateHasChanged();
             }
             else

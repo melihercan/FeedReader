@@ -9,7 +9,9 @@ namespace Infrastructure
     public interface IFeedRepository
     {
         Task<IEnumerable<FeedChannel>> GetFeedChannelsAsync();
-        
+
+        Task<FeedChannel> GetFeedChannelAsync(int id);
+
         Task AddFeedChannelAsync(FeedChannel feedChannel);
         
         Task RemoveFeedChannelAsync(int id);
