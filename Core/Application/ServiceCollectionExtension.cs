@@ -15,17 +15,12 @@ namespace Application
 
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-////            services.AddFeedSourceServices();
-////            services.AddFeedRepositoryServices();
-
             services.AddMediatR(new Assembly[] 
             {
                 typeof(ServiceCollectionExtension).Assembly,
             });
 
-            services.AddSingleton<IRegistry, Registry>();
-////            services.AddSingleton<IUser, User>();
-            services.AddSingleton<IFeedManager, FeedManager>();
+            services.AddHostedService<FeedUpdater>();
 
             ServiceProvider = services.BuildServiceProvider();
             return services;
