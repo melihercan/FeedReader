@@ -185,6 +185,10 @@ namespace WebUi.Pages
             if (feedResult.Status == ResultStatus.Ok)
             {
                 _selectedFeedChannel = feedResult.Value;
+                //// TODO: UPDATE THE ENTRY IN _feedChannels
+                /// find index of updated entry
+                /// int index = list.FindIndex(item => item.Id == _selectedFeedChannel.id);
+                /// _feedChannels[index] = _selectedFeedChannel;
                 StateHasChanged();
             }
             else
