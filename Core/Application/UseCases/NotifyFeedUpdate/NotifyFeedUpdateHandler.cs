@@ -38,8 +38,6 @@ namespace Application.UseCases
 
             return Task.FromResult(Result<IObservable<FeedChannel>>.Success(obFeedChannel));
         }
-
-
         private async Task<IEnumerable<FeedChannel>> GetUpdatedFeedChannelsAsync()
         {
             Console.WriteLine("#### Checking updates...");
