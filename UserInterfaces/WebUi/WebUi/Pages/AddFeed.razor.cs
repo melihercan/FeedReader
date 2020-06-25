@@ -8,7 +8,7 @@ using WebUi.Models;
 
 namespace WebUi.Pages
 {
-    public partial class AddFeed : ComponentBase
+    public partial class AddFeed
     {
         [CascadingParameter] 
         BlazoredModalInstance Modal { get; set; }

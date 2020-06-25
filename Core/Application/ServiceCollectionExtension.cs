@@ -1,5 +1,4 @@
 ﻿using Application.Interfaces;
-using Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -20,13 +19,8 @@ namespace Application
                 typeof(ServiceCollectionExtension).Assembly,
             });
 
-            services.AddSingleton<FeedUpdater>();
 
             ServiceProvider = services.BuildServiceProvider();
-
-            // Kick start the service.
-            _ = ServiceProvider.GetService<FeedUpdater>();
-
             return services;
         }
     }

@@ -18,11 +18,12 @@ using Ardalis.Result;
 
 namespace WebUi.Pages
 {
-    public partial class Feeds : ComponentBase
+    public partial class Feeds : IDisposable
     {
         private List<FeedChannel> _feedChannels;
         private FeedChannel _selectedFeedChannel;
         private FeedItem _selectedFeedItem;
+        private IDisposable _obFeedChannel;
 
         [Inject]
         private NavigationManager _navigationManager { get; set; }
@@ -38,7 +39,6 @@ namespace WebUi.Pages
 
         [Inject]
         private IModalService _modal { get; set; }
-
 
         protected override async Task OnInitializedAsync()
         {
@@ -69,22 +69,40 @@ namespace WebUi.Pages
             //}
             //// END TESTING
 
-            var result = await _mediator.Send(new GetAllFeeds { });
-            if (result.Status == ResultStatus.Ok)
+            var resultGet = await _mediator.Send(new GetAllFeeds { });
+            if (resultGet.Status == ResultStatus.Ok)
             {
-                _feedChannels = result.Value.ToList();
+                _feedChannels = resultGet.Value.ToList();
                 Console.WriteLine($"---- feedChannels: {_feedChannels.Count()}");
-                foreach (var feedChannel in _feedChannels)
+                ////                foreach (var feedChannel in _feedChannels)
+                ////            {
+                ////            ShowFeedChannel(feedChannel);
+                ////    }
+                ///
+                var resultNotify = await _mediator.Send(new NotifyFeedUpdate { });
+                if (resultNotify.Status == ResultStatus.Ok)
                 {
-                    ShowFeedChannel(feedChannel);
+                    _obFeedChannel = resultNotify.Value.Subscribe(feedChannel => 
+                    {
+                        ChannelUpdated(feedChannel);
+                    });
+                }
+                else
+                {
+                    _logger.LogError(string.Join(",", resultGet.Errors));
                 }
             }
             else
             {
-                _logger.LogError(string.Join(",", result.Errors));
+                _logger.LogError(string.Join(",", resultGet.Errors));
             }
 
             await base.OnInitializedAsync();
+        }
+
+        public void Dispose()
+        {
+            _obFeedChannel.Dispose();
         }
 
         private void ShowFeedChannel(FeedChannel feedChannel)
@@ -176,6 +194,7 @@ namespace WebUi.Pages
 
         }
 
+
         private async void UpdateChannel()
         {
             var feedResult = await _mediator.Send(new Application.UseCases.UpdateFeed
@@ -184,12 +203,7 @@ namespace WebUi.Pages
             });
             if (feedResult.Status == ResultStatus.Ok)
             {
-                _selectedFeedChannel = feedResult.Value;
-                //// TODO: UPDATE THE ENTRY IN _feedChannels
-                /// find index of updated entry
-                /// int index = list.FindIndex(item => item.Id == _selectedFeedChannel.id);
-                /// _feedChannels[index] = _selectedFeedChannel;
-                StateHasChanged();
+                ChannelUpdated(feedResult.Value);
             }
             else
             {
@@ -209,5 +223,17 @@ namespace WebUi.Pages
             }
         }
 
+        private void ChannelUpdated(FeedChannel feedChannel)
+        {
+            Console.WriteLine($"##############----- Channel update");
+
+            var index = _feedChannels.FindIndex(fc => fc.FeedChannelId == feedChannel.FeedChannelId);
+            _feedChannels[index] = feedChannel;
+            if(feedChannel.FeedChannelId == _selectedFeedChannel.FeedChannelId)
+            {
+                _selectedFeedChannel = feedChannel;
+                StateHasChanged();
+            }
+        }
     }
 }

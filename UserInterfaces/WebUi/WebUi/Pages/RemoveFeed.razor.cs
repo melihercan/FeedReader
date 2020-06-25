@@ -7,7 +7,7 @@ using System.Text;
 
 namespace WebUi.Pages
 {
-    public partial class RemoveFeed : ComponentBase
+    public partial class RemoveFeed
     {
         [CascadingParameter]
         BlazoredModalInstance Modal { get; set; }
