@@ -4,10 +4,12 @@ using MobileUi.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Infrastructure;
+using Application;
 
 namespace MobileUi
 {
-    public partial class App : Application
+    public partial class App : Xamarin.Forms.Application
     {
         public static IServiceProvider ServiceProvider { get; set; }
 
@@ -25,21 +27,15 @@ namespace MobileUi
                 })
                 .ConfigureServices((context, services) =>
                 {
-                    //services.AddSingleton<IRegistry, Registry>();
-                    //services.AddSingleton<IRequestFifo, RequestFifo>();
-                    //services.AddSingleton<IResponseQueue, ResponseQueue>();
-                    //services.AddSingleton<IObjectStore, ObjectStore>();
-                    //services.AddSingleton<IEventFifo, EventFifo>();
-                    //services.AddSingleton<IRequestHandler, Services.RequestHandler>();
-                    //services.AddSingleton<IBridgeManager, BridgeManager>();
-
-                    //services.AddSingleton(new ObservableCollection<LoggingItem>());
-                    //services.AddSingleton<IWebServerViewModel, WebServerViewModel>();
-                    //services.AddSingleton<ILoggingViewModel, LoggingViewModel>();
-                    // services.AddSingleton<WebServerPage>();
-                    // services.AddSingleton<LoggingPage>();
                     services.AddSingleton<AppShell>();
                     services.AddSingleton<App>();
+
+                    services.AddUserServices();
+                    services.AddFeedSourceServices();
+                    services.AddFeedRepositoryServices();
+
+                    // Do this after Infrastructure service inits.
+                    services.AddApplicationServices();
 
                     platformConfigureServices(services);
                 })
