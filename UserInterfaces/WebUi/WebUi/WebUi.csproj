@@ -20,13 +20,13 @@
 
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <ProjectReference Include="..\..\..\Core\Application\Application.csproj" />
+    <ProjectReference Include="..\..\..\Core\Domain\Domain.csproj" />
   </ItemGroup>
 
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Core\Application\Application.csproj" />
-    <ProjectReference Include="..\..\..\Core\Domain\Domain.csproj" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>
