@@ -19,12 +19,13 @@ namespace MobileUi
             //Utils.ExtractSaveResource("Bridge.appsettings.json", systemDir);
             //var fullConfig = Path.Combine(systemDir, "Bridge.appsettings.json");
 
-            var host = new HostBuilder()
-                .ConfigureHostConfiguration(context =>
-                {
-                    //context.AddCommandLine(new string[] { $"ContentRoot={FileSystem.AppDataDirectory}" });
-                    //context.AddJsonFile(fullConfig);
-                })
+            var host = Host.CreateDefaultBuilder()
+
+                ////                .ConfigureHostConfiguration(context =>
+                ////            {
+                //context.AddCommandLine(new string[] { $"ContentRoot={FileSystem.AppDataDirectory}" });
+                //context.AddJsonFile(fullConfig);
+                ////        })
                 .ConfigureServices((context, services) =>
                 {
                     services.AddSingleton<AppShell>();
