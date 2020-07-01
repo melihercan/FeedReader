@@ -47,6 +47,12 @@ namespace Infrastructure.Server
                     g.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
                     g.SaveTokens = true;
                 })
+                .AddMicrosoftAccount(ms =>
+                {
+                    ms.ClientId = Configuration["Authentication:Microsoft:ClientId"];
+                    ms.ClientSecret = Configuration["Authentication:Microsoft:ClientSecret"];
+                    ms.SaveTokens = true;
+                })
                 .AddIdentityServerJwt();
 
             services.AddControllersWithViews();
