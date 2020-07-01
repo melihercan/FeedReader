@@ -229,3 +229,5 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+/Infrastructure/Server/appsettings.json
+/UserInterfaces/WebUi/Server/appsettings.json

@@ -41,6 +41,12 @@ namespace Infrastructure.Server
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
             services.AddAuthentication()
+                .AddGoogle(g =>
+                {
+                    g.ClientId = Configuration["Authentication:Google:ClientId"];
+                    g.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                    g.SaveTokens = true;
+                })
                 .AddIdentityServerJwt();
 
             services.AddControllersWithViews();
