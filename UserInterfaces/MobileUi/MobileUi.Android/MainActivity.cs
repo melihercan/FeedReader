@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Android.App;
+using Android.Content;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.Views;
@@ -38,6 +39,22 @@ namespace MobileUi.Droid
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+
+            Xamarin.Essentials.Platform.OnResume();
+        }
+
+        [Activity(NoHistory = true, LaunchMode = LaunchMode.SingleTop)]
+        [IntentFilter(new[] { Intent .ActionView }, 
+            Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable },
+            DataScheme = "feedreader")]
+        public class WebAuthenticationCallbackActivity : Xamarin.Essentials.WebAuthenticatorCallbackActivity
+        {
+        }
+
 
         public void ConfigureServices(IServiceCollection services)
         {
