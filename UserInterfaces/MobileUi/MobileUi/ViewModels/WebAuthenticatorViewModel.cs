@@ -10,8 +10,8 @@ namespace MobileUi.ViewModels
 {
     public class WebAuthenticatorViewModel
     {
-////        const string Url = "https://localhost:44392/api/mobileauth";
-        const string Url = "https://10.0.2.2:44392/api/mobileauth";
+        const string Url = "https://localhost:44392/api/mobileauth/";
+////        const string Url = "https://10.0.2.2:44392/api/mobileauth/";
 
         public ICommand GoogleCommand { get; }
         public ICommand MicrosoftCommand { get; }

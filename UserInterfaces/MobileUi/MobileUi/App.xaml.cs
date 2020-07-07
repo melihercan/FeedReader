@@ -19,8 +19,10 @@ namespace MobileUi
             //Utils.ExtractSaveResource("Bridge.appsettings.json", systemDir);
             //var fullConfig = Path.Combine(systemDir, "Bridge.appsettings.json");
 
-            var host = Host.CreateDefaultBuilder()
+            var hostBuilder = Device.RuntimePlatform == Device.Android ? Host.CreateDefaultBuilder() : new HostBuilder();
 
+
+            var host = hostBuilder
                 ////                .ConfigureHostConfiguration(context =>
                 ////            {
                 //context.AddCommandLine(new string[] { $"ContentRoot={FileSystem.AppDataDirectory}" });
