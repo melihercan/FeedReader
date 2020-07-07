@@ -9,6 +9,7 @@
         <StackLayout>
             <Button Text="Google" Command="{Binding GoogleCommand}" BackgroundColor="#d34836" TextColor="White" />
             <Button Text="Microsoft" Command="{Binding MicrosoftCommand}" BackgroundColor="#00A4EF" TextColor="White" />
+            <Button Text="Local" Command="{Binding LocalCommand}" BackgroundColor="#55B4CF" TextColor="White" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

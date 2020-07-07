@@ -16,12 +16,18 @@ namespace MobileUi.ViewModels
         public ICommand GoogleCommand { get; }
         public ICommand MicrosoftCommand { get; }
 
+        public ICommand LocalCommand { get; }
 
 
         public WebAuthenticatorViewModel()
         {
             GoogleCommand = new Command(async () => await OnAuthenticate("Google"));
             MicrosoftCommand = new Command(async () => await OnAuthenticate("Microsoft"));
+            LocalCommand = new Command(async () => await OnLocalAuthenticate());
+        }
+
+        private async Task OnLocalAuthenticate()
+        {
         }
 
         private async Task OnAuthenticate(string scheme)
