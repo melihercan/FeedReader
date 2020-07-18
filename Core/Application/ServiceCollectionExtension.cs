@@ -12,7 +12,7 @@ namespace Application
     {
         public static IServiceProvider ServiceProvider { get; private set; }
 
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+        public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddMediatR(new Assembly[] 
             {

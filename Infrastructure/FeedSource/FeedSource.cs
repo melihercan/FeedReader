@@ -8,6 +8,7 @@ using System.Web;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Application.Interfaces;
+using Shared;
 
 namespace Infrastructure
 {
@@ -18,8 +19,8 @@ namespace Infrastructure
 
         public FeedSource(/*HttpClient httpClient*/)
         {
-            _logger = ServiceCollectionExtension.ServiceProvider.GetService<ILogger<FeedSource>>();
-            _httpClient = ServiceCollectionExtension.ServiceProvider.GetService<HttpClient>();
+            _logger = Registry.ServiceProvider.GetService<ILogger<FeedSource>>();
+            _httpClient = Registry.ServiceProvider.GetService<HttpClient>();
         }
 
         public async Task<FeedChannel> GetAsync(string url)

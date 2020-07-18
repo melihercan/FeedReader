@@ -1,6 +1,8 @@
 using Application;
 using Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Shared;
 using WebUi;
 using WebWindows.Blazor;
 
@@ -12,16 +14,21 @@ namespace DesktopUi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddWebUiServices();
-            services.AddUserServices();
-            services.AddFeedSourceServices();
-            services.AddFeedRepositoryServices();
+            services.AddUser();
+            services.AddFeedSource();
+            services.AddFeedRepository();
+            services.AddTokenRepository();
 
             // Do this after Infrastructure service inits.
-            services.AddApplicationServices();
+            services.AddApplication();
         }
+
+
 
         public void Configure(DesktopApplicationBuilder app)
         {
+            Registry.ServiceProvider = app.Services;
+
             app.AddComponent<App>("app");
         }
     }

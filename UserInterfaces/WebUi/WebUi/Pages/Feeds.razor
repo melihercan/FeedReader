@@ -2,7 +2,6 @@
 @using Microsoft.AspNetCore.Authorization
 @attribute [Authorize]
 
-
 <style>
 
     #sidebarWrapper img {
@@ -33,7 +32,7 @@
 
 @if (_feedChannels == null)
 {
-    <SpinKitRotatingPlane/>
+    <SpinKitRotatingPlane />
 }
 else
 {
@@ -42,15 +41,15 @@ else
         <div class="col-3 local-col bg-secondary px-0" id="sidebarWrapper">
 
             <div class="d-flex" style="background: #283e4a;">
-                <div class="text-center py-4 flex-fill" >
+                <div class="text-center py-4 flex-fill">
                     <div class="text-white lead">Feed channels</div>
                 </div>
 
                 <button type="button"
-                        class="text-white btn border border-white shadow-none" data-toggle="tooltip" 
+                        class="text-white btn border border-white shadow-none" data-toggle="tooltip"
                         data-placement="bottom" title="Add a new channel"
                         @onclick="@AddNewChannel">
-                    <span class="oi oi-plus"/>
+                    <span class="oi oi-plus" />
                 </button>
             </div>
 
@@ -73,28 +72,28 @@ else
             <div class="row flex-shrink-0 sticky-top">
                 @if (_selectedFeedChannel != null)
                 {
-                <div class="d-flex w-100">
-                    <div class="flex-fill">
-                        <div class="jumbotron text-center w-100" style="padding-top: 1.5rem; padding-bottom: 1.5rem">
-                            <h2>@_selectedFeedChannel.Title</h2>
+                    <div class="d-flex w-100">
+                        <div class="flex-fill">
+                            <div class="jumbotron text-center w-100" style="padding-top: 1.5rem; padding-bottom: 1.5rem">
+                                <h2>@_selectedFeedChannel.Title</h2>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-column" style="background: #e9ecef; margin-bottom:2rem">
+                            <button type="button" style="background: #e9ecef"
+                                    class="btn border border-dark shadow-none" data-toggle="tooltip"
+                                    data-placement="bottom" title="Remove the channel"
+                                    @onclick="@RemoveChannel">
+                                <span class="oi oi-minus" />
+                            </button>
+                            <button type="button" style="background: #e9ecef"
+                                    class="btn border border-dark shadow-none" data-toggle="tooltip"
+                                    data-placement="bottom" title="Update the channel"
+                                    @onclick="@UpdateChannel">
+                                <span class="oi oi-reload" />
+                            </button>
                         </div>
                     </div>
-
-                    <div class="d-flex flex-column" style="background: #e9ecef; margin-bottom:2rem">
-                        <button type="button" style="background: #e9ecef"
-                                class="btn border border-dark shadow-none" data-toggle="tooltip"
-                                data-placement="bottom" title="Remove the channel"
-                                @onclick="@RemoveChannel">
-                            <span class="oi oi-minus" />
-                        </button>
-                        <button type="button" style="background: #e9ecef"
-                                class="btn border border-dark shadow-none" data-toggle="tooltip"
-                                data-placement="bottom" title="Update the channel"
-                                @onclick="@UpdateChannel">
-                            <span class="oi oi-reload" />
-                        </button>
-                    </div>
-                </div>
                 }
             </div>
             <div class="row flex-grow-1">
@@ -102,7 +101,7 @@ else
 
                     @if (_selectedFeedChannel != null)
                     {
-                        var sortedItems = _selectedFeedChannel.FeedItems.OrderByDescending(feedItem => 
+                        var sortedItems = _selectedFeedChannel.FeedItems.OrderByDescending(feedItem =>
                             feedItem.PublishDate);
                         foreach (var feedItem in sortedItems)
                         {

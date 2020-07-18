@@ -21,6 +21,15 @@ namespace Infrastructure.Server
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                })
+                .ConfigureAppConfiguration((hostBuilderContext, configurationBuilder) =>
+                {
+                    ////hostBuilderContext.HostingEnvironment.SetUi(Ui.Console);
+                })
+                .ConfigureLogging((context, builder) =>
+                {
+                    builder.AddConsole();
                 });
+
     }
 }

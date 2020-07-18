@@ -69,33 +69,38 @@ namespace WebUi.Pages
             //}
             //// END TESTING
 
-            var resultGet = await _mediator.Send(new GetAllFeeds { });
-            if (resultGet.Status == ResultStatus.Ok)
+            var resultGetToken = await _mediator.Send(new GetToken { });
+            if(resultGetToken.Status != ResultStatus.Ok)
             {
-                _feedChannels = resultGet.Value.ToList();
-                Console.WriteLine($"---- feedChannels: {_feedChannels.Count()}");
+                _logger.LogError(string.Join(",", resultGetToken.Errors));
+                return;
+            }
+
+            var resultGetAllFeeds = await _mediator.Send(new GetAllFeeds { });
+            if (resultGetAllFeeds.Status != ResultStatus.Ok)
+            {
+                _logger.LogError(string.Join(",", resultGetAllFeeds.Errors));
+                return;
+            }
+                
+            _feedChannels = resultGetAllFeeds.Value.ToList();
+            Console.WriteLine($"---- feedChannels: {_feedChannels.Count()}");
                 ////                foreach (var feedChannel in _feedChannels)
                 ////            {
                 ////            ShowFeedChannel(feedChannel);
                 ////    }
                 ///
-                var resultNotify = await _mediator.Send(new NotifyFeedUpdate { });
-                if (resultNotify.Status == ResultStatus.Ok)
-                {
-                    _obFeedChannel = resultNotify.Value.Subscribe(feedChannel => 
-                    {
-                        ChannelUpdated(feedChannel);
-                    });
-                }
-                else
-                {
-                    _logger.LogError(string.Join(",", resultGet.Errors));
-                }
-            }
-            else
+            var resultNotifyFeedUpdate = await _mediator.Send(new NotifyFeedUpdate { });
+            if (resultNotifyFeedUpdate.Status != ResultStatus.Ok)
             {
-                _logger.LogError(string.Join(",", resultGet.Errors));
+                _logger.LogError(string.Join(",", resultNotifyFeedUpdate.Errors));
+                return;
             }
+
+             _obFeedChannel = resultNotifyFeedUpdate.Value.Subscribe(feedChannel => 
+             {
+                ChannelUpdated(feedChannel);
+             });
 
             await base.OnInitializedAsync();
         }

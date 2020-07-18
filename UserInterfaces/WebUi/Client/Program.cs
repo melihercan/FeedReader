@@ -15,34 +15,40 @@ using Microsoft.Extensions.Hosting;
 using Application;
 using WebUi;
 using Infrastructure;
+using Shared;
 
 namespace WebUi.Client
 {
     public class Program
     {
+        private const string WebApiName = "Infrastructure.ServerAPI";
+
         public static async Task Main(string[] args)
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
-            builder.Services.AddHttpClient("WebUi.ServerAPI", client => client.BaseAddress = 
+            builder.Services.AddHttpClient(WebApiName, client => client.BaseAddress = 
                 new Uri(builder.HostEnvironment.BaseAddress))
                 .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
             // Supply HttpClient instances that include access tokens when making requests to the server project
             builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
-                .CreateClient("WebUi.ServerAPI"));
+                .CreateClient(WebApiName));
             builder.Services.AddApiAuthorization();
 
             builder.Services.AddWebUiServices();
-            builder.Services.AddUserServices();
-            builder.Services.AddFeedSourceServices();
-            builder.Services.AddFeedRepositoryServices();
+            builder.Services.AddUser();
+            builder.Services.AddFeedSource();
+            builder.Services.AddFeedRepository();
+            builder.Services.AddTokenRepository();
             
             // Do this after Infrastructure service inits.
-            builder.Services.AddApplicationServices();
+            builder.Services.AddApplication();
 
-            await builder.Build().RunAsync();
+            var hostBuilder = builder.Build();
+            Registry.ServiceProvider = builder.Services.BuildServiceProvider();
+            await hostBuilder.RunAsync();
         }
     }
 }

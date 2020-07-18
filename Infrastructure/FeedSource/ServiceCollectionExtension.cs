@@ -11,12 +11,9 @@ namespace Infrastructure
 {
     public static class ServiceCollectionExtension
     {
-        public static IServiceProvider ServiceProvider { get; private set; }
-
-        public static IServiceCollection AddFeedSourceServices(this IServiceCollection services)
+        public static IServiceCollection AddFeedSource(this IServiceCollection services)
         {
             services.AddSingleton<IFeedSource, FeedSource>();
-            ServiceProvider = services .BuildServiceProvider();
             return services;
         }
     }

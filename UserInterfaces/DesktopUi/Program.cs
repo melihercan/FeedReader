@@ -9,6 +9,5 @@ namespace DesktopUi
         {
             ComponentsDesktop.Run<Startup>("FeedReader", "wwwroot/index.html");
         }
-
     }
 }

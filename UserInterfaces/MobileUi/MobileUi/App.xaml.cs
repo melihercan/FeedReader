@@ -6,13 +6,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Infrastructure;
 using Application;
+using Shared;
 
 namespace MobileUi
 {
     public partial class App : Xamarin.Forms.Application
     {
-        public static IServiceProvider ServiceProvider { get; set; }
-
         public static App PreInit(Action<IServiceCollection> platformConfigureServices)
         {
             //var systemDir = FileSystem.CacheDirectory;
@@ -33,14 +32,19 @@ namespace MobileUi
                     services.AddSingleton<AppShell>();
                     services.AddSingleton<App>();
 
-                    services.AddUserServices();
-                    services.AddFeedSourceServices();
-                    services.AddFeedRepositoryServices();
+                    services.AddUser();
+                    services.AddFeedSource();
+                    services.AddFeedRepository();
+                    services.AddTokenRepository();
 
                     // Do this after Infrastructure service inits.
-                    services.AddApplicationServices();
+                    services.AddApplication();
 
                     platformConfigureServices(services);
+                })
+                .ConfigureAppConfiguration((hostBuilderContext, configurationBuilder) =>
+                {
+                    ////hostBuilderContext.HostingEnvironment.SetUi(Ui.Mobile);
                 })
                 .ConfigureLogging((context, builder) =>
                 {
@@ -48,8 +52,9 @@ namespace MobileUi
                 })
                 .Build();
 
-            ServiceProvider = host.Services;
-            return ServiceProvider.GetService<App>();
+            Registry.ServiceProvider = host.Services;
+
+            return Registry.ServiceProvider.GetService<App>();
 
         }
 

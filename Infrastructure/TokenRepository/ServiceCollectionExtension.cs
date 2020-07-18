@@ -1,5 +1,4 @@
 ﻿using Application.Interfaces;
-using Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,9 +11,11 @@ namespace Infrastructure
 {
     public static class ServiceCollectionExtension
     {
-        public static IServiceCollection AddUser(this IServiceCollection services)
+        public static IServiceCollection AddTokenRepository(this IServiceCollection services)
         {
-            services.AddSingleton<IUser, User>();
+Console.WriteLine("******************************* Token Repository AddTokenRepository");
+
+            services.AddSingleton<ITokenRepository, TokenRepository>();
             return services;
         }
     }
