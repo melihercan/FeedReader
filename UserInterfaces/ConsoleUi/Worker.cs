@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.UseCases;
+using Ardalis.Result;
 using Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.Hosting;
@@ -24,33 +25,23 @@ namespace ConsoleUi
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var resultFeedChannel = await _mediator.Send(new AddFeed
+            var resultGetToken = await _mediator.Send(new GetToken { });
+            if (resultGetToken.Status != ResultStatus.Ok)
             {
-                Url = "https://www.cnbc.com/id/100003114/device/rss/rss.html"
-            });
-            if(resultFeedChannel.Status == Ardalis.Result.ResultStatus.Ok)
-            {
-                ShowFeedChannel(resultFeedChannel.Value);
-            }
-            else
-            {
-                _logger.LogError(string.Join(',', resultFeedChannel.Errors));
-            }
-
-            var resultFeedChannels = await _mediator.Send(new GetAllFeeds { });
-            if (resultFeedChannels.Status == Ardalis.Result.ResultStatus.Ok)
-            {
-                foreach (var feedChannel in resultFeedChannels.Value)
-                {
-                    ShowFeedChannel(feedChannel);
-                }
-            }
-            else
-            {
-                _logger.LogError(string.Join(',', resultFeedChannel.Errors));
+                _logger.LogError(string.Join(",", resultGetToken.Errors));
+                return;
             }
 
 
+            var resultGetAllFeeds = await _mediator.Send(new GetAllFeeds { });
+            if (resultGetAllFeeds.Status != ResultStatus.Ok)
+            {
+                _logger.LogError(string.Join(",", resultGetAllFeeds.Errors));
+                return;
+            }
+
+            var feedChannels = resultGetAllFeeds.Value.ToList();
+            Console.WriteLine($"---- feedChannels: {feedChannels.Count()}");
 
             //while (!stoppingToken.IsCancellationRequested)
             //{

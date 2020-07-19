@@ -148,7 +148,7 @@ namespace WebUi.Pages
             await NavigateToUrlAsync(_selectedFeedItem.Link);
         }
 
-        private async void AddNewChannel()
+        private async void AddChannel()
         {
             var modal = _modal.Show<AddFeed>("Add new feed");
             var modalResult = await modal.Result;

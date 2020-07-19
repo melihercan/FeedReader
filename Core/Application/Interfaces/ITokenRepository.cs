@@ -11,7 +11,5 @@ namespace Application.Interfaces
         Task<Token> RetrieveAsync();
 
         Task StoreAsync(Token token);
-
-
     }
 }

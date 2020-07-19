@@ -12,16 +12,18 @@ namespace Infrastructure
 {
     public class TokenRepository : ITokenRepository
     {
+        private readonly ILogger<TokenRepository> _logger;
+        private readonly IConfiguration _configuration;
+
         public TokenRepository()
         {
-Console.WriteLine("******************************* Token Repository constructor");
 
-            var env = Registry.ServiceProvider.GetService<IHostEnvironment>();
-            var config = Registry.ServiceProvider.GetService<IConfiguration>();
-            var log = Registry.ServiceProvider.GetService<ILogger<TokenRepository>>();
+            _configuration = Registry.ServiceProvider.GetService<IConfiguration>();
+            _logger = Registry.ServiceProvider.GetService<ILogger<TokenRepository>>();
 
-            log.LogInformation($"===== ENV: {env}");
-            log.LogInformation($"===== CONFIG: {(config == null ? "NULL" : "OK")}");
+            var ui = _configuration["App:UI"];
+            Console.WriteLine($"******************************* Token Repository constructor UI:{ui}");
+
 
         }
 
