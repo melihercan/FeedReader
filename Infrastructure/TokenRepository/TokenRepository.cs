@@ -7,35 +7,32 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Shared;
+using TokenRepository;
 
 namespace Infrastructure
 {
     public class TokenRepository : ITokenRepository
     {
         private readonly ILogger<TokenRepository> _logger;
-        private readonly IConfiguration _configuration;
+        private readonly ITokenRepository _tokenRepository;
 
         public TokenRepository()
         {
 
-            _configuration = Registry.ServiceProvider.GetService<IConfiguration>();
             _logger = Registry.ServiceProvider.GetService<ILogger<TokenRepository>>();
-
-            var ui = _configuration["App:UI"];
-            Console.WriteLine($"******************************* Token Repository constructor UI:{ui}");
-
-
+            var configuration = Registry.ServiceProvider.GetService<IConfiguration>();
+            _tokenRepository = TokenRepositoryFactory.GetTokenRepository(configuration["App:UI"]);
         }
 
-        public Task<Token> RetrieveAsync()
+        public async Task<Token> RetrieveAsync()
         {
             Console.WriteLine($"******************************* Token Repository Retrieve");
-            return Task.FromResult(new Token { });
+            return await _tokenRepository.RetrieveAsync();
         }
 
-        public Task StoreAsync(Token token)
+        public async Task StoreAsync(Token token)
         {
-            return Task.CompletedTask;
+            await _tokenRepository.StoreAsync(token);
         }
     }
 }
