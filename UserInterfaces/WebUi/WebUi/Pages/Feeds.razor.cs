@@ -69,12 +69,14 @@ namespace WebUi.Pages
             //}
             //// END TESTING
 
-            var resultGetToken = await _mediator.Send(new GetToken { });
-            if(resultGetToken.Status != ResultStatus.Ok)
-            {
-                _logger.LogError(string.Join(",", resultGetToken.Errors));
-                return;
-            }
+
+            //// ADD THIS WITH IF DESKTOP???
+////            var resultGetToken = await _mediator.Send(new GetToken { });
+    ////        if(resultGetToken.Status != ResultStatus.Ok)
+        /////    {
+             ////   _logger.LogError(string.Join(",", resultGetToken.Errors));
+                ////return;
+            ////}
 
             var resultGetAllFeeds = await _mediator.Send(new GetAllFeeds { });
             if (resultGetAllFeeds.Status != ResultStatus.Ok)
