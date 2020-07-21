@@ -17,18 +17,9 @@ namespace DesktopUi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAuthorizationCore();
-            services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+            services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>();
 
             services.AddSingleton<SignOutSessionStateManager>();
-
-
-#if false
-            services.AddAuthenticationCore();
-            services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
-            services.AddSingleton<IAuthorizationPolicyProvider, CustomAuthorizationPolicyProvider>();
-            ////services.AddAuthorization();
-            services.AddApiAuthorization();
-#endif
 
             services.AddWebUiServices();
             services.AddUser();

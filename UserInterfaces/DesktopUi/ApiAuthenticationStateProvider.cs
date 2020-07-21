@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DesktopUi
 {
-    public class CustomAuthenticationStateProvider : AuthenticationStateProvider
+    public class ApiAuthenticationStateProvider : AuthenticationStateProvider
     {
         public override Task<AuthenticationState> GetAuthenticationStateAsync()
         {
