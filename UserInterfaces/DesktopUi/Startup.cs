@@ -2,6 +2,7 @@ using Application;
 using Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shared;
@@ -15,11 +16,19 @@ namespace DesktopUi
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthorizationCore();
+            services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+
+            services.AddSingleton<SignOutSessionStateManager>();
+
+
+#if false
             services.AddAuthenticationCore();
             services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
             services.AddSingleton<IAuthorizationPolicyProvider, CustomAuthorizationPolicyProvider>();
             ////services.AddAuthorization();
             services.AddApiAuthorization();
+#endif
 
             services.AddWebUiServices();
             services.AddUser();
