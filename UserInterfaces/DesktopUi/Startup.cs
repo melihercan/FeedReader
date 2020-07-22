@@ -29,6 +29,9 @@ namespace DesktopUi
             services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
                 .CreateClient(_webApiName));
 
+            ////services.AddApiAuthorization();
+
+
             services.AddAuthorizationCore();
             services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>();
 

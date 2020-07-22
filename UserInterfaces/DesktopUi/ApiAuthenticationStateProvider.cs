@@ -14,7 +14,7 @@ namespace DesktopUi
             var identity = new ClaimsIdentity(new[]
             {
                 new Claim(ClaimTypes.Name, "Some fake user"),
-            }, "Fake authentication type");
+            }/*, "Fake authentication type"*/);
 
             var user = new ClaimsPrincipal(identity);
             return Task.FromResult(new AuthenticationState(user));
