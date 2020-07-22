@@ -21,20 +21,20 @@ namespace WebUi.Client
 {
     public class Program
     {
-        private const string WebApiName = "Infrastructure.ServerAPI";
+        private const string _webApiName = "Infrastructure.ServerAPI";
 
         public static async Task Main(string[] args)
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
-            builder.Services.AddHttpClient(WebApiName, client => client.BaseAddress = 
+            builder.Services.AddHttpClient(_webApiName, client => client.BaseAddress = 
                 new Uri(builder.HostEnvironment.BaseAddress))
                 .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
             // Supply HttpClient instances that include access tokens when making requests to the server project
             builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
-                .CreateClient(WebApiName));
+                .CreateClient(_webApiName));
             builder.Services.AddApiAuthorization();
 
             builder.Services.AddWebUiServices();
