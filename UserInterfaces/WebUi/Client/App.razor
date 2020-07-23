@@ -1,6 +1,7 @@
 <CascadingAuthenticationState>
     <CascadingBlazoredModal>
-        <Router AppAssembly="@typeof(App).Assembly">
+        <Router AppAssembly="@typeof(App).Assembly"
+                AdditionalAssemblies="new[] { typeof(WebUi.ServiceCollectionExtension).Assembly }">
             <Found Context="routeData">
                 <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
                     <NotAuthorized>
