@@ -45,7 +45,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Domain\Domain.csproj" />
-    <ProjectReference Include="..\..\UserInterfaces\WebUi\Client\WebUi.Client.csproj" />
+    <ProjectReference Include="..\..\UserInterfaces\WebUi\WebUi.Client\WebUi.Client.csproj" />
   </ItemGroup>
 
   <ItemGroup>
