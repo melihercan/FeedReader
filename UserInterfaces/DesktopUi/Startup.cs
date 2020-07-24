@@ -42,11 +42,9 @@ namespace DesktopUi
             services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
                 .CreateClient(_webApiName));
 
-
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
-            ////            services.AddAuthorizationCore();
             services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>();
 
             services.AddWebUiServices();
@@ -79,7 +77,6 @@ namespace DesktopUi
 
             app.UseRouting();
 
-            ////app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

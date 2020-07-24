@@ -2,9 +2,20 @@
     <CascadingAuthenticationState>
         <CascadingBlazoredModal>
             <Router AppAssembly="@typeof(App).Assembly"
-                AdditionalAssemblies="new[] { typeof(WebUi.ServiceCollectionExtension).Assembly }">
+                    AdditionalAssemblies="new[] { typeof(WebUi.ServiceCollectionExtension).Assembly }">
                 <Found Context="routeData">
-                    <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+                    <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                        <NotAuthorized>
+                            @if (!context.User.Identity.IsAuthenticated)
+                            {
+                                <RedirectToLogin />
+                            }
+                            else
+                            {
+                                <p>You are not authorized to access this resource.</p>
+                            }
+                        </NotAuthorized>
+                    </AuthorizeRouteView>
                 </Found>
                 <NotFound>
                     <LayoutView Layout="@typeof(MainLayout)">
