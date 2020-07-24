@@ -1,0 +1,14 @@
+﻿@inject HttpClient HttpClient
+ 
+<AuthorizeView>
+    <Authorized>
+        <a href="Identity/Account/Manage">Hello, @context.User.Identity.Name!</a>
+        <form method="post" action=@($"{HttpClient.BaseAddress.AbsoluteUri}Identity/Account/LogOut")>
+            <button type="submit" class="nav-link btn btn-link">Log out</button>
+        </form>
+    </Authorized>
+    <NotAuthorized>
+        <a href=@($"{HttpClient.BaseAddress.AbsoluteUri}Identity/Account/Register")>Register</a>
+        <a href=@($"{HttpClient.BaseAddress.AbsoluteUri}Identity/Account/Login")>Log in</a>
+    </NotAuthorized>
+</AuthorizeView>

@@ -16,7 +16,6 @@ using Microsoft.Extensions.Hosting;
 using WebUi;
 using Infrastructure;
 using Application;
-using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using System.Net.Http;
 
 namespace DesktopUi
@@ -45,8 +44,6 @@ namespace DesktopUi
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
-            services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>();
-
             services.AddWebUiServices();
             services.AddUser();
             services.AddFeedSource();
@@ -55,7 +52,6 @@ namespace DesktopUi
 
             // Do this after Infrastructure service inits.
             services.AddApplication();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

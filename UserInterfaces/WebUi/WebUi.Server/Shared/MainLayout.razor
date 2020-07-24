@@ -1,15 +1,58 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="sidebar">
-    <NavMenu />
-</div>
+    <BlazoredModal />
 
-<div class="main">
-    <div class="top-row px-4">
-        <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+    <style>
+        body {
+            overflow: hidden;
+        }
+
+        .main {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @@media (min-width: 768px) {
+
+            .sidebar {
+                width: 65px;
+                overflow-y: auto;
+                overflow-x: hidden;
+                background-image: linear-gradient(180deg, #283e4a, #dcdbe4);
+            }
+
+                .sidebar .nav-item a {
+                    height: 2rem;
+                    width: 2rem;
+                }
+
+                .sidebar .oi {
+                    font-size: 1rem;
+                    left: -8px;
+                }
+        }
+
+        .content {
+            padding: 0;
+            flex-grow: 1;
+        }
+    </style>
+
+
+
+
+    <div class="sidebar">
+        <NavMenu />
     </div>
 
-    <div class="content px-4">
-        @Body
+    <div class="main">
+        <div class="top-row px-4 auth">
+            <LoginDisplay />
+            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+        </div>
+
+        <div class="content px-4">
+            @Body
+        </div>
     </div>
-</div>
+

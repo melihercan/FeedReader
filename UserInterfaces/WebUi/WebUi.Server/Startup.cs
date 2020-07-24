@@ -9,26 +9,43 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using WebUi.Server.Data;
+using WebUi;
+using Infrastructure;
+using Application;
+using System.Net.Http;
 
 namespace WebUi.Server
 {
     public class Startup
     {
+        private const string _webApiName = "Infrastructure.ServerAPI";
+        private readonly IConfiguration _configuration;
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient(_webApiName, client => client.BaseAddress =
+                new Uri(_configuration["Server:URL"]));
+            services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
+                .CreateClient(_webApiName));
+
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
+
+            services.AddWebUiServices();
+            services.AddUser();
+            services.AddFeedSource();
+            services.AddFeedRepository();
+            services.AddTokenRepository();
+
+            // Do this after Infrastructure service inits.
+            services.AddApplication();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +66,8 @@ namespace WebUi.Server
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

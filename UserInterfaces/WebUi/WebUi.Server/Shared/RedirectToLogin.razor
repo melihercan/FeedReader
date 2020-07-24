@@ -1,0 +1,14 @@
+@inject NavigationManager NavigationManager
+@inject HttpClient HttpClient
+
+@code { 
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+
+///        var url = $"{HttpClient.BaseAddress.AbsoluteUri}Identity/Account/Login?returnUrl=" +
+   ///               $"{Uri.EscapeDataString(NavigationManager.Uri)}";
+        var url = $"{HttpClient.BaseAddress.AbsoluteUri}Identity/Account/Login";
+        NavigationManager.NavigateTo(url, true);
+    }
+}

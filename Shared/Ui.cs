@@ -11,5 +11,6 @@ namespace Shared
         public const string Mobile = "Mobile";
         public const string Web = "WEB";
         public const string WebSpa = "WEB-SPA";
+        public const string WebServer = "WEB-Server";
     }
 }
