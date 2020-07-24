@@ -28,6 +28,7 @@ namespace ConsoleUi
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
+
                     services.AddUser();
                     services.AddFeedSource();
                     services.AddFeedRepository();

@@ -17,14 +17,18 @@ using WebUi;
 using Infrastructure;
 using Application;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using System.Net.Http;
 
 namespace DesktopUi
 {
     public class Startup
     {
+        private const string _webApiName = "Infrastructure.ServerAPI";
+        private readonly IConfiguration _configuration;
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -33,8 +37,17 @@ namespace DesktopUi
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient(_webApiName, client => client.BaseAddress =
+                new Uri(_configuration["Server:URL"]));
+            services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
+                .CreateClient(_webApiName));
+
+
             services.AddRazorPages();
             services.AddServerSideBlazor();
+
+            ////            services.AddAuthorizationCore();
+            services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>();
 
             services.AddWebUiServices();
             services.AddUser();
@@ -66,12 +79,11 @@ namespace DesktopUi
 
             app.UseRouting();
 
-////            app.UseAuthentication();
-////            app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-////                endpoints.MapControllers();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });

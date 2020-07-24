@@ -7,3 +7,12 @@
 
 @*<SurveyPrompt Title="How is Blazor working for you?" />*@
 
+<AuthorizeView>
+    <Authorized>
+        <p>Authorized: @context.User.Identity.Name</p>
+    </Authorized>
+    <NotAuthorized>
+        <p>You are not authorized</p>
+    </NotAuthorized>
+</AuthorizeView>
+
