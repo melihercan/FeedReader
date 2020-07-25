@@ -17,6 +17,7 @@ using WebUi;
 using Infrastructure;
 using Application;
 using System.Net.Http;
+using ElectronNET.API;
 
 namespace DesktopUi
 {
@@ -80,6 +81,8 @@ namespace DesktopUi
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
+
+            Task.Run(async () => await Electron.WindowManager.CreateWindowAsync());
         }
     }
 }
