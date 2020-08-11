@@ -46,9 +46,9 @@ namespace WebUi.Client
             // Do this after Infrastructure service inits.
             builder.Services.AddApplication();
 
-            var hostBuilder = builder.Build();
+            var host = builder.Build();
             Registry.ServiceProvider = builder.Services.BuildServiceProvider();
-            await hostBuilder.RunAsync();
+            await host.RunAsync();
         }
     }
 }

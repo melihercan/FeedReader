@@ -21,16 +21,16 @@ namespace MobileUi.iOS
         //
         // You have 17 seconds to return from this method, or iOS will terminate your application.
         //
-        public override bool FinishedLaunching(UIApplication uiApp, NSDictionary options)
+        public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init();
 
-            var app = App.PreInit(ConfigureServices);
-            LoadApplication(app);
-            app.PostInit();
+////            var app = App.PreInit(ConfigureServices);
+            LoadApplication(new App());
+    ////        app.PostInit();
 
-            return base.FinishedLaunching(uiApp, options);
+            return base.FinishedLaunching(app, options);
         }
 
         public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
@@ -43,10 +43,10 @@ namespace MobileUi.iOS
             return base.OpenUrl(app, url, options);
         }
 
-        public void ConfigureServices(IServiceCollection services)
-        {
+////        public void ConfigureServices(IServiceCollection services)
+    ////    {
 ////            services.AddSingleton<IIpAddress, IpAddress>();
-        }
+        /////}
 
     }
 }
