@@ -29,9 +29,7 @@ namespace MobileUi.Droid
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
-            ////var app = App.PreInit(ConfigureServices);
             LoadApplication(new App());
-            ////app.PostInit();
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
@@ -54,12 +52,6 @@ namespace MobileUi.Droid
         public class WebAuthenticationCallbackActivity : Xamarin.Essentials.WebAuthenticatorCallbackActivity
         {
         }
-
-
-////        public void ConfigureServices(IServiceCollection services)
-    /////    {
-////            services.AddSingleton<IIpAddress, IpAddress>();
-        /////}
 
     }
 }

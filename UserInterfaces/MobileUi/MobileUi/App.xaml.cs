@@ -18,63 +18,6 @@ namespace MobileUi
     {
         private const string _webApiName = "Infrastructure.ServerAPI";
 
-        //public static App PreInit(Action<IServiceCollection> platformConfigureServices)
-        //{
-        //    //var systemDir = FileSystem.CacheDirectory;
-        //    //Utils.ExtractSaveResource("Bridge.appsettings.json", systemDir);
-        //    //var fullConfig = Path.Combine(systemDir, "Bridge.appsettings.json");
-
-        //    var hostBuilder = Device.RuntimePlatform == Device.Android ? Host.CreateDefaultBuilder() : new HostBuilder();
-
-        //    var host = hostBuilder
-        //        ////                .ConfigureHostConfiguration(context =>
-        //        ////            {
-        //        //context.AddCommandLine(new string[] { $"ContentRoot={FileSystem.AppDataDirectory}" });
-        //        //context.AddJsonFile(fullConfig);
-        //        ////        })
-        //        .ConfigureServices((context, services) =>
-        //        {
-        //            var configuration = context.Configuration;
-
-        //            services.AddHttpClient(_webApiName, client => client.BaseAddress =
-        //                new Uri(configuration["Server:URL"]));
-        //            services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
-        //                .CreateClient(_webApiName));
-
-        //            services.AddSingleton<AppShell>();
-        //            services.AddSingleton<App>();
-
-        //            services.AddUser();
-        //            services.AddFeedSource();
-        //            services.AddFeedRepository();
-        //            services.AddTokenRepository();
-
-        //            // Do this after Infrastructure service inits.
-        //            services.AddApplication();
-
-        //            platformConfigureServices(services);
-        //        })
-        //        .ConfigureAppConfiguration((hostBuilderContext, configurationBuilder) =>
-        //        {
-        //            ////hostBuilderContext.HostingEnvironment.SetUi(Ui.Mobile);
-        //        })
-        //        .ConfigureLogging((context, builder) =>
-        //        {
-        //            builder.AddConsole();
-        //        })
-        //        .Build();
-
-        //    Registry.ServiceProvider = host.Services;
-
-        //    return Registry.ServiceProvider.GetService<App>();
-
-        //}
-
-        //public void PostInit()
-        //{
-
-        //}
-
         public App()
         {
             InitializeXamarinHostBuilder();
