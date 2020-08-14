@@ -14,9 +14,8 @@ namespace WebUi.Pages
 
         private void OnOk()
         {
+            Console.WriteLine("$$$$$$$$$$$$$$$$$$$$$$$$ CLOSING MODAL!!!");
             Modal.Close();
         }
-
-
     }
 }
