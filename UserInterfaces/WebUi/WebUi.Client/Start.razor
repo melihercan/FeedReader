@@ -1,0 +1,26 @@
+﻿@page "/start"
+
+<h3>Index</h3>
+
+
+<button type="button" style="background: #e9ecef"
+        class="btn border border-dark shadow-none" data-toggle="tooltip"
+        data-placement="bottom" title="Remove the channel"
+        @onclick="@DoChannel">
+    <span class="oi oi-minus" />
+</button>
+
+@code {
+
+    [Inject]
+    private IModalService _modal { get; set; }
+
+
+
+    async void DoChannel()
+    {
+        var modal = _modal.Show<Xxx>("HAYDE");
+        var modalResult = await modal.Result;
+    }
+
+}
