@@ -41,8 +41,22 @@ namespace MobileUi
                 Prefix = "MobileUi"
             });
 
+            ////hostBuilder.Services.AddHttpClient(_webApiName, client => client.BaseAddress =
+            ////                new Uri(hostBuilder.Configuration["Server:URL"]));
+            ///
             hostBuilder.Services.AddHttpClient(_webApiName, client => client.BaseAddress =
-                new Uri(hostBuilder.Configuration["Server:URL"]));
+                new Uri(hostBuilder.Configuration["Server:URL"]))
+                    // To avoid SSL (certificate) error.
+                    .ConfigurePrimaryHttpMessageHandler(() => 
+                    new HttpClientHandler
+                    {
+                        ClientCertificateOptions = ClientCertificateOption.Manual,
+                        ServerCertificateCustomValidationCallback =
+                        (httpRequestMessage, cert, cetChain, policyErrors) =>
+                        {
+                            return true;
+                        }
+                    });
             hostBuilder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
                 .CreateClient(_webApiName));
 
@@ -61,10 +75,13 @@ namespace MobileUi
         protected async override void OnStart()
         {
             var mediator = Registry.ServiceProvider.GetService<IMediator>();
-            var token = await mediator.Send(new GetToken { });
-            if(token.Value == null) //// TODO: or expired
+            var tokenResult = await mediator.Send(new GetToken { });
+            if (tokenResult.Status == Ardalis.Result.ResultStatus.Ok)
             {
-                var schemes = await mediator.Send(new GetAuthenticationSchemes { });
+                if (tokenResult.Value == null) //// TODO: or expired
+                {
+                    var schemesResult = await mediator.Send(new GetAuthenticationSchemes { });
+                }
             }
 
 
