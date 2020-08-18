@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using System.Net.Http;
 using Xamarinme;
 using System.Reflection;
+using Application.Interfaces;
 
 namespace MobileUi
 {
@@ -23,8 +24,11 @@ namespace MobileUi
             InitializeXamarinHostBuilder();
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
-            MainPage = new AppShell();
+            //var tokenRepository = Registry.ServiceProvider.GetService<ITokenRepository>();
+            //var token = tokenRepository.RetrieveAsync();
+
+            //DependencyService.Register<MockDataStore>();
+            //MainPage = new AppShell();
         }
 
         private void InitializeXamarinHostBuilder()
@@ -52,8 +56,13 @@ namespace MobileUi
             Registry.ServiceProvider = host.Services;
         }
 
-        protected override void OnStart()
+        protected async override void OnStart()
         {
+            var tokenRepository = Registry.ServiceProvider.GetService<ITokenRepository>();
+            var token = await tokenRepository.RetrieveAsync();
+
+            DependencyService.Register<MockDataStore>();
+            MainPage = new AppShell();
         }
 
         protected override void OnSleep()

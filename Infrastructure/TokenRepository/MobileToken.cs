@@ -9,12 +9,14 @@ namespace TokenRepository
 {
     internal class MobileToken : ITokenRepository
     {
-        public Task<Token> RetrieveAsync()
+        public async Task<Token> RetrieveAsync()
         {
-            throw new NotImplementedException();
+            //return new Token();
+            await Task.CompletedTask;
+            return null;
         }
 
-        public Task StoreAsync(Token token)
+        public async Task StoreAsync(Token token)
         {
             throw new NotImplementedException();
         }

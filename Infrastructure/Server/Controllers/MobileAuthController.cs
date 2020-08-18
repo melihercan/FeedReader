@@ -51,5 +51,13 @@ namespace Infrastructure.Server.Controllers
                 Request.HttpContext.Response.Redirect(url);
             }
         }
+
+        [HttpGet()]
+        public string[] Get()
+        {
+            return new string[] { "Hello", "world"};
+        }
+
+
     }
 }
