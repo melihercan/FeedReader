@@ -9,7 +9,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Application.Interfaces;
-using Application.Helpers;
 using System.Linq;
 using Ardalis.Result;
 
@@ -31,7 +30,6 @@ namespace Application.UseCases
         {
             try
             {
-                _logger.LogInformation($"{Utils.GetCurrentMethod()}");
                 return Result<IEnumerable<FeedChannel>>.Success(await _feedRepository.GetFeedChannelsAsync());
             }
             catch (Exception ex)

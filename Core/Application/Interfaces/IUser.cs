@@ -7,6 +7,7 @@ namespace Application.Interfaces
 {
     public interface IUser
     {
-        Task<bool> Authenticate(string username, string password);
+        Task<bool> AuthenticateAsync(string username, string password);
+        Task<string[]> GetAuthenticationSchemesAsync();
     }
 }

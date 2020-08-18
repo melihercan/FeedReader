@@ -10,7 +10,6 @@ using Domain.Entities;
 using Microsoft.Extensions.Logging;
 using System.Runtime.CompilerServices;
 using System.Reflection;
-using Application.Helpers;
 using System.Linq;
 using System.Xml;
 using System.Net.Http;

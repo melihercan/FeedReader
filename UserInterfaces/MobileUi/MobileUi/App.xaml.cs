@@ -12,6 +12,8 @@ using System.Net.Http;
 using Xamarinme;
 using System.Reflection;
 using Application.Interfaces;
+using MediatR;
+using Application.UseCases;
 
 namespace MobileUi
 {
@@ -58,8 +60,13 @@ namespace MobileUi
 
         protected async override void OnStart()
         {
-            var tokenRepository = Registry.ServiceProvider.GetService<ITokenRepository>();
-            var token = await tokenRepository.RetrieveAsync();
+            var mediator = Registry.ServiceProvider.GetService<IMediator>();
+            var token = await mediator.Send(new GetToken { });
+            if(token.Value == null) //// TODO: or expired
+            {
+                var schemes = await mediator.Send(new GetAuthenticationSchemes { });
+            }
+
 
             DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();

@@ -1,5 +1,4 @@
-﻿using Application.Helpers;
-using Ardalis.Result;
+﻿using Ardalis.Result;
 using Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -31,8 +30,6 @@ namespace Application.UseCases
         {
             try
             {
-                _logger.LogDebug($"{Utils.GetCurrentMethod()}");
-
                 // Get the latest from source.
                 var feedChannel = await _feedSource.GetAsync(request.FeedChannel.Link);
 
