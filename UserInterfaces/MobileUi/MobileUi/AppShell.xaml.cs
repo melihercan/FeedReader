@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobileUi.Views;
+using System;
 using System.Collections.Generic;
 
 using Xamarin.Forms;
@@ -10,6 +11,9 @@ namespace MobileUi
         public AppShell()
         {
             InitializeComponent();
+
+            Routing.RegisterRoute("register", typeof(RegisterPage));
+            BindingContext = this;
         }
     }
 }

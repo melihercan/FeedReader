@@ -31,20 +31,20 @@
 
     <ShellItem Route="initializing">
         <ShellContent ContentTemplate="{DataTemplate views:InitializingPage}"/>
-    </ShellItem> 
+    </ShellItem>
+
+    <ShellContent Route="login" ContentTemplate="{DataTemplate views:LoginPage}"/>
     
     <!-- Your Pages -->
-    <!--<TabBar>
-        <Tab Title="Web Authenticator" Icon="tab_feed.png">
-            <ShellContent ContentTemplate="{DataTemplate views:WebAuthenticatorPage}" />
-        </Tab>
-        <Tab Title="Browse" Icon="tab_feed.png">
-            <ShellContent ContentTemplate="{DataTemplate views:ItemsPage}" />
-        </Tab>
-        <Tab Title="About" Icon="tab_about.png">
-            <ShellContent ContentTemplate="{DataTemplate views:AboutPage}" />
-        </Tab>
-    </TabBar>-->
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent Route="feeds" Title="Feeds" Icon="tab_feed.png" 
+                      ContentTemplate="{DataTemplate views:FeedsPage}" />
+        <ShellContent Title="Browse" Icon="tab_feed.png"
+                      ContentTemplate="{DataTemplate views:ItemsPage}" />
+        <ShellContent Title="About" Icon="tab_about.png"
+                      ContentTemplate="{DataTemplate views:AboutPage}" />
+    </FlyoutItem>
+    <MenuItem Text="Logout" Command="{Binding ExecuteLogout}" />
 
     <!-- Optional Templates 
     // These may be provided inline as below or as separate classes.
