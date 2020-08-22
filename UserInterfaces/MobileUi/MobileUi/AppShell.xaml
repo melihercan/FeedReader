@@ -4,7 +4,7 @@
        xmlns:d="http://xamarin.com/schemas/2014/forms/design"
        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
        mc:Ignorable="d"
-       xmlns:local="clr-namespace:MobileUi.Views"
+       xmlns:views="clr-namespace:MobileUi.Views"
        Title="MobileUi"
        x:Class="MobileUi.AppShell">
 
@@ -29,18 +29,22 @@
         </ResourceDictionary>
     </Shell.Resources>
 
+    <ShellItem Route="initializing">
+        <ShellContent ContentTemplate="{DataTemplate views:InitializingPage}"/>
+    </ShellItem> 
+    
     <!-- Your Pages -->
-    <TabBar>
+    <!--<TabBar>
         <Tab Title="Web Authenticator" Icon="tab_feed.png">
-            <ShellContent ContentTemplate="{DataTemplate local:WebAuthenticatorPage}" />
+            <ShellContent ContentTemplate="{DataTemplate views:WebAuthenticatorPage}" />
         </Tab>
         <Tab Title="Browse" Icon="tab_feed.png">
-            <ShellContent ContentTemplate="{DataTemplate local:ItemsPage}" />
+            <ShellContent ContentTemplate="{DataTemplate views:ItemsPage}" />
         </Tab>
         <Tab Title="About" Icon="tab_about.png">
-            <ShellContent ContentTemplate="{DataTemplate local:AboutPage}" />
+            <ShellContent ContentTemplate="{DataTemplate views:AboutPage}" />
         </Tab>
-    </TabBar>
+    </TabBar>-->
 
     <!-- Optional Templates 
     // These may be provided inline as below or as separate classes.

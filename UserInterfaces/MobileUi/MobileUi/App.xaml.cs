@@ -30,7 +30,7 @@ namespace MobileUi
             //var token = tokenRepository.RetrieveAsync();
 
             //DependencyService.Register<MockDataStore>();
-            //MainPage = new AppShell();
+            MainPage = new AppShell();
         }
 
         private void InitializeXamarinHostBuilder()
@@ -72,21 +72,21 @@ namespace MobileUi
             Registry.ServiceProvider = host.Services;
         }
 
-        protected async override void OnStart()
+        protected override void OnStart()
         {
-            var mediator = Registry.ServiceProvider.GetService<IMediator>();
-            var tokenResult = await mediator.Send(new GetToken { });
-            if (tokenResult.Status == Ardalis.Result.ResultStatus.Ok)
-            {
-                if (tokenResult.Value == null) //// TODO: or expired
-                {
-                    var schemesResult = await mediator.Send(new GetAuthenticationSchemes { });
-                }
-            }
+            //var mediator = Registry.ServiceProvider.GetService<IMediator>();
+            //var tokenResult = await mediator.Send(new GetToken { });
+            //if (tokenResult.Status == Ardalis.Result.ResultStatus.Ok)
+            //{
+            //    if (tokenResult.Value == null) //// TODO: or expired
+            //    {
+            //        var schemesResult = await mediator.Send(new GetAuthenticationSchemes { });
+            //    }
+            //}
 
 
-            DependencyService.Register<MockDataStore>();
-            MainPage = new AppShell();
+            //DependencyService.Register<MockDataStore>();
+            //MainPage = new AppShell();
         }
 
         protected override void OnSleep()

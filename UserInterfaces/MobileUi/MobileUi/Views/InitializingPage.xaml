@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileUi.Views.InitializingPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <ActivityIndicator Color="Accent" IsRunning="True"/>
+            <Label Text="Initializing..."/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
