@@ -6,13 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Application.UseCases;
+using Xamarin.Forms;
 
 namespace MobileUi.ViewModels
 {
     public class InitializingViewModel : BaseViewModel
     {
 
-        internal async Task OnAppearing()
+        internal override async Task OnViewAppearingAsync()
         {
             var mediator = Registry.ServiceProvider.GetService<IMediator>();
             var tokenResult = await mediator.Send(new GetToken { });
@@ -22,6 +23,8 @@ namespace MobileUi.ViewModels
                 {
                     ////var schemesResult = await mediator.Send(new GetAuthenticationSchemes { });
                     ///
+                    await Shell.Current.GoToAsync()
+
                 }
             }
         }

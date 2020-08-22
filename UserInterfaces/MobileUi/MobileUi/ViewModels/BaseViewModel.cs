@@ -7,6 +7,7 @@ using Xamarin.Forms;
 
 using MobileUi.Models;
 using MobileUi.Services;
+using System.Threading.Tasks;
 
 namespace MobileUi.ViewModels
 {
@@ -52,5 +53,10 @@ namespace MobileUi.ViewModels
             changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
+
+        internal virtual async Task OnViewAppearingAsync()
+        {
+            await Task.CompletedTask;
+        }
     }
 }

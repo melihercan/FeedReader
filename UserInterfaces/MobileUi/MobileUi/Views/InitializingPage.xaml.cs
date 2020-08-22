@@ -13,10 +13,19 @@ namespace MobileUi.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class InitializingPage : ContentPage
     {
+        private readonly InitializingViewModel _viewModel;
+
         public InitializingPage()
         {
             InitializeComponent();
-            BindingContext = new InitializingViewModel();
+            _viewModel = new InitializingViewModel();
+            BindingContext = _viewModel;
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await _viewModel.OnViewAppearingAsync();
         }
     }
 }
