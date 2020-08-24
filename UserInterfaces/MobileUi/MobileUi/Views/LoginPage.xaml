@@ -14,7 +14,7 @@
             <Entry Text="{Binding Username}" Placeholder="Username"/>
             <Entry Text="{Binding Password}" Placeholder="Password" IsPassword="True"/>
             <Button Text="Login" Command="{Binding ExecuteLogin}" Margin="0,20"/>
-            <Label Text="Register" HorizontalOptions="Center" TextColor="Accent" TextDecorations="Underline">
+            <Label Text="Register" HorizontalOptions="Center" FontSize="Small" TextColor="Accent" TextDecorations="Underline">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ExecuteRegister}" />
                 </Label.GestureRecognizers>

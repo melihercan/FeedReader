@@ -28,6 +28,8 @@ namespace MobileUi.iOS
 
             LoadApplication(new App());
 
+            UIApplication.SharedApplication.SetStatusBarStyle(UIStatusBarStyle.LightContent, true);
+
             return base.FinishedLaunching(app, options);
         }
 
