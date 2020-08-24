@@ -4,9 +4,9 @@
              Shell.NavBarIsVisible="False"
              x:Class="MobileUi.Views.InitializingPage">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout VerticalOptions="CenterAndExpand">
             <ActivityIndicator Color="Accent" IsRunning="True"/>
-            <Label Text="Initializing..."/>
+            <Label Text="Initializing..." HorizontalTextAlignment="Center"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
