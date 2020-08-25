@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Application.UseCases;
 using Xamarin.Forms;
+using System.Text.Json;
 
 namespace MobileUi.ViewModels
 {
@@ -22,10 +23,12 @@ namespace MobileUi.ViewModels
             {
                 if (tokenResult.Value == null) //// TODO: or expired
                 {
-                    ////var schemesResult = await mediator.Send(new GetAuthenticationSchemes { });
-                    ///
-                    await Shell.Current.GoToAsync("///login");
-
+                    var schemesResult = await mediator.Send(new GetAuthenticationSchemes { });
+                    if (schemesResult.Status == Ardalis.Result.ResultStatus.Ok)
+                    {
+                        var schemasJson = JsonSerializer.Serialize(schemesResult.Value);
+                        await Shell.Current.GoToAsync($"///login?schemasjson={schemasJson}");
+                    }
                 }
                 else
                 {
