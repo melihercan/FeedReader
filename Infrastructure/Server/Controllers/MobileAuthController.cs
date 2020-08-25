@@ -14,6 +14,13 @@ namespace Infrastructure.Server.Controllers
     {
         const string callbackScheme = "feedreader";
 
+        private readonly IAuthenticationSchemeProvider _authenticationSchemeProvider;
+
+        public MobileAuthController(IAuthenticationSchemeProvider authenticationSchemeProvider)
+        {
+            _authenticationSchemeProvider = authenticationSchemeProvider;
+        }
+
         [HttpGet("{scheme}")]
         public async Task Get([FromRoute]string scheme)
         {
@@ -38,7 +45,7 @@ namespace Infrastructure.Server.Controllers
                     { "access_token", auth.Properties.GetTokenValue("access_token") },
                     { "refresh_token", auth.Properties.GetTokenValue("refresh_token") ?? string.Empty },
                     { "expires", (auth.Properties.ExpiresUtc?.ToUnixTimeSeconds() ?? -1).ToString() },
-                    {"email", email}
+                    { "email", email }
                 };
 
                 // Build the result URL.
@@ -53,9 +60,22 @@ namespace Infrastructure.Server.Controllers
         }
 
         [HttpGet()]
-        public string[] Get()
+        public async Task<string[]> Get()
         {
-            return new string[] { "Hello", "world"};
+            var schemeProviders = await _authenticationSchemeProvider.GetAllSchemesAsync();
+            var schemes = new List<string> { };
+            foreach (var schemeProvider in schemeProviders)
+            {
+                var name = schemeProvider.Name;
+                if (name.StartsWith("Identity") || name.StartsWith("idsrv"))
+                {
+                    continue;
+                }
+                schemes.Add(name);
+            }
+
+            //return new string[] { "Hello", "world"};
+            return schemes.ToArray();
         }
 
 
