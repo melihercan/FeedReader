@@ -26,8 +26,8 @@ namespace MobileUi.ViewModels
                     var schemesResult = await mediator.Send(new GetAuthenticationSchemes { });
                     if (schemesResult.Status == Ardalis.Result.ResultStatus.Ok)
                     {
-                        var schemasJson = JsonSerializer.Serialize(schemesResult.Value);
-                        await Shell.Current.GoToAsync($"///login?schemasjson={schemasJson}");
+                        var schemesJson = JsonSerializer.Serialize(schemesResult.Value);
+                        await Shell.Current.GoToAsync($"///login?schemesjson={schemesJson}");
                     }
                 }
                 else

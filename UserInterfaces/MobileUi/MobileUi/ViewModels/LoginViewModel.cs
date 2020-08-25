@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace MobileUi.ViewModels
 {
-    [QueryProperty("Schemes", "schemes")]
+    [QueryProperty("SchemesJson", "schemesjson")]
     public class LoginViewModel : BaseViewModel
     {
         private string _schemesJson;
@@ -16,10 +16,9 @@ namespace MobileUi.ViewModels
             get => _schemesJson;
             set 
             {
-                var schemesJson = Uri.EscapeDataString(value);
+                var schemesJson = Uri.UnescapeDataString(value);
                 SetProperty(ref _schemesJson, schemesJson);
                 _schemes = JsonSerializer.Deserialize<string[]>(schemesJson);
-
             }
         }
 
