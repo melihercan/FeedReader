@@ -32,6 +32,7 @@ namespace Application.UseCases
             }
             catch(Exception ex)
             {
+                _logger.LogError($"#### E X C E P T I O N : {ex.Message}");
                 return Result<string[]>.Error(ex.Message);
             }
         }
