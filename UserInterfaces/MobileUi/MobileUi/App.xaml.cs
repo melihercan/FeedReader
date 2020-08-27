@@ -60,7 +60,7 @@ namespace MobileUi
             hostBuilder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
                 .CreateClient(_webApiName));
 
-            hostBuilder.Services.AddUser();
+            hostBuilder.Services.AddUserAccount();
             hostBuilder.Services.AddFeedSource();
             hostBuilder.Services.AddFeedRepository();
             hostBuilder.Services.AddTokenRepository();

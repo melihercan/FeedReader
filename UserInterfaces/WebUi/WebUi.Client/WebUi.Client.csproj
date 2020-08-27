@@ -19,7 +19,7 @@
     <ProjectReference Include="..\..\..\Infrastructure\FeedRepository\FeedRepository.csproj" />
     <ProjectReference Include="..\..\..\Infrastructure\FeedSource\FeedSource.csproj" />
     <ProjectReference Include="..\..\..\Infrastructure\TokenRepository\TokenRepository.csproj" />
-    <ProjectReference Include="..\..\..\Infrastructure\User\User.csproj" />
+    <ProjectReference Include="..\..\..\Infrastructure\UserAccount\UserAccount.csproj" />
     <ProjectReference Include="..\..\..\Shared\Shared.csproj" />
     <ProjectReference Include="..\WebUi\WebUi.csproj" />
   </ItemGroup>

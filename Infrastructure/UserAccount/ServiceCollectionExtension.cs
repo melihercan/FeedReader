@@ -12,9 +12,9 @@ namespace Infrastructure
 {
     public static class ServiceCollectionExtension
     {
-        public static IServiceCollection AddUser(this IServiceCollection services)
+        public static IServiceCollection AddUserAccount(this IServiceCollection services)
         {
-            services.AddSingleton<IUser, User>();
+            services.AddSingleton<IUserAccount, UserAccount>();
             return services;
         }
     }

@@ -38,7 +38,7 @@ namespace WebUi.Client
             builder.Services.AddApiAuthorization();
 
             builder.Services.AddWebUiServices();
-            builder.Services.AddUser();
+            builder.Services.AddUserAccount();
             builder.Services.AddFeedSource();
             builder.Services.AddFeedRepository();
             builder.Services.AddTokenRepository();

@@ -9,14 +9,14 @@ using System.Net.Http.Json;
 
 namespace Infrastructure
 {
-    public class User : IUser
+    public class UserAccount : IUserAccount
     {
-        private readonly ILogger<User> _logger;
+        private readonly ILogger<UserAccount> _logger;
         private readonly HttpClient _httpClient;
 
-        public User()
+        public UserAccount()
         {
-            _logger = Registry.ServiceProvider.GetService<ILogger<User>>();
+            _logger = Registry.ServiceProvider.GetService<ILogger<UserAccount>>();
             _httpClient = Registry.ServiceProvider.GetService<HttpClient>();
         }
 

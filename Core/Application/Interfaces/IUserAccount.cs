@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Application.Interfaces
 {
-    public interface IUser
+    public interface IUserAccount
     {
         Task<bool> AuthenticateAsync(string username, string password);
         Task<string[]> GetAuthenticationSchemesAsync();

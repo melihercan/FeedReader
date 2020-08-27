@@ -15,12 +15,12 @@ namespace Application.UseCases
     public class GetAuthenticationSchemesHandler : IRequestHandler<GetAuthenticationSchemes, Result<string[]>>
     {
         private readonly ILogger<GetAuthenticationSchemesHandler> _logger;
-        private readonly IUser _user;
+        private readonly IUserAccount _user;
 
         public GetAuthenticationSchemesHandler()
         {
             _logger = ServiceCollectionExtension.ServiceProvider.GetService<ILogger<GetAuthenticationSchemesHandler>>();
-            _user = ServiceCollectionExtension.ServiceProvider.GetService<IUser>();
+            _user = ServiceCollectionExtension.ServiceProvider.GetService<IUserAccount>();
         }
 
         public async Task<Result<string[]>> Handle(GetAuthenticationSchemes request, 

@@ -14,7 +14,7 @@
                 <StackLayout Padding="20">
                         <Entry Text="{Binding Username}" Placeholder="Username"/>
                         <Entry Text="{Binding Password}" Placeholder="Password" IsPassword="True"/>
-                        <Entry Text="{Binding Password}" Placeholder="Confirm password" IsPassword="True"/>
+                        <Entry Text="{Binding ConfirmPassword}" Placeholder="Confirm password" IsPassword="True"/>
                         <Button Text="Register" Command="{Binding RegisterCommand}" Margin="0,20,0,0" 
                                 Background="#283e4a"/>
                 </StackLayout>
