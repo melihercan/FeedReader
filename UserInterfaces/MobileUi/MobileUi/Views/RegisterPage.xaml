@@ -1,12 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.TabBarIsVisible="False"
              x:Class="MobileUi.Views.RegisterPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+
+            <StackLayout Margin="20,10">
+                <Frame HasShadow="False">
+                    <Label Text="Feed Reader user registration" HorizontalTextAlignment="Center" FontSize="Title"/>
+                </Frame>
+                <StackLayout Padding="20">
+                        <Entry Text="{Binding Username}" Placeholder="Username"/>
+                        <Entry Text="{Binding Password}" Placeholder="Password" IsPassword="True"/>
+                        <Entry Text="{Binding Password}" Placeholder="Confirm password" IsPassword="True"/>
+                        <Button Text="Register" Command="{Binding RegisterCommand}" Margin="0,20,0,0" 
+                                Background="#283e4a"/>
+                </StackLayout>
+            </StackLayout>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

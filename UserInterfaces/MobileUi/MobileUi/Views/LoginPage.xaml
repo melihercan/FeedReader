@@ -4,7 +4,6 @@
              Shell.FlyoutBehavior="Disabled"
              Shell.NavBarIsVisible="True"
              Shell.TabBarIsVisible="False"
-             Title="Login"
              x:Class="MobileUi.Views.LoginPage">
     <ContentPage.Content>
         <StackLayout Margin="20,10">
@@ -12,7 +11,7 @@
                 <Label Text="Welcome to Feed Reader" HorizontalTextAlignment="Center" FontSize="Title"/>
             </Frame>
             <StackLayout Background="#d8d8d8" Spacing="0">
-                <Label Text="Local login" Background="#383838" TextColor="White" FontAttributes="Italic" 
+                <Label Text="Local login" BackgroundColor="#a0283e4a" TextColor="White" FontAttributes="Italic" 
                        Padding="10,4"/>
                 <StackLayout Padding="20">
                     <Entry Text="{Binding Username}" Placeholder="Username"/>
@@ -27,8 +26,8 @@
                 </StackLayout>
             </StackLayout>
             <BoxView HeightRequest="10"/>
-            <StackLayout BackgroundColor="#d8d8d8" Spacing="0">
-                <Label Text="External provider login" Background="#383838" TextColor="White" FontAttributes="Italic" 
+            <StackLayout Background="#d8d8d8" Spacing="0">
+                <Label Text="External provider login" BackgroundColor="#a068217A" TextColor="White" FontAttributes="Italic" 
                        Padding="10,4"/>
                 <StackLayout  Padding="20">
                     <CollectionView ItemsSource="{Binding SchemeItems}" >

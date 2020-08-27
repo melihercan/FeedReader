@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace MobileUi.ViewModels
@@ -22,6 +23,10 @@ namespace MobileUi.ViewModels
                 OnPropertyChanged(nameof(SchemeItems));
             }
         }
+        public ICommand RegisterCommand => new Command(async () => 
+        { 
+            await Shell.Current.GoToAsync("/register"); 
+        });
 
         private string _schemesJson;
         public string SchemesJson
