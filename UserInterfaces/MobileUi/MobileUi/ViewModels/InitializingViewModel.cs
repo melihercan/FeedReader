@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Application.UseCases;
 using Xamarin.Forms;
 using System.Text.Json;
+using Ardalis.Result;
 
 namespace MobileUi.ViewModels
 {
@@ -19,12 +20,12 @@ namespace MobileUi.ViewModels
             var mediator = Registry.ServiceProvider.GetService<IMediator>();
             var tokenResult = await mediator.Send(new GetToken { });
      await Task.Delay(2000);
-            if (tokenResult.Status == Ardalis.Result.ResultStatus.Ok)
+            if (tokenResult.Status == ResultStatus.Ok)
             {
                 if (tokenResult.Value == null) //// TODO: or expired
                 {
                     var schemesResult = await mediator.Send(new GetAuthenticationSchemes { });
-                    if (schemesResult.Status == Ardalis.Result.ResultStatus.Ok)
+                    if (schemesResult.Status == ResultStatus.Ok)
                     {
                         var schemesJson = JsonSerializer.Serialize(schemesResult.Value);
                         await Shell.Current.GoToAsync($"///login?schemesjson={schemesJson}");
