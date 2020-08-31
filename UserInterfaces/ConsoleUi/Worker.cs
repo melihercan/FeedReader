@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.UseCases;
@@ -25,10 +26,41 @@ namespace ConsoleUi
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var resultGetToken = await _mediator.Send(new GetToken { });
-            if (resultGetToken.Status != ResultStatus.Ok)
+            var tokenResult = await _mediator.Send(new GetToken { });
+            if (tokenResult.Status == ResultStatus.Ok)
             {
-                _logger.LogError(string.Join(",", resultGetToken.Errors));
+                if (tokenResult.Value == null) //// TODO: or expired
+                {
+////                    var schemesResult = await _mediator.Send(new GetAuthenticationSchemes { });
+    ////                if (schemesResult.Status == ResultStatus.Ok)
+        ////            {
+            ////            var schemesJson = JsonSerializer.Serialize(schemesResult.Value);
+                ////    }
+                }
+                else
+                {
+                }
+            }
+
+            var loginResult = await _mediator.Send(new Login
+            {
+                User = new User
+                {
+                    Username = "melihercan@gmail.com",
+                    Password = "Fenerbahce1907#",
+                    RememberMe = false
+                }
+            });
+            if (loginResult.Status == ResultStatus.Ok)
+            {
+                var token = loginResult.Value;
+            }
+
+
+
+            if (tokenResult.Status != ResultStatus.Ok)
+            {
+                _logger.LogError(string.Join(",", tokenResult.Errors));
                 return;
             }
 

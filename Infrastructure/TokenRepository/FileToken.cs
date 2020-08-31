@@ -9,9 +9,10 @@ namespace TokenRepository
 {
     internal class FileToken : ITokenRepository
     {
-        public Task<Token> RetrieveAsync()
+        public async Task<Token> RetrieveAsync()
         {
-            throw new NotImplementedException();
+            await Task.CompletedTask;
+            return null;
         }
 
         public Task StoreAsync(Token token)

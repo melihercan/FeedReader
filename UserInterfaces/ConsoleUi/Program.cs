@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using Application;
 using Infrastructure;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -15,7 +17,7 @@ namespace ConsoleUi
 {
     public class Program
     {
-        private static IHostEnvironment Env;
+        private const string _webApiName = "Infrastructure.ServerAPI";
 
         public static /*async Task*/ void Main(string[] args)
         {
@@ -28,8 +30,12 @@ namespace ConsoleUi
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
+                    services.AddHttpClient(_webApiName, client => client.BaseAddress =
+                        new Uri(services.BuildServiceProvider().GetRequiredService<IConfiguration>()["Server:URL"]));
+                    services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
+                        .CreateClient(_webApiName));
 
-                    services.AddUser();
+                    services.AddUserAccount();
                     services.AddFeedSource();
                     services.AddFeedRepository();
                     services.AddTokenRepository();
@@ -41,7 +47,6 @@ namespace ConsoleUi
                 })
                 .ConfigureAppConfiguration((hostBuilderContext, configurationBuilder) =>
                 {
-                    ////hostBuilderContext.HostingEnvironment.SetUi(Ui.Console);
                 })
                 .ConfigureLogging((context, builder) =>
                 {

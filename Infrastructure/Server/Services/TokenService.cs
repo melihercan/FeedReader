@@ -7,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Server.Services
@@ -22,7 +23,8 @@ namespace Infrastructure.Server.Services
 
         public string GenerateAccessToken(IEnumerable<Claim> claims)
         {
-            var symmetricKey = Convert.FromBase64String(_configuration["TokenSecret"]);
+            var tokenSecret = _configuration["TokenSecret"];
+            var symmetricKey = Encoding.UTF8.GetBytes(tokenSecret);
             var tokenHandler = new JwtSecurityTokenHandler();
 
             var tokenDescriptor = new SecurityTokenDescriptor

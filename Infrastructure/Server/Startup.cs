@@ -14,6 +14,8 @@ using System.Linq;
 using Infrastructure.Server.Data;
 using Domain.Entities;
 using System.Security.Claims;
+using Infrastructure.Server.Services;
+using Infrastructure.Server.Interfaces;
 
 namespace Infrastructure.Server
 {
@@ -57,6 +59,8 @@ namespace Infrastructure.Server
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddSingleton<ITokenService, TokenService>();
 
             // Otherwise UserManager.GetUserAsync(User) returns null.
             services.Configure<IdentityOptions>(options =>
