@@ -38,7 +38,9 @@ namespace Infrastructure.Server.Controllers
         [Route("login")]
         public async Task<ActionResult<Token>> Login([FromBody] User user)
         {
-            var result = await _signInManager.PasswordSignInAsync(user.Username, user.Password, false, false);
+            var identityUser = await _userManager.FindByNameAsync(user.Username);
+
+            var result = await _signInManager.PasswordSignInAsync(user.Username, user.Password, user.RememberMe, false);
 
 
             return this.ToActionResult(Result<Token>.Success(null));
