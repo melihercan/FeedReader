@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Net.Http.Json;
 using Domain.Entities;
 using Ardalis.Result;
+using System.Net.Http.Headers;
 
 namespace Infrastructure
 {
@@ -34,8 +35,11 @@ namespace Infrastructure
 
         public async Task<Result<Token>> LoginAsync(User user)
         {
-            var rspMsg = await _httpClient.PostAsJsonAsync("api/UserAccount/login", user);
-            return null;
+            var response = await _httpClient.PostAsJsonAsync("api/UserAccount/login", user);
+            var token = await response.Content.ReadFromJsonAsync<Token>();// .ReadAsStringAsync();
+            _httpClient.DefaultRequestHeaders.Authorization = 
+                new AuthenticationHeaderValue("Bearer", token.AccessToken);
+            return token;
         }
 
         public Task LogoutAsync()

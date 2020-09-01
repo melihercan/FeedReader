@@ -64,7 +64,6 @@ namespace ConsoleUi
                 return;
             }
 
-
             var resultGetAllFeeds = await _mediator.Send(new GetAllFeeds { });
             if (resultGetAllFeeds.Status != ResultStatus.Ok)
             {

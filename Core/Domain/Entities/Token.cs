@@ -9,11 +9,11 @@ namespace Domain.Entities
         public DateTime Timestamp { get; set; }
 
         public string AccessToken { get; set; }
-
         public string RefreshToken { get; set; }
         public string IdToken { get; set; }
-        public DateTime? RefreshTokenExpiresIn { get; set; }
-        public DateTime? ExpiresIn { get; set; }
 
+        public DateTime? AccessTokenExpiresIn { get; set; }
+        public DateTime? RefreshTokenExpiresIn { get; set; }
+        public DateTime? IdTokenExpiresIn { get; set; }
     }
 }

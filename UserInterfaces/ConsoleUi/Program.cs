@@ -32,7 +32,7 @@ namespace ConsoleUi
                 {
                     services.AddHttpClient(_webApiName, client => client.BaseAddress =
                         new Uri(services.BuildServiceProvider().GetRequiredService<IConfiguration>()["Server:URL"]));
-                    services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
+                    services.AddSingleton/*AddTransient*/(sp => sp.GetRequiredService<IHttpClientFactory>()
                         .CreateClient(_webApiName));
 
                     services.AddUserAccount();
