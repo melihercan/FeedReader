@@ -16,25 +16,27 @@ using Domain.Entities;
 using System.Security.Claims;
 using Infrastructure.Server.Services;
 using Infrastructure.Server.Interfaces;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Infrastructure.Server
 {
     public class Startup
     {
+        public IConfiguration _configuration;
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -42,17 +44,36 @@ namespace Infrastructure.Server
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
-            services.AddAuthentication()
+            services.AddAuthentication(
+//                options => 
+  //              {
+    //                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+      //              options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        //        }
+                )
+          //      .AddJwtBearer(options =>
+            //    {
+              //      var tokenSecret = _configuration["TokenSecret"];
+                //    var key = Encoding.UTF8.GetBytes(tokenSecret);
+                  //  var symmetricKey = new SymmetricSecurityKey(key);
+//                    options.TokenValidationParameters = new TokenValidationParameters
+  //                  {
+    //                    ValidateIssuer = false,
+      //                  ValidateAudience = false,
+        //                ValidateIssuerSigningKey = true,
+          //              IssuerSigningKey = symmetricKey
+            //        };
+                //})
                 .AddGoogle(g =>
                 {
-                    g.ClientId = Configuration["Authentication:Google:ClientId"];
-                    g.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                    g.ClientId = _configuration["Authentication:Google:ClientId"];
+                    g.ClientSecret = _configuration["Authentication:Google:ClientSecret"];
                     g.SaveTokens = true;
                 })
                 .AddMicrosoftAccount(ms =>
                 {
-                    ms.ClientId = Configuration["Authentication:Microsoft:ClientId"];
-                    ms.ClientSecret = Configuration["Authentication:Microsoft:ClientSecret"];
+                    ms.ClientId = _configuration["Authentication:Microsoft:ClientId"];
+                    ms.ClientSecret = _configuration["Authentication:Microsoft:ClientSecret"];
                     ms.SaveTokens = true;
                 })
                 .AddIdentityServerJwt();

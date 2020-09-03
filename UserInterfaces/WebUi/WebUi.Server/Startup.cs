@@ -39,7 +39,7 @@ namespace WebUi.Server
             services.AddServerSideBlazor();
 
             services.AddWebUiServices();
-            services.AddUser();
+            services.AddUserAccount();
             services.AddFeedSource();
             services.AddFeedRepository();
             services.AddTokenRepository();

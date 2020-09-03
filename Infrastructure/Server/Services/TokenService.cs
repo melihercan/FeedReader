@@ -24,17 +24,17 @@ namespace Infrastructure.Server.Services
         public string GenerateAccessToken(IEnumerable<Claim> claims)
         {
             var tokenSecret = _configuration["TokenSecret"];
-            var symmetricKey = Encoding.UTF8.GetBytes(tokenSecret);
-            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.UTF8.GetBytes(tokenSecret);
+            var symmetricKey = new SymmetricSecurityKey(key);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddDays(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(symmetricKey), 
-                    SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(symmetricKey, SecurityAlgorithms.HmacSha256Signature)
             };
 
+            var tokenHandler = new JwtSecurityTokenHandler();
             var securityToken = tokenHandler.CreateToken(tokenDescriptor);
             var token = tokenHandler.WriteToken(securityToken);
 

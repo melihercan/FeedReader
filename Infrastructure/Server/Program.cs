@@ -24,7 +24,6 @@ namespace Infrastructure.Server
                 })
                 .ConfigureAppConfiguration((hostBuilderContext, configurationBuilder) =>
                 {
-                    ////hostBuilderContext.HostingEnvironment.SetUi(Ui.Console);
                 })
                 .ConfigureLogging((context, builder) =>
                 {

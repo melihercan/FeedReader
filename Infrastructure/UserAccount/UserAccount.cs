@@ -9,6 +9,7 @@ using System.Net.Http.Json;
 using Domain.Entities;
 using Ardalis.Result;
 using System.Net.Http.Headers;
+using IdentityModel.Client;
 
 namespace Infrastructure
 {
@@ -39,6 +40,24 @@ namespace Infrastructure
             var token = await response.Content.ReadFromJsonAsync<Token>();// .ReadAsStringAsync();
             _httpClient.DefaultRequestHeaders.Authorization = 
                 new AuthenticationHeaderValue("Bearer", token.AccessToken);
+
+            //try
+            //{
+            //    var tokenResponse = await _httpClient.RequestTokenAsync(new TokenRequest
+            //    {
+            //        Address = _httpClient.BaseAddress + "connect/token",
+            //        ClientId = "WebUi.Client",
+            //        ClientSecret = user.Password,
+            //        GrantType = "client_credentials"
+            //    });
+            //}
+            //catch(Exception ex)
+            //{
+            //    var x = ex.Message;
+            //}
+
+            //return null;
+
             return token;
         }
 
