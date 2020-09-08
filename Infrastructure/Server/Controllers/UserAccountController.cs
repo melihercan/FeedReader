@@ -50,6 +50,7 @@ namespace Infrastructure.Server.Controllers
         {
             var httpClient = new HttpClient();
             var baseUrl = $"{Request.Scheme}://{Request.Host.Value}";
+            //// TODO: Check if there is a way to access identity server directly instead of end points (HTTP)?
             var discovery = await httpClient.GetDiscoveryDocumentAsync(baseUrl);
             if (!discovery.IsError)
             {
@@ -58,35 +59,39 @@ namespace Infrastructure.Server.Controllers
                     Address = discovery.TokenEndpoint,
                     ClientId = _configuration["NonWebUiClient:Id"],
                     ClientSecret = _configuration["NonWebUiClient:Secret"],
-                    UserName = "melihercan@gmail.com",
-                    Password = "Fenerbahce1907#",
-
+                    UserName = user.Username,
+                    Password = user.Password,
                     Scope = "Infrastructure.ServerAPI",
                 });
                 if (!tokenResponse.IsError)
                 {
-                    var accessToken = tokenResponse.AccessToken;
-                }
-            }
-
-
-
-            var identityUser = await _userManager.FindByNameAsync(user.Username);
-            if (identityUser != null)
-            {
-                var result = await _signInManager.PasswordSignInAsync(user.Username, user.Password, user.RememberMe, 
-                    false);
-                if (result.Succeeded)
-                {
-                    var token = _tokenService.GenerateAccessToken(new List<Claim>
+                    return this.ToActionResult(Result<Token>.Success(new Token 
                     { 
-                        new Claim(ClaimTypes.Name, user.Username)
-                    });
-
-                    return this.ToActionResult(Result<Token>.Success(new Token { AccessToken = token }));
-
+                        AccessToken = tokenResponse.AccessToken,
+                        RefreshToken = tokenResponse.RefreshToken,
+                        //AccessTokenExpiresIn = tokenResponse.ExpiresIn,
+                    }));
                 }
             }
+
+
+
+            //var identityUser = await _userManager.FindByNameAsync(user.Username);
+            //if (identityUser != null)
+            //{
+            //    var result = await _signInManager.PasswordSignInAsync(user.Username, user.Password, user.RememberMe, 
+            //        false);
+            //    if (result.Succeeded)
+            //    {
+            //        var token = _tokenService.GenerateAccessToken(new List<Claim>
+            //        { 
+            //            new Claim(ClaimTypes.Name, user.Username)
+            //        });
+
+            //        return this.ToActionResult(Result<Token>.Success(new Token { AccessToken = token }));
+
+            //    }
+            //}
             return this.ToActionResult(Result<Token>.Error("Put error message here"));
         }
     }
