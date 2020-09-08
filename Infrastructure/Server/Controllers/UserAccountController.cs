@@ -9,6 +9,9 @@ using Ardalis.Result.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Infrastructure.Server.Interfaces;
 using System.Security.Claims;
+using System.Net.Http;
+using IdentityModel.Client;
+using Microsoft.Extensions.Configuration;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,13 +24,16 @@ namespace Infrastructure.Server.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ITokenService _tokenService;
+        private readonly IConfiguration _configuration;
 
         public UserAccountController(UserManager<ApplicationUser> userManager, 
-            SignInManager<ApplicationUser> signInManager, ITokenService tokenService)
+            SignInManager<ApplicationUser> signInManager, ITokenService tokenService,
+            IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenService = tokenService;
+            _configuration = configuration;
         }
 
         [HttpPost]
@@ -42,6 +48,29 @@ namespace Infrastructure.Server.Controllers
         [Route("login")]
         public async Task<ActionResult<Token>> Login([FromBody] User user)
         {
+            var httpClient = new HttpClient();
+            var baseUrl = $"{Request.Scheme}://{Request.Host.Value}";
+            var discovery = await httpClient.GetDiscoveryDocumentAsync(baseUrl);
+            if (!discovery.IsError)
+            {
+                var tokenResponse = await httpClient.RequestPasswordTokenAsync(new PasswordTokenRequest
+                {
+                    Address = discovery.TokenEndpoint,
+                    ClientId = _configuration["NonWebUiClient:Id"],
+                    ClientSecret = _configuration["NonWebUiClient:Secret"],
+                    UserName = "melihercan@gmail.com",
+                    Password = "Fenerbahce1907#",
+
+                    Scope = "Infrastructure.ServerAPI",
+                });
+                if (!tokenResponse.IsError)
+                {
+                    var accessToken = tokenResponse.AccessToken;
+                }
+            }
+
+
+
             var identityUser = await _userManager.FindByNameAsync(user.Username);
             if (identityUser != null)
             {
