@@ -19,6 +19,10 @@ using Infrastructure.Server.Interfaces;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Collections;
+using System.Collections.Generic;
+using IdentityModel;
+using IdentityServer4.Models;
 
 namespace Infrastructure.Server
 {
@@ -42,7 +46,16 @@ namespace Infrastructure.Server
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddIdentityServer()
-                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>(options =>
+                {
+                    options.Clients.Add(new Client 
+                    { 
+                        ClientId = _configuration["NonWebUiClient:Id"],
+                        ClientSecrets = { new Secret(_configuration["NonWebUiClient:Secret"].ToSha256()) },
+                        AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                        AllowedScopes = { "Infrastructure.ServerAPI" }
+                    });
+                });
 
             services.AddAuthentication(
 //                options => 

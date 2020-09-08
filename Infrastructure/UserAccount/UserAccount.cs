@@ -36,6 +36,8 @@ namespace Infrastructure
 
         public async Task<Result<Token>> LoginAsync(User user)
         {
+            var discovery = await _httpClient.GetDiscoveryDocumentAsync($"{_httpClient.BaseAddress}");
+
             var response = await _httpClient.PostAsJsonAsync("api/UserAccount/login", user);
             var token = await response.Content.ReadFromJsonAsync<Token>();// .ReadAsStringAsync();
             _httpClient.DefaultRequestHeaders.Authorization = 
