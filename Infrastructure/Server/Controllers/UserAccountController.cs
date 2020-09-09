@@ -49,8 +49,10 @@ namespace Infrastructure.Server.Controllers
         public async Task<ActionResult<Token>> Login([FromBody] User user)
         {
             var httpClient = new HttpClient();
-            var baseUrl = $"{Request.Scheme}://{Request.Host.Value}";
-            //// TODO: Check if there is a way to access identity server directly instead of end points (HTTP)?
+
+            var baseUrl = "https://localhost:44392";
+            //var baseUrl = $"{Request.Scheme}://{Request.Host}{Request.PathBase}";
+            //// TODO: Check if there is a way to access identity server directly instead of using end points (HTTP)?
             var discovery = await httpClient.GetDiscoveryDocumentAsync(baseUrl);
             if (!discovery.IsError)
             {
