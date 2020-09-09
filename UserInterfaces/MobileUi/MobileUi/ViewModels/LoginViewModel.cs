@@ -65,6 +65,8 @@ namespace MobileUi.ViewModels
             if (result.Status == ResultStatus.Ok)
             {
                 var token = result.Value;
+
+                await Shell.Current.GoToAsync("///feeds");
             }
         });
 

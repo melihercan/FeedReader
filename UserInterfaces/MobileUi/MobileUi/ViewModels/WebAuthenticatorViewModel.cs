@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace MobileUi.ViewModels
 {
-    public class WebAuthenticatorViewModel
+    public class WebAuthenticatorViewModel : BaseViewModel
     {
         const string Url = "https://localhost:44392/api/mobileauth/";
 ////        const string Url = "https://10.0.2.2:44392/api/mobileauth/";

@@ -19,7 +19,7 @@ namespace MobileUi.ViewModels
         {
             var mediator = Registry.ServiceProvider.GetService<IMediator>();
             var tokenResult = await mediator.Send(new GetToken { });
-     await Task.Delay(2000);
+     //await Task.Delay(2000);
             if (tokenResult.Status == ResultStatus.Ok)
             {
                 if (tokenResult.Value == null) //// TODO: or expired

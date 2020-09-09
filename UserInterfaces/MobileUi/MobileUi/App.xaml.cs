@@ -57,7 +57,7 @@ namespace MobileUi
                             return true;
                         }
                     });
-            hostBuilder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
+            hostBuilder.Services.AddSingleton/*AddTransient*/(sp => sp.GetRequiredService<IHttpClientFactory>()
                 .CreateClient(_webApiName));
 
             hostBuilder.Services.AddUserAccount();
