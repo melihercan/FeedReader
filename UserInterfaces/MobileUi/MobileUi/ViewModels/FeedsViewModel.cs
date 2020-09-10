@@ -59,6 +59,10 @@ namespace MobileUi.ViewModels
         public ICommand FeedChannelSelectedCommand => new Command<FeedChannel>(async feedChannel =>
         {
             var feedChannelJson = JsonSerializer.Serialize(feedChannel);
+            // Bug https://github.com/xamarin/Xamarin.Forms/issues/10899 strips the first slash.
+            // "https://" --> "https:/"
+            // For now, encode the json first.
+            feedChannelJson = Convert.ToBase64String(Encoding.UTF8.GetBytes(feedChannelJson));
             await Shell.Current.GoToAsync($"/feedchannel?feedchanneljson={feedChannelJson}");
         });
     }

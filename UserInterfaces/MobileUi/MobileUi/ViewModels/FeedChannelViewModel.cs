@@ -11,6 +11,7 @@ using MediatR;
 using Shared;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using Xamarin.Essentials;
 
 namespace MobileUi.ViewModels
 {
@@ -30,7 +31,10 @@ namespace MobileUi.ViewModels
             get => _feedChannelJson;
             set
             {
-                var feedChannelJson = Uri.UnescapeDataString(value);
+                // Bug https://github.com/xamarin/Xamarin.Forms/issues/10899 strips the first slash.
+                // "https://" --> "https:/"
+                // "value" is Base64 encoded.
+                var feedChannelJson = Uri.UnescapeDataString(Encoding.UTF8.GetString(Convert.FromBase64String(value)));
                 _feedChannel = JsonSerializer.Deserialize<FeedChannel>(feedChannelJson);
             }
         }
@@ -55,8 +59,10 @@ namespace MobileUi.ViewModels
 
         public ICommand FeedItemSelectedCommand => new Command<FeedItem>(async feedItem =>
         {
-            var feedItemJson = JsonSerializer.Serialize(feedItem);
-            await Shell.Current.GoToAsync($"/feeditem?feeditemjson={feedItemJson}");
+            var uri = new Uri(feedItem.Link);
+            await Browser.OpenAsync(uri);
+            //var feedItemJson = JsonSerializer.Serialize(feedItem);
+            //await Shell.Current.GoToAsync($"/feeditem?feeditemjson={feedItemJson}");
         });
 
     }
