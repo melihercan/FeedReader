@@ -18,7 +18,6 @@
                                    FontAttributes="Bold"/>
                             <Label Text="{Binding Description}" VerticalTextAlignment="Center" 
                                    FontAttributes="Italic"/>
-
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

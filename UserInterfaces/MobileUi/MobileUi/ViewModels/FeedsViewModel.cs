@@ -15,13 +15,13 @@ using Shared;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System.Windows.Input;
-using System.Text.Json;
-
 
 namespace MobileUi.ViewModels
 {
     public class FeedsViewModel : BaseViewModel
-    {
+   {
+        public ObservableCollection<FeedChannel> FeedChannels { get; set; }
+
         private readonly ILogger<FeedsViewModel> _logger;
         private readonly IMediator _mediator;
 
@@ -32,7 +32,6 @@ namespace MobileUi.ViewModels
             FeedChannels = new ObservableCollection<FeedChannel>();
         }
 
-        public ObservableCollection<FeedChannel> FeedChannels { get; set; }
 
         internal override async Task OnViewAppearingAsync()
         {
@@ -57,7 +56,7 @@ namespace MobileUi.ViewModels
 
         }
 
-        public ICommand FeedChannelSelectedCommand => new Command<object>(async feedChannel =>
+        public ICommand FeedChannelSelectedCommand => new Command<FeedChannel>(async feedChannel =>
         {
             var feedChannelJson = JsonSerializer.Serialize(feedChannel);
             await Shell.Current.GoToAsync($"/feedchannel?feedchanneljson={feedChannelJson}");
