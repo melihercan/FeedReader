@@ -15,6 +15,7 @@ using Shared;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System.Windows.Input;
+using System.Web;
 
 namespace MobileUi.ViewModels
 {
@@ -51,9 +52,6 @@ namespace MobileUi.ViewModels
             {
                 FeedChannels.Add(feedChannel);
             }
-
-
-
         }
 
         public ICommand FeedChannelSelectedCommand => new Command<FeedChannel>(async feedChannel =>
@@ -62,8 +60,10 @@ namespace MobileUi.ViewModels
             // Bug https://github.com/xamarin/Xamarin.Forms/issues/10899 strips the first slash.
             // "https://" --> "https:/"
             // For now, encode the json first.
-            feedChannelJson = Convert.ToBase64String(Encoding.UTF8.GetBytes(feedChannelJson));
-            await Shell.Current.GoToAsync($"/feedchannel?feedchanneljson={feedChannelJson}");
+            feedChannelJson = HttpUtility.UrlEncode(feedChannelJson);
+
+
+            await Shell.Current.GoToAsync($"feedchannel?feedchanneljson={feedChannelJson}");
         });
     }
 }

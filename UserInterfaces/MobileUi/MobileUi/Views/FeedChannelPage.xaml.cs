@@ -27,6 +27,5 @@ namespace MobileUi.Views
             base.OnAppearing();
             await _viewModel.OnViewAppearingAsync();
         }
-
     }
 }

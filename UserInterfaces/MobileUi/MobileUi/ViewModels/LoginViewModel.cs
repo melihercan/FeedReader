@@ -72,7 +72,7 @@ namespace MobileUi.ViewModels
 
         public ICommand RegisterCommand => new Command(async () => 
         { 
-            await Shell.Current.GoToAsync("/register"); 
+            await Shell.Current.GoToAsync("register"); 
         });
 
 

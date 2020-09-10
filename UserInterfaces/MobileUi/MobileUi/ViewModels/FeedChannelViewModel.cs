@@ -12,6 +12,7 @@ using Shared;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Xamarin.Essentials;
+using System.Web;
 
 namespace MobileUi.ViewModels
 {
@@ -33,8 +34,8 @@ namespace MobileUi.ViewModels
             {
                 // Bug https://github.com/xamarin/Xamarin.Forms/issues/10899 strips the first slash.
                 // "https://" --> "https:/"
-                // "value" is Base64 encoded.
-                var feedChannelJson = Uri.UnescapeDataString(Encoding.UTF8.GetString(Convert.FromBase64String(value)));
+                // "value" is URL encoded.
+                var feedChannelJson = Uri.UnescapeDataString(HttpUtility.UrlDecode(value));
                 _feedChannel = JsonSerializer.Deserialize<FeedChannel>(feedChannelJson);
             }
         }
@@ -49,13 +50,15 @@ namespace MobileUi.ViewModels
 
         internal override async Task OnViewAppearingAsync()
         {
-            FeedItems.Clear();
-            foreach (var feedItem in _feedChannel.FeedItems)
+            if (_feedChannel != null)
             {
-                FeedItems.Add(feedItem);
+                FeedItems.Clear();
+                foreach (var feedItem in _feedChannel.FeedItems)
+                {
+                    FeedItems.Add(feedItem);
+                }
             }
         }
-
 
         public ICommand FeedItemSelectedCommand => new Command<FeedItem>(async feedItem =>
         {
