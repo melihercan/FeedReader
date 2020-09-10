@@ -6,7 +6,11 @@
 
         <StackLayout Spacing="0">
             <Label Text="Feed channels"  Background="Blue" TextColor="White" Padding="10,10"/>
-            <CollectionView ItemsSource="{Binding FeedChannels}" Background="#dddddd">
+            <CollectionView x:Name="feedsCollectionView" ItemsSource="{Binding FeedChannels}" 
+                            Background="#dddddd" SelectionMode="Single"
+                            SelectionChangedCommand="{Binding FeedChannelSelectedCommand}"
+                            SelectionChangedCommandParameter=
+                                "{Binding SelectedItem, Source={x:Reference feedsCollectionView}}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout Spacing="0" Padding="20,10,0,0">

@@ -11,17 +11,16 @@ using Xamarin.Forms.Xaml;
 namespace MobileUi.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class FeedsPage : ContentPage
+    public partial class FeedItemPage : ContentPage
     {
-        private readonly FeedsViewModel _viewModel;
+        private readonly FeedItemViewModel _viewModel;
 
-        public FeedsPage()
+        public FeedItemPage()
         {
             InitializeComponent();
-            _viewModel = new FeedsViewModel();
+            _viewModel = new FeedItemViewModel();
             BindingContext = _viewModel;
         }
-
         protected override async void OnAppearing()
         {
             base.OnAppearing();

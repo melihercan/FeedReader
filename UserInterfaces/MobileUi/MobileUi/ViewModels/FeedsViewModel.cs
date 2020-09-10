@@ -14,6 +14,9 @@ using Ardalis.Result;
 using Shared;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using System.Windows.Input;
+using System.Text.Json;
+
 
 namespace MobileUi.ViewModels
 {
@@ -53,5 +56,11 @@ namespace MobileUi.ViewModels
 
 
         }
+
+        public ICommand FeedChannelSelectedCommand => new Command<object>(async feedChannel =>
+        {
+            var feedChannelJson = JsonSerializer.Serialize(feedChannel);
+            await Shell.Current.GoToAsync($"/feedchannel?feedchanneljson={feedChannelJson}");
+        });
     }
 }

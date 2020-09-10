@@ -13,6 +13,9 @@ namespace MobileUi
             InitializeComponent();
 
             Routing.RegisterRoute("register", typeof(RegisterPage));
+            Routing.RegisterRoute("feedchannel", typeof(FeedChannelPage));
+            Routing.RegisterRoute("feeditem", typeof(FeedItemPage));
+
             BindingContext = this;
         }
     }

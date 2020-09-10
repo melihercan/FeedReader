@@ -79,6 +79,10 @@
     </ShellItem>
 
     <ShellContent Route="login" ContentTemplate="{DataTemplate views:LoginPage}"/>
+<!--    
+    <ShellContent Route="feedchannel" ContentTemplate="{DataTemplate views:FeedChannelPage}"/>
+    <ShellContent Route="feeditem" ContentTemplate="{DataTemplate views:FeedItemPage}"/>
+-->    
     
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <ShellContent Route="feeds" Title="Feeds" Icon="tab_feed.png" 

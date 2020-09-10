@@ -11,14 +11,14 @@ using Xamarin.Forms.Xaml;
 namespace MobileUi.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class FeedsPage : ContentPage
+    public partial class FeedChannelPage : ContentPage
     {
-        private readonly FeedsViewModel _viewModel;
+        private readonly FeedChannelViewModel _viewModel;
 
-        public FeedsPage()
+        public FeedChannelPage()
         {
             InitializeComponent();
-            _viewModel = new FeedsViewModel();
+            _viewModel = new FeedChannelViewModel();
             BindingContext = _viewModel;
         }
 
