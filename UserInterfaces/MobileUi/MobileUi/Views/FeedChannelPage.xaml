@@ -3,10 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobileUi.Views.FeedChannelPage">
 
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="BackgroundColor">#eeeeee</Color>
+            <Color x:Key="ItemColor">Silver</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     
     <ContentPage.Content>
 
-        <StackLayout Spacing="0" BackgroundColor="#eeeeee">
+        <StackLayout Spacing="0" BackgroundColor="{StaticResource BackgroundColor}">
             <Label Text="Feed channel"  Background="Blue" TextColor="White" Padding="10,10"/>
             <BoxView HeightRequest="5"/>
             <CollectionView x:Name="feedItemsCollectionView" ItemsSource="{Binding FeedItems}" 
@@ -26,13 +33,15 @@
                                     <VisualState Name="Normal" />
                                     <VisualState Name="Selected">
                                         <VisualState.Setters>
-                                            <Setter Property="BackgroundColor" Value="#eeeeee" />
+                                            <Setter Property="BackgroundColor" Value="{StaticResource BackgroundColor}" />
                                         </VisualState.Setters>
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
-                            <Grid Padding="10" ColumnDefinitions="1*,4*" RowDefinitions="Auto" BackgroundColor="Silver"
-                                  >
+                            <Grid Padding="10" ColumnDefinitions="1*,4*" RowDefinitions="Auto" 
+                                  BackgroundColor="{StaticResource ItemColor}">
+                                <Image Grid.Column="0" Aspect="AspectFit" VerticalOptions="StartAndExpand"
+                                       Source="{Binding ImageUrl}" Margin="0,5,0,0" />
                                 <StackLayout Grid.Column="1" Spacing="2">
                                     <Label Text="{Binding Title}" VerticalTextAlignment="Center" 
                                            FontAttributes="Bold"/>
