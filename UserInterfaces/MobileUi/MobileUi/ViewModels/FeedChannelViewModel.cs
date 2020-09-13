@@ -22,38 +22,39 @@ namespace MobileUi.ViewModels
         public ObservableCollection<FeedItem> FeedItems { get; set; }
 
         private readonly ILogger<FeedsViewModel> _logger;
-        private readonly IMediator _mediator;
 
         private FeedChannel _feedChannel;
+        public FeedChannel FeedChannel
+        {
+            get => _feedChannel;
+            set => SetProperty(ref _feedChannel, value);
+        }
 
-        private string _feedChannelJson;
         public string FeedChannelJson
         {
-            get => _feedChannelJson;
             set
             {
                 // Bug https://github.com/xamarin/Xamarin.Forms/issues/10899 strips the first slash.
                 // "https://" --> "https:/"
                 // "value" is URL encoded.
                 var feedChannelJson = Uri.UnescapeDataString(HttpUtility.UrlDecode(value));
-                _feedChannel = JsonSerializer.Deserialize<FeedChannel>(feedChannelJson);
+                FeedChannel = JsonSerializer.Deserialize<FeedChannel>(feedChannelJson);
+                Title = FeedChannel.Title;
             }
         }
 
         public FeedChannelViewModel()
         {
             _logger = Registry.ServiceProvider.GetService<ILogger<FeedsViewModel>>();
-            _mediator = Registry.ServiceProvider.GetService<IMediator>();
             FeedItems = new ObservableCollection<FeedItem>();
         }
 
-
         internal override async Task OnViewAppearingAsync()
         {
-            if (_feedChannel != null)
+            if (FeedChannel != null)
             {
                 FeedItems.Clear();
-                foreach (var feedItem in _feedChannel.FeedItems)
+                foreach (var feedItem in FeedChannel.FeedItems)
                 {
                     FeedItems.Add(feedItem);
                 }
@@ -64,9 +65,6 @@ namespace MobileUi.ViewModels
         {
             var uri = new Uri(feedItem.Link);
             await Browser.OpenAsync(uri);
-            //var feedItemJson = JsonSerializer.Serialize(feedItem);
-            //await Shell.Current.GoToAsync($"/feeditem?feeditemjson={feedItemJson}");
         });
-
     }
 }

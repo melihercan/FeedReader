@@ -2,22 +2,48 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MobileUi.Views.FeedsPage">
-    <ContentPage.Content>
 
-        <StackLayout Spacing="0">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="BackgroundColor">#eeeeee</Color>
+            <Color x:Key="ItemColor">Silver</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout Spacing="0" BackgroundColor="{StaticResource BackgroundColor}">
             <Label Text="Feed channels"  Background="Blue" TextColor="White" Padding="10,10"/>
+            <BoxView HeightRequest="5"/>
+
             <CollectionView x:Name="feedsCollectionView" ItemsSource="{Binding FeedChannels}" 
-                            Background="#dddddd" SelectionMode="Single"
+                            SelectionMode="Single"
                             SelectionChangedCommand="{Binding FeedChannelSelectedCommand}"
                             SelectionChangedCommandParameter=
                                 "{Binding SelectedItem, Source={x:Reference feedsCollectionView}}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout Spacing="0" Padding="20,10,0,0">
-                            <Label Text="{Binding Title}" VerticalTextAlignment="Center" 
-                                   FontAttributes="Bold"/>
-                            <Label Text="{Binding Description}" VerticalTextAlignment="Center" 
+                        <StackLayout Padding="10,5">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Normal" />
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" 
+                                                    Value="{StaticResource BackgroundColor}" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <StackLayout Spacing="0" Padding="10" BackgroundColor="Silver">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="{Binding ImageUrl}"/>
+                                    <Label Text="{Binding Title}" VerticalTextAlignment="Center" 
+                                           FontAttributes="Bold"/>
+                                </StackLayout>
+                                <Label Text="{Binding Description}" VerticalTextAlignment="Center" 
                                    FontAttributes="Italic"/>
+                            </StackLayout>
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

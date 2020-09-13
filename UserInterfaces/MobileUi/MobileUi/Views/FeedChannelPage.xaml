@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Shell.NavBarIsVisible="False"
              x:Class="MobileUi.Views.FeedChannelPage">
-
-
+    
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="BackgroundColor">#eeeeee</Color>
@@ -14,16 +14,31 @@
     <ContentPage.Content>
 
         <StackLayout Spacing="0" BackgroundColor="{StaticResource BackgroundColor}">
-            <Label Text="Feed channel"  Background="Blue" TextColor="White" Padding="10,10"/>
+            <StackLayout Orientation="Horizontal" Background="Blue" >
+                <ImageButton BackgroundColor="Transparent" Padding="10,0,0,0">
+                    <ImageButton.Source>
+                        <FontImageSource FontFamily="FaFont" Glyph="&#xf060;" Size="20"/>
+                    </ImageButton.Source>
+                </ImageButton>
+                <Image Margin="10,0,0,0"  Source="{Binding FeedChannel.ImageUrl}"/>
+                <Label Text="{Binding FeedChannel.Title}"  TextColor="White" Padding="10,10"/>
+                <ImageButton BackgroundColor="Transparent" Padding="0,0,10,0" HorizontalOptions="EndAndExpand">
+                    <ImageButton.Source>
+                        <FontImageSource FontFamily="FaFont" Glyph="&#xf2ed;" Size="20"/>
+                    </ImageButton.Source>
+                </ImageButton>
+                <ImageButton BackgroundColor="Transparent" Padding="0,0,10,0" HorizontalOptions="End">
+                    <ImageButton.Source>
+                        <FontImageSource FontFamily="FaFont" Glyph="&#xf2f9;" Size="20"/>
+                    </ImageButton.Source>
+                </ImageButton>
+            </StackLayout>
             <BoxView HeightRequest="5"/>
             <CollectionView x:Name="feedItemsCollectionView" ItemsSource="{Binding FeedItems}" 
                             SelectionMode="Single"
                             SelectionChangedCommand="{Binding FeedItemSelectedCommand}"
                             SelectionChangedCommandParameter=
                                 "{Binding SelectedItem, Source={x:Reference feedItemsCollectionView}}">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical"/>
-                </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout Padding="10,5">
@@ -32,7 +47,8 @@
                                     <VisualState Name="Normal" />
                                     <VisualState Name="Selected">
                                         <VisualState.Setters>
-                                            <Setter Property="BackgroundColor" Value="{StaticResource BackgroundColor}" />
+                                            <Setter Property="BackgroundColor" 
+                                                    Value="{StaticResource BackgroundColor}" />
                                         </VisualState.Setters>
                                     </VisualState>
                                 </VisualStateGroup>
@@ -47,7 +63,6 @@
                                        VerticalTextAlignment="Center" FontAttributes="Italic" />
                                 <Label Grid.Row="2" Grid.Column="1" Text="DateTime" VerticalTextAlignment="Center" 
                                        HorizontalTextAlignment="End"/>
-
                             </Grid>
                         </StackLayout>
                     </DataTemplate>

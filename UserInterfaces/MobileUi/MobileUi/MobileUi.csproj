@@ -7,10 +7,12 @@
 
   <ItemGroup>
     <None Remove="appsettings.json" />
+    <None Remove="Fonts\fa-solid-900.ttf" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="appsettings.json" />
+    <EmbeddedResource Include="Fonts\fa-solid-900.ttf" />
   </ItemGroup>
 
   <ItemGroup>
