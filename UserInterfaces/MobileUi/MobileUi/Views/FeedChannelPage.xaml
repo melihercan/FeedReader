@@ -22,8 +22,7 @@
                             SelectionChangedCommandParameter=
                                 "{Binding SelectedItem, Source={x:Reference feedItemsCollectionView}}">
                 <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical"
-                         />
+                    <GridItemsLayout Orientation="Vertical"/>
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -38,17 +37,18 @@
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
-                            <Grid Padding="10" ColumnDefinitions="1*,4*" RowDefinitions="Auto" 
-                                  BackgroundColor="{StaticResource ItemColor}">
-                                <Image Grid.Column="0" Aspect="AspectFit" VerticalOptions="StartAndExpand"
-                                       Source="{Binding ImageUrl}" Margin="0,5,0,0" />
-                                <StackLayout Grid.Column="1" Spacing="2">
-                                    <Label Text="{Binding Title}" VerticalTextAlignment="Center" 
-                                           FontAttributes="Bold"/>
-                                    <Label Text="{Binding Description}" VerticalTextAlignment="Center"
-                                           FontAttributes="Italic"/>
-                                </StackLayout>
-                        </Grid>
+                            <Grid Padding="10" ColumnDefinitions="1*,4*" RowDefinitions="Auto,Auto,Auto"
+                                  BackgroundColor="{StaticResource ItemColor}" >
+                                <Image Grid.Column="0" Grid.RowSpan="3" Aspect="AspectFit" 
+                                       VerticalOptions="StartAndExpand" Source="{Binding ImageUrl}"/>
+                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Title}" 
+                                       VerticalTextAlignment="Center" FontAttributes="Bold"/>
+                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding Description}" 
+                                       VerticalTextAlignment="Center" FontAttributes="Italic" />
+                                <Label Grid.Row="2" Grid.Column="1" Text="DateTime" VerticalTextAlignment="Center" 
+                                       HorizontalTextAlignment="End"/>
+
+                            </Grid>
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
@@ -57,3 +57,7 @@
 
     </ContentPage.Content>
 </ContentPage>
+    
+    
+<!--MaxLines="2" LineBreakMode="TailTruncation" -->
+    
