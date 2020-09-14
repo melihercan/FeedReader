@@ -15,19 +15,21 @@
 
         <StackLayout Spacing="0" BackgroundColor="{StaticResource BackgroundColor}">
             <StackLayout Orientation="Horizontal" Background="Blue" >
-                <ImageButton BackgroundColor="Transparent" Padding="10,0,0,0">
+                <ImageButton BackgroundColor="Transparent" Padding="10,0,0,0" Command="{Binding GoBackCommand}">
                     <ImageButton.Source>
                         <FontImageSource FontFamily="FaFont" Glyph="&#xf060;" Size="20"/>
                     </ImageButton.Source>
                 </ImageButton>
                 <Image Margin="10,0,0,0"  Source="{Binding FeedChannel.ImageUrl}"/>
                 <Label Text="{Binding FeedChannel.Title}"  TextColor="White" Padding="10,10"/>
-                <ImageButton BackgroundColor="Transparent" Padding="0,0,10,0" HorizontalOptions="EndAndExpand">
+                <ImageButton BackgroundColor="Transparent" Padding="0,0,10,0" HorizontalOptions="EndAndExpand"
+                             Command="{Binding RemoveFeedChannelCommand}">
                     <ImageButton.Source>
                         <FontImageSource FontFamily="FaFont" Glyph="&#xf2ed;" Size="20"/>
                     </ImageButton.Source>
                 </ImageButton>
-                <ImageButton BackgroundColor="Transparent" Padding="0,0,10,0" HorizontalOptions="End">
+                <ImageButton BackgroundColor="Transparent" Padding="0,0,10,0" HorizontalOptions="End"
+                             Command="{Binding UpdateFeedChannelCommand}">
                     <ImageButton.Source>
                         <FontImageSource FontFamily="FaFont" Glyph="&#xf2f9;" Size="20"/>
                     </ImageButton.Source>

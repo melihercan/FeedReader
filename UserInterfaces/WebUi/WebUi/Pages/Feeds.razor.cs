@@ -92,14 +92,14 @@ namespace WebUi.Pages
                 ////            ShowFeedChannel(feedChannel);
                 ////    }
                 ///
-            var resultNotifyFeedUpdate = await _mediator.Send(new NotifyFeedUpdate { });
-            if (resultNotifyFeedUpdate.Status != ResultStatus.Ok)
+            var notifyFeedUpdateResult = await _mediator.Send(new NotifyFeedUpdate());
+            if (notifyFeedUpdateResult.Status != ResultStatus.Ok)
             {
-                _logger.LogError(string.Join(",", resultNotifyFeedUpdate.Errors));
+                _logger.LogError(string.Join(",", notifyFeedUpdateResult.Errors));
                 return;
             }
 
-             _obFeedChannel = resultNotifyFeedUpdate.Value.Subscribe(feedChannel => 
+             _obFeedChannel = notifyFeedUpdateResult.Value.Subscribe(feedChannel => 
              {
                 ChannelUpdated(feedChannel);
              });
