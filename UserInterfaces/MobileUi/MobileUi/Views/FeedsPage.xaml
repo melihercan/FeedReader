@@ -1,18 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Feeds"
+             Shell.TabBarIsVisible="False"
              x:Class="MobileUi.Views.FeedsPage">
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Color x:Key="BackgroundColor">#eeeeee</Color>
-            <Color x:Key="ItemColor">Silver</Color>
+            <Color x:Key="BackgroundColor">#f7f7f7</Color>
+            <Color x:Key="ItemColor">#dedfd6</Color>
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <ContentPage.Content>
         <StackLayout Spacing="0" BackgroundColor="{StaticResource BackgroundColor}">
-            <Label Text="Feed channels"  Background="Blue" TextColor="White" Padding="10,10"/>
             <BoxView HeightRequest="5"/>
 
             <CollectionView x:Name="feedsCollectionView" ItemsSource="{Binding FeedChannels}" 
@@ -35,7 +36,7 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
 
-                            <StackLayout Spacing="0" Padding="10" BackgroundColor="Silver">
+                            <StackLayout Spacing="0" Padding="10" BackgroundColor="{StaticResource ItemColor}">
                                 <StackLayout Orientation="Horizontal">
                                     <Image Source="{Binding ImageUrl}"/>
                                     <Label Text="{Binding Title}" VerticalTextAlignment="Center" 

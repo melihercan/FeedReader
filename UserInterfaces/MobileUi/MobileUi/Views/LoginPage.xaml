@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Shell.FlyoutBehavior="Disabled"
              Shell.NavBarIsVisible="True"
-             Shell.TabBarIsVisible="False"
              x:Class="MobileUi.Views.LoginPage">
     <ContentPage.Content>
         <StackLayout Margin="20,10">

@@ -2,6 +2,7 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:views="clr-namespace:MobileUi.Views"
+       xmlns:extensions="clr-namespace:MobileUi.Extensions"
        Title="MobileUi"
        x:Class="MobileUi.AppShell">
 
@@ -74,24 +75,47 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-    <ShellItem Route="initializing">
-        <ShellContent ContentTemplate="{DataTemplate views:InitializingPage}"/>
-    </ShellItem>
+    <Shell.FlyoutHeader>
+        <StackLayout BackgroundColor="{StaticResource Primary}">
+            <Image Aspect="AspectFit" Margin="0,20,0,0" HeightRequest="100"
+                   Source="{extensions:ImageResourceMarkupExtension MobileUi.Images.me.png}" 
+                   Opacity="0.5"/>
+            <Label Text="© melihercan @2020" Padding="0,0,0,10" TextColor="White" FontSize="12" 
+                   FontAttributes="Italic" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+            <Label Text="FeedReader app" Padding="0,0,0,20" TextColor="White" FontSize="28" FontAttributes="Bold" 
+                   HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+        </StackLayout>
+    </Shell.FlyoutHeader>
 
-    <ShellContent Route="login" ContentTemplate="{DataTemplate views:LoginPage}"/>
-<!--    
-    <ShellContent Route="feedchannel" ContentTemplate="{DataTemplate views:FeedChannelPage}"/>
-    <ShellContent Route="feeditem" ContentTemplate="{DataTemplate views:FeedItemPage}"/>
--->    
-    
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-        <ShellContent Route="feeds" Title="Feeds" Icon="tab_feed.png" 
-                      ContentTemplate="{DataTemplate views:FeedsPage}" />
-        <ShellContent Title="Browse" Icon="tab_feed.png"
-                      ContentTemplate="{DataTemplate views:ItemsPage}" />
-        <ShellContent Title="About" Icon="tab_about.png"
-                      ContentTemplate="{DataTemplate views:AboutPage}" />
+        <ShellContent Route="feeds" Title="Feeds" ContentTemplate="{DataTemplate views:FeedsPage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="FaFont" Glyph="&#xf09e;" Size="20"/>
+            </ShellContent.Icon>
+        </ShellContent>
     </FlyoutItem>
-    <MenuItem Text="Logout" Command="{Binding ExecuteLogout}" />
+    <MenuItem Text="Logout" Command="{Binding LogoutCommand}">
+        <MenuItem.IconImageSource>
+            <FontImageSource FontFamily="FaFont" Glyph="&#xf2f5;" Size="20">
+                <FontImageSource.Color>
+                    <OnPlatform x:TypeArguments="Color" Android="Black"/>
+                </FontImageSource.Color>
+            </FontImageSource>
+        </MenuItem.IconImageSource>
+    </MenuItem>
+    <MenuItem Text="About" Command="{Binding AboutCommand}">
+        <MenuItem.IconImageSource>
+            <FontImageSource FontFamily="FaFont" Glyph="&#xf129;" Size="20">
+                <FontImageSource.Color>
+                    <OnPlatform x:TypeArguments="Color" Android="Black"/>
+                </FontImageSource.Color>
+            </FontImageSource>
+        </MenuItem.IconImageSource>
+
+    </MenuItem>
+
+    <ShellContent Route="initializing" ContentTemplate="{DataTemplate views:InitializingPage}"/>
+    <ShellContent Route="login" ContentTemplate="{DataTemplate views:LoginPage}"/>
+
 
 </Shell>
