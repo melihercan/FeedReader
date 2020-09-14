@@ -6,8 +6,8 @@
     
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Color x:Key="BackgroundColor">#eeeeee</Color>
-            <Color x:Key="ItemColor">Silver</Color>
+            <Color x:Key="BackgroundColor">#f7f7f7</Color>
+            <Color x:Key="ItemColor">#dedfd6</Color>
         </ResourceDictionary>
     </ContentPage.Resources>
     
@@ -63,8 +63,8 @@
                                        VerticalTextAlignment="Center" FontAttributes="Bold"/>
                                 <Label Grid.Row="1" Grid.Column="1" Text="{Binding Description}" 
                                        VerticalTextAlignment="Center" FontAttributes="Italic" />
-                                <Label Grid.Row="2" Grid.Column="1" Text="DateTime" VerticalTextAlignment="Center" 
-                                       HorizontalTextAlignment="End"/>
+                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding PublishDate}" VerticalTextAlignment="Center" 
+                                       HorizontalTextAlignment="End" FontSize="Micro"/>
                             </Grid>
                         </StackLayout>
                     </DataTemplate>
