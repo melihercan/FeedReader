@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -61,7 +62,7 @@ namespace ConsoleUi
         private async Task ExecuteLoginAsync(string[] schemes)
         {
             var selection = GetSchemeSelection();
-            if(selection == 1)
+            if (selection == 1)
             {
                 Console.Write("\nUsername: ");
                 var username = Console.ReadLine();
@@ -139,7 +140,7 @@ namespace ConsoleUi
                     continue;
                 }
 
-                await ExecuteFeedChannelAsync(feedChannels.ElementAt(selection-1));
+                await ExecuteFeedChannelAsync(feedChannels.ElementAt(selection - 1));
             }
 
             int GetFeedChannelSelection()
@@ -180,26 +181,95 @@ namespace ConsoleUi
 
         private async Task ExecuteFeedChannelAsync(FeedChannel feedChannel)
         {
+            while (true)
+            {
+                var selection = GetFeedItemSelection();
+                if (selection == -1)
+                {
+                    // Go back.
+                    break;
+                }
+                else if (selection == -2)
+                {
+                    // Update items.
+                    // feedChannel = NEW FEED CHANNEL
+                    continue;
+                }
+                else if (selection == -3)
+                {
+                    // Remove channel.
+                    break;
+                }
+                else
+                {
+                    // Get item page (HTML) and convert to text.
+                }
+
+            }
+
+            int GetFeedItemSelection()
+            {
+                while (true)
+                {
+                    Console.WriteLine($"\n\n---- {feedChannel.Title} ---- " +
+                        $"(enter 'b' to go back, 'u' to update, 'r' to remove)");
+                    int count = 1;
+                    string selectionStr;
+                    int selectionInt = 0;
+
+                    foreach (var feedItem in feedChannel.FeedItems)
+                    {
+                        Console.WriteLine($"{count++}. {feedItem.Title}");
+                    }
+
+                    Console.Write("Your selection: ");
+                    selectionStr = Console.ReadLine();
+                    selectionInt = selectionStr switch
+                    {
+                        "b" => -1,
+                        "u" => -2,
+                        "r" => -3,
+                        _ => 0,
+                    };
+                    if (selectionInt != 0)
+                    {
+                        return selectionInt;
+                    }
+                    try
+                    {
+                        selectionInt = Convert.ToInt32(selectionStr);
+                    }
+                    catch
+                    {
+                    }
+                    if (selectionInt >= 1 && selectionInt <= feedChannel.FeedItems.Count())
+                    {
+                        return selectionInt;
+                    }
+                    Console.WriteLine("Invalid selection!!!");
+                }
+            }
 
         }
 
-
-        //private void ShowFeedChannel(FeedChannel feedChannel)
-        //{
-        //    var msg = string.Empty;
-        //    msg += Environment.NewLine;
-        //    msg += $"======== FEED CHANNEL ========{Environment.NewLine}";
-        //    msg += $"Title: {feedChannel.Title}{Environment.NewLine}";
-        //    msg += $"Description: {feedChannel.Description}{Environment.NewLine}";
-        //    msg += $"Link: {feedChannel.Link}{Environment.NewLine}";
-        //    foreach (var feedItem in feedChannel.FeedItems)
-        //    {
-        //        msg += $"-------- FEED ITEM --------{Environment.NewLine}";
-        //        msg += $"Title: {feedItem.Title}{Environment.NewLine}";
-        //        msg += $"Description: {feedItem.Description}{Environment.NewLine}";
-        //        msg += $"Link: {feedItem.Link}{Environment.NewLine}";
-        //    }
-        //    _logger.LogInformation(msg);
-        //}
     }
+
+
+    //private void ShowFeedChannel(FeedChannel feedChannel)
+    //{
+    //    var msg = string.Empty;
+    //    msg += Environment.NewLine;
+    //    msg += $"======== FEED CHANNEL ========{Environment.NewLine}";
+    //    msg += $"Title: {feedChannel.Title}{Environment.NewLine}";
+    //    msg += $"Description: {feedChannel.Description}{Environment.NewLine}";
+    //    msg += $"Link: {feedChannel.Link}{Environment.NewLine}";
+    //    foreach (var feedItem in feedChannel.FeedItems)
+    //    {
+    //        msg += $"-------- FEED ITEM --------{Environment.NewLine}";
+    //        msg += $"Title: {feedItem.Title}{Environment.NewLine}";
+    //        msg += $"Description: {feedItem.Description}{Environment.NewLine}";
+    //        msg += $"Link: {feedItem.Link}{Environment.NewLine}";
+    //    }
+    //    _logger.LogInformation(msg);
+    //}
 }
