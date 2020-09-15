@@ -98,6 +98,13 @@ namespace MobileUi.ViewModels
 
         public ICommand RemoveFeedChannelCommand => new Command(async () =>
         {
+            var answer = await App.Current.MainPage.DisplayAlert(
+                string.Empty, "Are you sure to remove the feed?","Yes","No");
+            if(!answer)
+            {
+                return;
+            }
+
             var feedResult = await _mediator.Send(new RemoveFeed
             {
                 Id = FeedChannel.FeedChannelId
