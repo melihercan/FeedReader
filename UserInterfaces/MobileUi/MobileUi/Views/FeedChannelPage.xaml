@@ -17,7 +17,7 @@
             <StackLayout Orientation="Horizontal" Background="Blue" >
                 <ImageButton BackgroundColor="Transparent" Padding="10,0,0,0" Command="{Binding GoBackCommand}">
                     <ImageButton.Source>
-                        <FontImageSource FontFamily="FaFont" Glyph="&#xf060;" Size="20"/>
+                        <FontImageSource FontFamily="FaFont" Glyph="&#xf060;" Size="25"/>
                     </ImageButton.Source>
                 </ImageButton>
                 <Image Margin="10,0,0,0"  Source="{Binding FeedChannel.ImageUrl}"/>
@@ -25,13 +25,13 @@
                 <ImageButton BackgroundColor="Transparent" Padding="0,0,10,0" HorizontalOptions="EndAndExpand"
                              Command="{Binding RemoveFeedChannelCommand}">
                     <ImageButton.Source>
-                        <FontImageSource FontFamily="FaFont" Glyph="&#xf2ed;" Size="20"/>
+                        <FontImageSource FontFamily="FaFont" Glyph="&#xf2ed;" Size="15"/>
                     </ImageButton.Source>
                 </ImageButton>
                 <ImageButton BackgroundColor="Transparent" Padding="0,0,10,0" HorizontalOptions="End"
                              Command="{Binding UpdateFeedChannelCommand}">
                     <ImageButton.Source>
-                        <FontImageSource FontFamily="FaFont" Glyph="&#xf2f9;" Size="20"/>
+                        <FontImageSource FontFamily="FaFont" Glyph="&#xf2f9;" Size="15"/>
                     </ImageButton.Source>
                 </ImageButton>
             </StackLayout>

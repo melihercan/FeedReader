@@ -87,6 +87,8 @@
         </StackLayout>
     </Shell.FlyoutHeader>
 
+    <ShellContent Route="initializing" ContentTemplate="{DataTemplate views:InitializingPage}"/>
+
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <ShellContent Route="feeds" Title="Feeds" ContentTemplate="{DataTemplate views:FeedsPage}">
             <ShellContent.Icon>
@@ -114,7 +116,6 @@
 
     </MenuItem>
 
-    <ShellContent Route="initializing" ContentTemplate="{DataTemplate views:InitializingPage}"/>
     <ShellContent Route="login" ContentTemplate="{DataTemplate views:LoginPage}"/>
 
 

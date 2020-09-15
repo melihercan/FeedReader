@@ -12,6 +12,14 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding AddFeedChannelCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="FaFont" Glyph="&#xf067;" Size="15"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    
     <ContentPage.Content>
         <StackLayout Spacing="0" BackgroundColor="{StaticResource BackgroundColor}">
             <BoxView HeightRequest="5"/>

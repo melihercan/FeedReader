@@ -65,5 +65,31 @@ namespace MobileUi.ViewModels
 
             await Shell.Current.GoToAsync($"feedchannel?feedchanneljson={feedChannelJson}");
         });
+
+        public ICommand AddFeedChannelCommand => new Command(async () => 
+        {
+            //// TODO: Anti pattern (UI in view model) ---> create popup service...
+            string result = await App.Current.MainPage.DisplayPromptAsync(string.Empty, "Enter feed URL");
+            _logger.LogInformation($"result:{result}");
+            if (string.IsNullOrEmpty(result))
+            {
+                return;
+            }
+
+            var url = result;
+            var feedResult = await _mediator.Send(new AddFeed
+            {
+                Url = url
+            });
+            if (feedResult.Status == ResultStatus.Ok)
+            {
+                FeedChannels.Add(feedResult.Value);
+            }
+            else
+            {
+                _logger.LogError(string.Join(",", feedResult.Errors));
+            }
+        });
+
     }
 }
