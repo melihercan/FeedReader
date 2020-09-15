@@ -18,13 +18,13 @@ namespace MobileUi.ViewModels
         internal override async Task OnViewAppearingAsync()
         {
             var mediator = Registry.ServiceProvider.GetService<IMediator>();
-            var tokenResult = await mediator.Send(new GetToken { });
+            var tokenResult = await mediator.Send(new GetToken());
      //await Task.Delay(2000);
             if (tokenResult.Status == ResultStatus.Ok)
             {
                 if (tokenResult.Value == null) //// TODO: or expired
                 {
-                    var schemesResult = await mediator.Send(new GetAuthenticationSchemes { });
+                    var schemesResult = await mediator.Send(new GetAuthenticationSchemes());
                     if (schemesResult.Status == ResultStatus.Ok)
                     {
                         var schemesJson = JsonSerializer.Serialize(schemesResult.Value);
