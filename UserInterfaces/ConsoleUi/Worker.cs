@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Reflection.Metadata.Ecma335;
+using System.Security.Principal;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using Application.UseCases;
 using Ardalis.Result;
 using Domain.Entities;
@@ -20,11 +23,13 @@ namespace ConsoleUi
     {
         private readonly ILogger<Worker> _logger;
         private readonly IMediator _mediator;
+        private readonly HttpClient _httpClient;
 
-        public Worker(ILogger<Worker> logger, IMediator mediator)
+        public Worker(ILogger<Worker> logger, IMediator mediator, HttpClient httpClient)
         {
             _logger = logger;
             _mediator = mediator;
+            _httpClient = httpClient;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -68,7 +73,7 @@ namespace ConsoleUi
                 var username = Console.ReadLine();
                 Console.Write("Password: ");
                 var password = Console.ReadLine();
-                Console.WriteLine("Logging in...\n");
+                Console.WriteLine("Logging in...");
                 var loginResult = await _mediator.Send(new Login
                 {
                     User = new User
@@ -147,14 +152,14 @@ namespace ConsoleUi
             {
                 while (true)
                 {
-                    Console.WriteLine("\n\n---- Feeds ---- (enter 'a' to add a new feed)");
+                    Console.WriteLine("\n\n#### Feeds #### (enter 'a' to add a new feed)");
                     int count = 1;
                     string selectionStr;
                     int selectionInt = 0;
 
                     foreach (var feedChannel in feedChannels)
                     {
-                        Console.WriteLine($"{count}. {feedChannel.Title}");
+                        Console.WriteLine($"{count++}. {feedChannel.Title}");
                     }
 
                     Console.Write("Your selection: ");
@@ -181,6 +186,7 @@ namespace ConsoleUi
 
         private async Task ExecuteFeedChannelAsync(FeedChannel feedChannel)
         {
+            var feedItems = feedChannel.FeedItems.OrderByDescending(feedItem => feedItem.PublishDate);
             while (true)
             {
                 var selection = GetFeedItemSelection();
@@ -203,23 +209,38 @@ namespace ConsoleUi
                 else
                 {
                     // Get item page (HTML) and convert to text.
-                }
+                    //var response = await _httpClient.GetAsync(feedItems.ElementAt(selection - 1).Link);
+                    //if (!response.IsSuccessStatusCode)
+                    //{
+                    //    Console.WriteLine("Couldn't get valid HTTP response!!!");
+                    //    break;
+                    //}
+                    //var html = await response.Content.ReadAsStringAsync();
 
+                    // For now print description and link.
+                    var feedItem = feedItems.ElementAt(selection - 1);
+                    Console.WriteLine($"\n\n#### {feedItem.Title} #### " +
+                        $"(hit any key to return)");
+                    Console.WriteLine($"{feedItem.Description}");
+                    Console.WriteLine($"{feedItem.PublishDate}");
+                    Console.WriteLine($"URL: {feedItem.Link}");
+                    Console.ReadKey();
+                }
             }
 
             int GetFeedItemSelection()
             {
                 while (true)
                 {
-                    Console.WriteLine($"\n\n---- {feedChannel.Title} ---- " +
+                    Console.WriteLine($"\n\n#### {feedChannel.Title} #### " +
                         $"(enter 'b' to go back, 'u' to update, 'r' to remove)");
                     int count = 1;
                     string selectionStr;
                     int selectionInt = 0;
 
-                    foreach (var feedItem in feedChannel.FeedItems)
+                    foreach (var feedItem in feedItems)
                     {
-                        Console.WriteLine($"{count++}. {feedItem.Title}");
+                        Console.WriteLine($"{count++}. {feedItem.Title} - {feedItem.PublishDate}");
                     }
 
                     Console.Write("Your selection: ");
@@ -242,7 +263,7 @@ namespace ConsoleUi
                     catch
                     {
                     }
-                    if (selectionInt >= 1 && selectionInt <= feedChannel.FeedItems.Count())
+                    if (selectionInt >= 1 && selectionInt <= feedItems.Count())
                     {
                         return selectionInt;
                     }
