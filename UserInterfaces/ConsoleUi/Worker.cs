@@ -140,8 +140,19 @@ namespace ConsoleUi
                 var selection = GetFeedChannelSelection();
                 if (selection == -1)
                 {
-                    //// TODO: ADD CHANNLE HERE
-                    ///
+                    Console.Write("\nFeed URL: ");
+                    var url = Console.ReadLine();
+                    var feedResult = await _mediator.Send(new AddFeed
+                    {
+                        Url = url
+                    });
+                    if (feedResult.Status == ResultStatus.Ok)
+                    {
+                    }
+                    else
+                    {
+                        _logger.LogError(string.Join(",", feedResult.Errors));
+                    }
                     continue;
                 }
 
@@ -186,9 +197,11 @@ namespace ConsoleUi
 
         private async Task ExecuteFeedChannelAsync(FeedChannel feedChannel)
         {
-            var feedItems = feedChannel.FeedItems.OrderByDescending(feedItem => feedItem.PublishDate);
+            IEnumerable<FeedItem> feedItems;
+
             while (true)
             {
+                feedItems = feedChannel.FeedItems.OrderByDescending(feedItem => feedItem.PublishDate);
                 var selection = GetFeedItemSelection();
                 if (selection == -1)
                 {
@@ -198,12 +211,35 @@ namespace ConsoleUi
                 else if (selection == -2)
                 {
                     // Update items.
-                    // feedChannel = NEW FEED CHANNEL
+                    var feedResult = await _mediator.Send(new UpdateFeed
+                    {
+                        FeedChannel = feedChannel
+                    });
+                    if (feedResult.Status == ResultStatus.Ok)
+                    {
+                        feedChannel = feedResult.Value;
+                    }
+                    else
+                    {
+                        _logger.LogError(string.Join(",", feedResult.Errors));
+                    }
+
                     continue;
                 }
                 else if (selection == -3)
                 {
                     // Remove channel.
+                    var feedResult = await _mediator.Send(new RemoveFeed
+                    {
+                        Id = feedChannel.FeedChannelId
+                    });
+                    if (feedResult.Status == ResultStatus.Ok)
+                    {
+                    }
+                    else
+                    {
+                        _logger.LogError(string.Join(",", feedResult.Errors));
+                    }
                     break;
                 }
                 else
