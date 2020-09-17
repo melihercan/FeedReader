@@ -13,17 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.cs" />
-    <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200530112822_Create.cs" />
-    <Compile Remove="Data\Migrations\20200530112822_Create.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200531124938_AddedFeeds.cs" />
-    <Compile Remove="Data\Migrations\20200531124938_AddedFeeds.Designer.cs" />
-    <Compile Remove="Data\Migrations\20200622082017_LastUpdateTime.cs" />
-    <Compile Remove="Data\Migrations\20200622082017_LastUpdateTime.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Ardalis.Result.AspNetCore" Version="3.0.1" />
     <PackageReference Include="IdentityModel" Version="4.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.1.8" />
