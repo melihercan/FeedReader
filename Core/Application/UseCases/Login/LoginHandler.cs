@@ -28,7 +28,14 @@ namespace Application.UseCases
         {
             try
             {
-                return await _userAccount.LoginAsync(request.User);
+                if (request.Scheme != null)
+                {
+                    return await _userAccount.ExternalProviderLoginAsync(request.Scheme);
+                }
+                else
+                {
+                    return await _userAccount.LocalLoginAsync(request.User);
+                }
             }
             catch (Exception ex)
             {

@@ -12,10 +12,13 @@ namespace Application.Interfaces
         Task<Result<object>> RegisterAsync(User user);
         Task UnregisterAsync(User user);
         
-        Task<Result<Token>> LoginAsync(User user);
+        Task<Result<Token>> LocalLoginAsync(User user);
         Task LogoutAsync();
 
-        Task<bool> AuthenticateAsync(string username, string password);
         Task<string[]> GetAuthenticationSchemesAsync();
+
+        Task<Result<Token>> ExternalProviderLoginAsync(string scheme);
+
+
     }
 }

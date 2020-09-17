@@ -9,6 +9,8 @@ using System.Net.Http.Json;
 using Domain.Entities;
 using Ardalis.Result;
 using System.Net.Http.Headers;
+using Xamarin.Essentials;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace Infrastructure
 {
@@ -33,7 +35,7 @@ namespace Infrastructure
             throw new NotImplementedException();
         }
 
-        public async Task<Result<Token>> LoginAsync(User user)
+        public async Task<Result<Token>> LocalLoginAsync(User user)
         {
             //var discovery = await _httpClient.GetDiscoveryDocumentAsync($"{_httpClient.BaseAddress}");
 
@@ -67,16 +69,49 @@ namespace Infrastructure
             throw new NotImplementedException();
         }
 
-
-        public Task<bool> AuthenticateAsync(string username, string password)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<string[]> GetAuthenticationSchemesAsync()
         {
             return await _httpClient.GetFromJsonAsync<string[]>("api/MobileAuth");
         }
+
+        public async Task<Result<Token>> ExternalProviderLoginAsync(string scheme)
+        {
+            var authenticationUrl = $"{_httpClient.BaseAddress.AbsoluteUri}api/MobileAuth";
+            Token token = null;
+
+
+            try
+            {
+                WebAuthenticatorResult r = null;
+
+                if (scheme.Equals("Apple")
+                    && DeviceInfo.Platform == DevicePlatform.iOS
+                    && DeviceInfo.Version.Major >= 13)
+                {
+                    r = await AppleSignInAuthenticator.AuthenticateAsync();
+                }
+                else
+                {
+                    var authUrl = new Uri(authenticationUrl + scheme);
+                    var callbackUrl = new Uri("feedreader://");
+
+                    r = await WebAuthenticator.AuthenticateAsync(authUrl, callbackUrl);
+                }
+
+                token = new Token
+                {
+                    AccessToken = r?.AccessToken ?? r?.IdToken
+                };
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return token;
+        }
+
+
 
     }
 }

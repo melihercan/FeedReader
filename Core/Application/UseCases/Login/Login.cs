@@ -10,5 +10,6 @@ namespace Application.UseCases
     public class Login : IRequest<Result<Token>>
     {
         public User User { get; set; }
+        public string Scheme { get; set; }
     }
 }

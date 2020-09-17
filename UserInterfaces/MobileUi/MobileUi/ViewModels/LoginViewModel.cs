@@ -75,7 +75,19 @@ namespace MobileUi.ViewModels
             await Shell.Current.GoToAsync("register"); 
         });
 
+        public ICommand ExternalProviderCommand => new Command<string>(async scheme => 
+        {
+            var result = await _mediator.Send(new Login
+            {
+                Scheme = scheme
+            });
+            if (result.Status == ResultStatus.Ok)
+            {
+                var token = result.Value;
 
+                await Shell.Current.GoToAsync("///feeds");
+            }
+        });
 
         private string _schemesJson;
 

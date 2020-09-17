@@ -51,7 +51,7 @@
                                            FontAttributes="Bold"/>
                                 </StackLayout>
                                 <Label Text="{Binding Description}" VerticalTextAlignment="Center" 
-                                   FontAttributes="Italic"/>
+                                       FontAttributes="Italic"/>
                             </StackLayout>
                         </StackLayout>
                     </DataTemplate>
