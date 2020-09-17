@@ -76,9 +76,8 @@ namespace Infrastructure
 
         public async Task<Result<Token>> ExternalProviderLoginAsync(string scheme)
         {
-            var authenticationUrl = $"{_httpClient.BaseAddress.AbsoluteUri}api/MobileAuth";
+            var authenticationUrl = $"{_httpClient.BaseAddress.AbsoluteUri}api/MobileAuth/";
             Token token = null;
-
 
             try
             {
