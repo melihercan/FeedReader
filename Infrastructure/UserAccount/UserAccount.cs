@@ -101,6 +101,8 @@ namespace Infrastructure
                 {
                     AccessToken = r?.AccessToken ?? r?.IdToken
                 };
+                _httpClient.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", token.AccessToken);
             }
             catch (Exception ex)
             {
