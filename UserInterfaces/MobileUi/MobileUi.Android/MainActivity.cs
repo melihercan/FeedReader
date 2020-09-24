@@ -49,6 +49,13 @@ namespace MobileUi.Droid
         [IntentFilter(new[] { Intent .ActionView }, 
             Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable },
             DataScheme = "feedreader")]
+
+        //[Activity(NoHistory = true, LaunchMode = LaunchMode.SingleTop)]
+        //[IntentFilter(new[] { Intent.ActionView },
+        //Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable },
+        //DataScheme = "io.identitymodel.native",
+        //DataHost = "callback")]
+
         public class WebAuthenticationCallbackActivity : Xamarin.Essentials.WebAuthenticatorCallbackActivity
         {
         }

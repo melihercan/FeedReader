@@ -53,7 +53,8 @@ namespace Infrastructure.Server
                         ClientId = _configuration["NonWebUiClient:Id"],
                         ClientSecrets = { new Secret(_configuration["NonWebUiClient:Secret"].ToSha256()) },
                         AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-                        AllowedScopes = { "Infrastructure.ServerAPI" }
+                        AllowedScopes = { "openid profile Infrastructure.ServerAPI offline_access" }
+//                        AllowedScopes = { "Infrastructure.ServerAPI" }
                     });
                 });
 
@@ -64,19 +65,20 @@ namespace Infrastructure.Server
       //              options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         //        }
                 )
-          //      .AddJwtBearer(options =>
-            //    {
-              //      var tokenSecret = _configuration["TokenSecret"];
+                //      .AddJwtBearer(options =>
+                //    {
+                //      var tokenSecret = _configuration["TokenSecret"];
                 //    var key = Encoding.UTF8.GetBytes(tokenSecret);
-                  //  var symmetricKey = new SymmetricSecurityKey(key);
-//                    options.TokenValidationParameters = new TokenValidationParameters
-  //                  {
-    //                    ValidateIssuer = false,
-      //                  ValidateAudience = false,
-        //                ValidateIssuerSigningKey = true,
-          //              IssuerSigningKey = symmetricKey
-            //        };
+                //  var symmetricKey = new SymmetricSecurityKey(key);
+                //                    options.TokenValidationParameters = new TokenValidationParameters
+                //                  {
+                //                    ValidateIssuer = false,
+                //                  ValidateAudience = false,
+                //                ValidateIssuerSigningKey = true,
+                //              IssuerSigningKey = symmetricKey
+                //        };
                 //})
+                ////.AddCookie()
                 .AddGoogle(g =>
                 {
                     g.ClientId = _configuration["Authentication:Google:ClientId"];

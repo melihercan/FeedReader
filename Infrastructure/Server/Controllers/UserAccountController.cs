@@ -12,6 +12,7 @@ using System.Security.Claims;
 using System.Net.Http;
 using IdentityModel.Client;
 using Microsoft.Extensions.Configuration;
+using IdentityModel.OidcClient;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -49,12 +50,11 @@ namespace Infrastructure.Server.Controllers
         public async Task<ActionResult<Token>> Login([FromBody] User user)
         {
             var httpClient = new HttpClient();
-
-            var baseUrl = "https://localhost:44392";
+            var oidcUrl = "https://localhost:44392";
             //var baseUrl = "https://192.168.1.40:5001"; //// TODO; for iOS debugging solve SSL problem.
             //var baseUrl = $"{Request.Scheme}://{Request.Host}{Request.PathBase}";
             //// TODO: Check if there is a way to access identity server directly instead of using end points (HTTP)?
-            var discovery = await httpClient.GetDiscoveryDocumentAsync(baseUrl);
+            var discovery = await httpClient.GetDiscoveryDocumentAsync(oidcUrl);
             if (!discovery.IsError)
             {
                 var tokenResponse = await httpClient.RequestPasswordTokenAsync(new PasswordTokenRequest
@@ -97,5 +97,39 @@ namespace Infrastructure.Server.Controllers
             //}
             return this.ToActionResult(Result<Token>.Error("Put error message here"));
         }
+
+        [HttpPost]
+        [Route("externallogin")]
+        public async Task<ActionResult<Token>> ExternalLogin([FromBody] string redirectUri)
+        {
+            var httpClient = new HttpClient();
+            var oidcUrl = "https://localhost:44392";
+            var options = new OidcClientOptions
+            {
+                Authority = oidcUrl,
+                ClientId = "NonWebUi.Client",
+                //ClientSecret = "NonWebUi.Secret",
+                RedirectUri = redirectUri,
+                Scope = "openid profile Infrastructure.ServerAPI",
+                FilterClaims = false,
+                Browser = new Browser(redirectUri),
+                Flow = OidcClientOptions.AuthenticationFlow.AuthorizationCode,
+                ResponseMode = OidcClientOptions.AuthorizeResponseMode.Redirect,
+            };
+
+            var oidcClient = new OidcClient(options);
+            var loginResult = await oidcClient.LoginAsync(new LoginRequest());
+            if (loginResult.IsError)
+            {
+                Console.WriteLine("ERROR: {0}", loginResult.Error);
+                return null;
+            }
+
+            return new Token
+            {
+                AccessToken = loginResult.AccessToken,
+            };
+        }
+
     }
 }

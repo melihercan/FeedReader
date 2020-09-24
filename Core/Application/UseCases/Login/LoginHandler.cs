@@ -30,11 +30,11 @@ namespace Application.UseCases
             {
                 if (request.Scheme != null)
                 {
-                    return await _userAccount.ExternalProviderLoginAsync(request.Scheme);
+                    return await _userAccount.ExternalLoginAsync(request.Scheme);
                 }
                 else
                 {
-                    return await _userAccount.LocalLoginAsync(request.User);
+                    return await _userAccount.LoginAsync(request.User);
                 }
             }
             catch (Exception ex)
