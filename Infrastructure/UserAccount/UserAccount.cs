@@ -89,7 +89,7 @@ namespace Infrastructure
                 new AuthenticationHeaderValue("Bearer", token.AccessToken);
 #endif
 
-#if true
+#if false
             Token token = null;
             var serverUrl = "https://10.0.2.2:44392/";// _configuration["Server:URL"];
             ////var discovery = await _httpClient.GetDiscoveryDocumentAsync(serverUrl);
@@ -137,30 +137,39 @@ namespace Infrastructure
                 Console.WriteLine("ERROR: {0}", loginResult.Error);
                 return null;
             }
+#endif
 
+
+#if true
+            Token token = null;
+            var serverUrl = /*"https://10.0.2.2.nip.io:44392/";*/_configuration["Server:URL"];
+            var webAuthenticatorUrl = $"{serverUrl}/api/MobileAuth/";
 
             try
             {
-                //WebAuthenticatorResult r = null;
+                WebAuthenticatorResult r = null;
 
-                //if (scheme.Equals("Apple")
-                //    && DeviceInfo.Platform == DevicePlatform.iOS
-                //    && DeviceInfo.Version.Major >= 13)
-                //{
-                //    r = await AppleSignInAuthenticator.AuthenticateAsync();
-                //}
-                //else
-                //{
-                //    var authUrl = new Uri(authenticationUrl + scheme);
-                //    var callbackUrl = new Uri("feedreader://");
+                if (scheme.Equals("Apple")
+                    && DeviceInfo.Platform == DevicePlatform.iOS
+                    && DeviceInfo.Version.Major >= 13)
+                {
+                    r = await AppleSignInAuthenticator.AuthenticateAsync();
+                }
+                else
+                {
+                    var authUrl = new Uri(webAuthenticatorUrl + scheme);
+                    var callbackUrl = new Uri("feedreader://");
 
-                //    r = await WebAuthenticator.AuthenticateAsync(authUrl, callbackUrl);
-                //}
+                    r = await WebAuthenticator.AuthenticateAsync(authUrl, callbackUrl);
+                }
+
+                var response = await _httpClient.PostAsJsonAsync("api/MobileAuth", r.AccessToken);
+                var t = await response.Content.ReadFromJsonAsync<Token>();
 
                 token = new Token
                 {
                     //AccessToken = r?.AccessToken ?? r?.IdToken
-                    AccessToken = loginResult.AccessToken 
+                    AccessToken = t.AccessToken 
                 };
                 _httpClient.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue("Bearer", token.AccessToken);
@@ -170,6 +179,8 @@ namespace Infrastructure
 
             }
 #endif
+
+
             return token;
         }
 

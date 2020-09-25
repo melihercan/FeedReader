@@ -2,9 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
+using Ardalis.Result;
+using Ardalis.Result.AspNetCore;
+using Domain.Entities;
+using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.Server.Controllers
 {
@@ -15,10 +22,12 @@ namespace Infrastructure.Server.Controllers
         const string callbackScheme = "feedreader";
 
         private readonly IAuthenticationSchemeProvider _authenticationSchemeProvider;
+        private readonly IConfiguration _configuration;
 
-        public MobileAuthController(IAuthenticationSchemeProvider authenticationSchemeProvider)
+        public MobileAuthController(IAuthenticationSchemeProvider authenticationSchemeProvider, IConfiguration configuration)
         {
             _authenticationSchemeProvider = authenticationSchemeProvider;
+            _configuration = configuration;
         }
 
         [HttpGet("{scheme}")]
@@ -75,6 +84,59 @@ namespace Infrastructure.Server.Controllers
             }
 
             return schemes.ToArray();
+        }
+
+
+        [HttpPost]
+        public async Task<ActionResult<Token>> ExchangeToken([FromBody]string externalToken)
+        {
+            var httpClient = new HttpClient();
+            var oidcUrl = "https://localhost:44392";
+            //var baseUrl = "https://192.168.1.40:5001"; //// TODO; for iOS debugging solve SSL problem.
+            //var baseUrl = $"{Request.Scheme}://{Request.Host}{Request.PathBase}";
+            //// TODO: Check if there is a way to access identity server directly instead of using end points (HTTP)?
+            var discovery = await httpClient.GetDiscoveryDocumentAsync(oidcUrl);
+            if (!discovery.IsError)
+            {
+                try
+                {
+                    var tokenResponse = await httpClient.RequestTokenAsync(new TokenRequest
+                    {
+                        Address = discovery.TokenEndpoint,
+                        ClientId = _configuration["NonWebUiClient:Id"],
+                        ClientSecret = _configuration["NonWebUiClient:Secret"],
+                        GrantType = "",
+                        Parameters =
+                    {
+                        { "scope", "Infrastructure.ServerAPI"},
+                        { "provider", "google"},
+                        { "email", "melihercan-google@gmail.com"},
+                        { "external_token", "externalToken"},
+                    }
+                    });
+
+                //var r = await httpClient.PostAsJsonAsync .PostAsync(discovery.TokenEndpoint, HttpContent. { });
+
+                    if (!tokenResponse.IsError)
+                    {
+                        return this.ToActionResult(Result<Token>.Success(new Token
+                        {
+                            AccessToken = tokenResponse.AccessToken,
+                            RefreshToken = tokenResponse.RefreshToken,
+                            //AccessTokenExpiresIn = tokenResponse.ExpiresIn,
+                        }));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    var x = ex.Message;
+                }
+
+            }
+
+
+            return this.ToActionResult(Result<Token>.Error("Put error message here"));
+
         }
 
 
