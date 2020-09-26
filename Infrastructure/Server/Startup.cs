@@ -23,6 +23,7 @@ using System.Collections;
 using System.Collections.Generic;
 using IdentityModel;
 using IdentityServer4.Models;
+using System;
 
 namespace Infrastructure.Server
 {
@@ -48,22 +49,31 @@ namespace Infrastructure.Server
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>(options =>
                 {
-                    options.Clients.Add(new Client 
-                    { 
+                    options.Clients.Add(new Client
+                    {
                         ClientId = _configuration["NonWebUiClient:Id"],
                         ClientSecrets = { new Secret(_configuration["NonWebUiClient:Secret"].ToSha256()) },
-                        AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                        AllowedGrantTypes = { GrantType.ResourceOwnerPassword, "delegation" },
                         AllowedScopes = { "openid profile Infrastructure.ServerAPI offline_access" }
-//                        AllowedScopes = { "Infrastructure.ServerAPI" }
+                        //                        AllowedScopes = { "Infrastructure.ServerAPI" }
                     });
-                });
+                })
+  //.AddTokenExchangeForExternalProviders()  //registers an extension grant
+  //.AddDefaultTokenExchangeProviderStore()  //registers default in-memory store for providers info
+  //.AddDefaultExternalTokenProviders()      //registers providers auth implementations
+  //.AddDefaultTokenExchangeProfileService() //registers default profile service
+  //.AddDefaultExternalUserStore();          //
+
+                .AddDelegationGrant<ApplicationUser, string>()   // Register the extension grant 
+                .AddDefaultSocialLoginValidators(); // Add google, facebook, twitter login support
+                ;
 
             services.AddAuthentication(
-//                options => 
-  //              {
-    //                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-      //              options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        //        }
+                //                options => 
+                //              {
+                //                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                //              options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                //        }
                 )
                 //      .AddJwtBearer(options =>
                 //    {

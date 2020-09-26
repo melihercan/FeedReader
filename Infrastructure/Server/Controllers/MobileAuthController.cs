@@ -105,13 +105,16 @@ namespace Infrastructure.Server.Controllers
                         Address = discovery.TokenEndpoint,
                         ClientId = _configuration["NonWebUiClient:Id"],
                         ClientSecret = _configuration["NonWebUiClient:Secret"],
-                        GrantType = "",
+                        //GrantType = "external",
+                        GrantType = "delegation",
                         Parameters =
                     {
-                        { "scope", "Infrastructure.ServerAPI"},
-                        { "provider", "google"},
-                        { "email", "melihercan-google@gmail.com"},
-                        { "external_token", "externalToken"},
+                        { "scope", "Infrastructure.ServerAPI" },
+                        { "provider", "google" },
+                        //{ "email", "melihercan-google@gmail.com" },
+                        //{ "password", "Fenerbahce2019#" },
+                        //{ "external_token", $"{externalToken}" },
+                        { "token", $"{externalToken}" },
                     }
                     });
 
