@@ -112,7 +112,6 @@ namespace Infrastructure.Server.Controllers
                         { "scope", "Infrastructure.ServerAPI" },
                         { "provider", "google" },
                         //{ "email", "melihercan-google@gmail.com" },
-                        //{ "password", "Fenerbahce2019#" },
                         //{ "external_token", $"{externalToken}" },
                         { "token", $"{externalToken}" },
                     }
