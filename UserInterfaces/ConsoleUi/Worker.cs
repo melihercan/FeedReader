@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection.Metadata.Ecma335;
+using System.Security;
 using System.Security.Principal;
 using System.Text.Encodings.Web;
 using System.Text.Json;
@@ -66,20 +67,30 @@ namespace ConsoleUi
 
         private async Task ExecuteLoginAsync(string[] schemes)
         {
+            // External providers such as google have no support for OAUTH2 "Resource Owner Password Credentials Flow" 
+            // for security reasons and it seems this is the only way to get access token without using autorization
+            // page on browser. I assume there is no browser support for ConsoleUi. Hence external provider 
+            // login is not supported at the moment.
+
+#if false
             var selection = GetSchemeSelection();
+#else
+            var selection = 1;
+            Console.WriteLine("\n\nWelcome to Feed Reader");
+#endif
             if (selection == 1)
             {
                 Console.Write("\nUsername: ");
                 var username = Console.ReadLine();
                 Console.Write("Password: ");
-                var password = Console.ReadLine();
+                var password = new NetworkCredential(string.Empty, GetSecurePassword()).Password; // Console.ReadLine();
                 Console.WriteLine("Logging in...");
                 var loginResult = await _mediator.Send(new Login
                 {
                     User = new User
                     {
                         Username = username,
-                        Password = password,
+                        Password = password.ToString(),
                         RememberMe = false
                     }
                 });
@@ -94,6 +105,7 @@ namespace ConsoleUi
                 //// TODO: EXTERTNAL PROVIDER LOGIN
             }
 
+#if false
             int GetSchemeSelection()
             {
                 while (true)
@@ -121,6 +133,31 @@ namespace ConsoleUi
                     }
                     Console.WriteLine("Invalid selection!!!");
                 }
+            }
+#endif
+
+            SecureString GetSecurePassword()
+            {
+                SecureString password = new SecureString();
+                while (true)
+                {
+                    ConsoleKeyInfo i = Console.ReadKey(true);
+                    if (i.Key == ConsoleKey.Enter)
+                    {
+                        break;
+                    }
+                    else if (i.Key == ConsoleKey.Backspace)
+                    {
+                        password.RemoveAt(password.Length - 1);
+                        Console.Write("\b \b");
+                    }
+                    else
+                    {
+                        password.AppendChar(i.KeyChar);
+                        Console.Write("*");
+                    }
+                }
+                return password;
             }
         }
 
