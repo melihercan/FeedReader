@@ -7,5 +7,7 @@ namespace Shared
     public static class Registry
     {
         public static IServiceProvider ServiceProvider { get; set; }
+        public static string ServerUrl { get; set; }
+
     }
 }

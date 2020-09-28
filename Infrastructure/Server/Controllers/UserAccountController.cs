@@ -13,6 +13,8 @@ using System.Net.Http;
 using IdentityModel.Client;
 using Microsoft.Extensions.Configuration;
 using IdentityModel.OidcClient;
+using System.IO;
+using Microsoft.Extensions.Hosting;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -50,9 +52,14 @@ namespace Infrastructure.Server.Controllers
         public async Task<ActionResult<Token>> Login([FromBody] User user)
         {
             var httpClient = new HttpClient();
-            var oidcUrl = "https://localhost:44392";
-            //var baseUrl = "https://192.168.1.40:5001"; //// TODO; for iOS debugging solve SSL problem.
-            //var baseUrl = $"{Request.Scheme}://{Request.Host}{Request.PathBase}";
+
+            var oidcUrl = $"{Request.Scheme}://{Request.Host}{Request.PathBase}";
+            // Android emulator uses hard coded address 10.0.2.2. Replace it with localhost.
+            if(oidcUrl.Contains("10.0.2.2"))
+            {
+                oidcUrl = oidcUrl.Replace("10.0.2.2", "localhost");
+            }
+
             //// TODO: Check if there is a way to access identity server directly instead of using end points (HTTP)?
             var discovery = await httpClient.GetDiscoveryDocumentAsync(oidcUrl);
             if (!discovery.IsError)
@@ -102,8 +109,13 @@ namespace Infrastructure.Server.Controllers
         [Route("externallogin")]
         public async Task<ActionResult<Token>> ExternalLogin([FromBody] string redirectUri)
         {
-            var httpClient = new HttpClient();
-            var oidcUrl = "https://localhost:44392";
+            var oidcUrl = $"{Request.Scheme}://{Request.Host}{Request.PathBase}";
+            // Android emulator uses hard coded address 10.0.2.2. Replace it with localhost.
+            if (oidcUrl.Contains("10.0.2.2"))
+            {
+                oidcUrl = oidcUrl.Replace("10.0.2.2", "localhost");
+            }
+
             var options = new OidcClientOptions
             {
                 Authority = oidcUrl,

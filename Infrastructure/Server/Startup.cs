@@ -24,6 +24,8 @@ using System.Collections.Generic;
 using IdentityModel;
 using IdentityServer4.Models;
 using System;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting.Server.Features;
 
 namespace Infrastructure.Server
 {
@@ -145,6 +147,7 @@ namespace Infrastructure.Server
                 endpoints.MapControllers();
                 endpoints.MapFallbackToFile("index.html");
             });
+
         }
     }
 }

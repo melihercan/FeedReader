@@ -15,6 +15,8 @@ using IdentityModel.OidcClient;
 using InfrastructureUserAccount;
 using Microsoft.Extensions.Configuration;
 using IdentityModel.Client;
+using Microsoft.Extensions.Hosting;
+using System.Net;
 
 namespace Infrastructure
 {
@@ -142,34 +144,48 @@ namespace Infrastructure
 
 #if true
             Token token = null;
-            var serverUrl = /*"https://10.0.2.2.nip.io:44392/";*/_configuration["Server:URL"];
-            var webAuthenticatorUrl = $"{serverUrl}/api/MobileAuth/";
 
             try
             {
-                WebAuthenticatorResult r = null;
+                WebAuthenticatorResult result = null;
 
                 if (scheme.Equals("Apple")
                     && DeviceInfo.Platform == DevicePlatform.iOS
                     && DeviceInfo.Version.Major >= 13)
                 {
-                    r = await AppleSignInAuthenticator.AuthenticateAsync();
+                    result = await AppleSignInAuthenticator.AuthenticateAsync();
                 }
                 else
                 {
+                    var serverUrl = Registry.ServerUrl;
+                    // For google add .nip.io (see https://nip.io/) to IP address to avoid Authorization error.
+                    if (scheme.Equals("Google"))
+                    {
+                        var uriBuilder = new UriBuilder(serverUrl);
+                        var host = uriBuilder.Host;
+                        var type = Uri.CheckHostName(host);
+                        if( type == UriHostNameType.IPv4)
+                        {
+                            uriBuilder.Host += ".nip.io";
+                        }
+                        serverUrl = uriBuilder.Uri.AbsoluteUri;
+                    }
+
+                    var webAuthenticatorUrl = $"{serverUrl}api/MobileAuth/";
+
                     var authUrl = new Uri(webAuthenticatorUrl + scheme);
                     var callbackUrl = new Uri("feedreader://");
 
-                    r = await WebAuthenticator.AuthenticateAsync(authUrl, callbackUrl);
+                    result = await WebAuthenticator.AuthenticateAsync(authUrl, callbackUrl);
                 }
 
-                var response = await _httpClient.PostAsJsonAsync("api/MobileAuth", r.AccessToken);
-                var t = await response.Content.ReadFromJsonAsync<Token>();
+                var response = await _httpClient.PostAsJsonAsync("api/MobileAuth", result.AccessToken);
+                var responseToken = await response.Content.ReadFromJsonAsync<Token>();
 
                 token = new Token
                 {
                     //AccessToken = r?.AccessToken ?? r?.IdToken
-                    AccessToken = t.AccessToken 
+                    AccessToken = responseToken.AccessToken 
                 };
                 _httpClient.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue("Bearer", token.AccessToken);
@@ -188,6 +204,7 @@ namespace Infrastructure
 
     }
 
+#if false
     public static class Constants
     {
         public static string AuthorityUri = "https://demo.identityserver.io";
@@ -197,4 +214,5 @@ namespace Infrastructure
         public static string ClientId = "interactive.public";
         public static string Scope = "openid profile email api offline_access";
     }
+#endif
 }

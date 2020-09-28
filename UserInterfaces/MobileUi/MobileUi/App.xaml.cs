@@ -14,6 +14,7 @@ using System.Reflection;
 using Application.Interfaces;
 using MediatR;
 using Application.UseCases;
+using Xamarin.Essentials;
 
 namespace MobileUi
 {
@@ -44,8 +45,22 @@ namespace MobileUi
             ////hostBuilder.Services.AddHttpClient(_webApiName, client => client.BaseAddress =
             ////                new Uri(hostBuilder.Configuration["Server:URL"]));
             ///
+
+            var serverUrl = Device.RuntimePlatform switch
+            {
+                Device.Android => DeviceInfo.DeviceType switch
+                {
+                    DeviceType.Physical => hostBuilder.Configuration["ServerUrl:Android"],
+                    DeviceType.Virtual => hostBuilder.Configuration["ServerUrl:AndroidEmulator"],
+                    _ => string.Empty
+                },
+                Device.iOS => hostBuilder.Configuration["ServerUrl:iOS"],
+                _ => string.Empty
+            };
+            Registry.ServerUrl = serverUrl;
+
             hostBuilder.Services.AddHttpClient(_webApiName, client => client.BaseAddress =
-                new Uri(hostBuilder.Configuration["Server:URL"]))
+                new Uri(serverUrl))
                     // To avoid SSL (certificate) error.
                     .ConfigurePrimaryHttpMessageHandler(() => 
                     new HttpClientHandler

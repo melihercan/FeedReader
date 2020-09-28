@@ -91,9 +91,14 @@ namespace Infrastructure.Server.Controllers
         public async Task<ActionResult<Token>> ExchangeToken([FromBody]string externalToken)
         {
             var httpClient = new HttpClient();
-            var oidcUrl = "https://localhost:44392";
-            //var baseUrl = "https://192.168.1.40:5001"; //// TODO; for iOS debugging solve SSL problem.
-            //var baseUrl = $"{Request.Scheme}://{Request.Host}{Request.PathBase}";
+
+            var oidcUrl = $"{Request.Scheme}://{Request.Host}{Request.PathBase}";
+            // Android emulator uses hard coded address 10.0.2.2. Replace it with localhost.
+            if (oidcUrl.Contains("10.0.2.2"))
+            {
+                oidcUrl = oidcUrl.Replace("10.0.2.2", "localhost");
+            }
+
             //// TODO: Check if there is a way to access identity server directly instead of using end points (HTTP)?
             var discovery = await httpClient.GetDiscoveryDocumentAsync(oidcUrl);
             if (!discovery.IsError)
@@ -105,19 +110,14 @@ namespace Infrastructure.Server.Controllers
                         Address = discovery.TokenEndpoint,
                         ClientId = _configuration["NonWebUiClient:Id"],
                         ClientSecret = _configuration["NonWebUiClient:Secret"],
-                        //GrantType = "external",
                         GrantType = "delegation",
                         Parameters =
-                    {
-                        { "scope", "Infrastructure.ServerAPI" },
-                        { "provider", "google" },
-                        //{ "email", "" },
-                        //{ "external_token", $"{externalToken}" },
-                        { "token", $"{externalToken}" },
-                    }
+                        {
+                            { "scope", "Infrastructure.ServerAPI" },
+                            { "provider", "google" },
+                            { "token", $"{externalToken}" },
+                        }
                     });
-
-                //var r = await httpClient.PostAsJsonAsync .PostAsync(discovery.TokenEndpoint, HttpContent. { });
 
                     if (!tokenResponse.IsError)
                     {
@@ -133,14 +133,9 @@ namespace Infrastructure.Server.Controllers
                 {
                     var x = ex.Message;
                 }
-
             }
 
-
             return this.ToActionResult(Result<Token>.Error("Put error message here"));
-
         }
-
-
     }
 }
