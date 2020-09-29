@@ -11,7 +11,7 @@
         <Image Aspect="AspectFit" Margin="0,20,0,0" HeightRequest="100"
                    Source="{extensions:ImageResourceMarkupExtension MobileUi.Images.me.png}" 
                    Opacity="0.5"/>
-        <BoxView Height="20"/>
+        <BoxView HeightRequest="20"/>
         <Label Text="© melihercan @2020" Padding="0,0,0,10" TextColor="White" FontSize="12" 
                    FontAttributes="Italic" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
         <Label Text="FeedReader app" Padding="0,0,0,20" TextColor="White" FontSize="28" FontAttributes="Bold" 

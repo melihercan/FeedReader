@@ -95,26 +95,18 @@
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <ShellContent Route="feeds" Title="Feeds" ContentTemplate="{DataTemplate views:FeedsPage}" >
             <ShellContent.Icon>
-                <FontImageSource FontFamily="FaFont" Glyph="&#xf09e;" Size="20"/>
+                <FontImageSource FontFamily="FaFont" Glyph="&#xf09e;" Size="20" Color="{StaticResource Primary}"/>
             </ShellContent.Icon>
         </ShellContent>
     </FlyoutItem>
     <MenuItem Text="Logout" Command="{Binding LogoutCommand}">
         <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="FaFont" Glyph="&#xf2f5;" Size="20">
-                <FontImageSource.Color>
-                    <OnPlatform x:TypeArguments="Color" Android="Black"/>
-                </FontImageSource.Color>
-            </FontImageSource>
+            <FontImageSource FontFamily="FaFont" Glyph="&#xf2f5;" Size="20" Color="{StaticResource Primary}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
     <MenuItem Text="About" Command="{Binding AboutCommand}">
         <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="FaFont" Glyph="&#xf129;" Size="20">
-                <FontImageSource.Color>
-                    <OnPlatform x:TypeArguments="Color" Android="Black"/>
-                </FontImageSource.Color>
-            </FontImageSource>
+            <FontImageSource FontFamily="FaFont" Glyph="&#xf129;" Size="20"  Color="{StaticResource Primary}"/>
         </MenuItem.IconImageSource>
 
     </MenuItem>
