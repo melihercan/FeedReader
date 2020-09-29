@@ -60,42 +60,31 @@ namespace Infrastructure.Server
                         //                        AllowedScopes = { "Infrastructure.ServerAPI" }
                     });
                 })
-  //.AddTokenExchangeForExternalProviders()  //registers an extension grant
-  //.AddDefaultTokenExchangeProviderStore()  //registers default in-memory store for providers info
-  //.AddDefaultExternalTokenProviders()      //registers providers auth implementations
-  //.AddDefaultTokenExchangeProfileService() //registers default profile service
-  //.AddDefaultExternalUserStore();          //
 
                 .AddDelegationGrant<ApplicationUser, string>()   // Register the extension grant 
                 .AddDefaultSocialLoginValidators(); // Add google, facebook, twitter login support
                 ;
 
-            services.AddAuthentication(
-                //                options => 
-                //              {
-                //                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                //              options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                //        }
-                )
-                //      .AddJwtBearer(options =>
-                //    {
-                //      var tokenSecret = _configuration["TokenSecret"];
-                //    var key = Encoding.UTF8.GetBytes(tokenSecret);
-                //  var symmetricKey = new SymmetricSecurityKey(key);
-                //                    options.TokenValidationParameters = new TokenValidationParameters
-                //                  {
-                //                    ValidateIssuer = false,
-                //                  ValidateAudience = false,
-                //                ValidateIssuerSigningKey = true,
-                //              IssuerSigningKey = symmetricKey
-                //        };
-                //})
+            services.AddAuthentication()
                 ////.AddCookie()
                 .AddGoogle(g =>
                 {
                     g.ClientId = _configuration["Authentication:Google:ClientId"];
                     g.ClientSecret = _configuration["Authentication:Google:ClientSecret"];
                     g.SaveTokens = true;
+                })
+                .AddFacebook(f =>
+                {
+                    f.AppId = _configuration["Authentication:Facebook:ClientId"];
+                    f.AppSecret = _configuration["Authentication:Facebook:ClientSecret"];
+                    f.SaveTokens = true;
+                })
+                .AddTwitter(t =>
+                {
+                    t.ConsumerKey = _configuration["Authentication:Twitter:ClientId"];
+                    t.ConsumerSecret = _configuration["Authentication:Twitter:ClientSecret"];
+                    t.RetrieveUserDetails = true;
+                    t.SaveTokens = true;
                 })
                 .AddMicrosoftAccount(ms =>
                 {
