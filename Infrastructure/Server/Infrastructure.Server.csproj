@@ -35,8 +35,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\IdentityServer.ExtensionGrant.Delegation\IdentityServer.ExtensionGrant.Delegation\IdentityServer.ExtensionGrant.Delegation.csproj" />
     <ProjectReference Include="..\..\Core\Domain\Domain.csproj" />
+    <ProjectReference Include="..\..\IdentityServer.ExtensionGrant.Delegation\IdentityServer.ExtensionGrant.Delegation.csproj" />
     <ProjectReference Include="..\..\UserInterfaces\WebUi\WebUi.Client\WebUi.Client.csproj" />
   </ItemGroup>
 
