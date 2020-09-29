@@ -9,7 +9,7 @@ namespace Application.Interfaces
 {
     public interface IUserAccount
     {
-        Task<Result<object>> RegisterAsync(User user);
+        Task RegisterAsync(User user);
         Task UnregisterAsync(User user);
         
         Task<Result<Token>> LoginAsync(User user);

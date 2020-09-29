@@ -29,6 +29,7 @@ namespace Infrastructure.Server.Controllers
         private readonly ITokenService _tokenService;
         private readonly IConfiguration _configuration;
 
+
         public UserAccountController(UserManager<ApplicationUser> userManager, 
             SignInManager<ApplicationUser> signInManager, ITokenService tokenService,
             IConfiguration configuration)
@@ -41,9 +42,29 @@ namespace Infrastructure.Server.Controllers
 
         [HttpPost]
         [Route("register")]
-        public ActionResult<object> Register([FromBody] User user)
+        public async Task<ActionResult<object>> Register([FromBody] User user)
         {
-            return null;
+            var applicationUser = new ApplicationUser
+            {
+                UserName = user.Username,
+            };
+            var result = await _userManager.CreateAsync(applicationUser, user.Password);
+            if (result.Succeeded)
+            {
+                return this.ToActionResult(Result<object>.Success(null));
+            }
+
+            return this.ToActionResult(Result<Token>.Error(
+                result.Errors.Select(x => x.Description).Aggregate((a, b) => a + "; " + b)));
+        }
+
+        [HttpPost]
+        [Route("logout")]
+        public async Task<ActionResult<object>> Logout()
+        {
+            //            var user = await _userManager.GetUserAsync(User);
+            await _signInManager.SignOutAsync();
+            return this.ToActionResult(Result<object>.Success(null));
         }
 
 
@@ -84,25 +105,7 @@ namespace Infrastructure.Server.Controllers
                 }
             }
 
-
-
-            //var identityUser = await _userManager.FindByNameAsync(user.Username);
-            //if (identityUser != null)
-            //{
-            //    var result = await _signInManager.PasswordSignInAsync(user.Username, user.Password, user.RememberMe, 
-            //        false);
-            //    if (result.Succeeded)
-            //    {
-            //        var token = _tokenService.GenerateAccessToken(new List<Claim>
-            //        { 
-            //            new Claim(ClaimTypes.Name, user.Username)
-            //        });
-
-            //        return this.ToActionResult(Result<Token>.Success(new Token { AccessToken = token }));
-
-            //    }
-            //}
-            return this.ToActionResult(Result<Token>.Error("Put error message here"));
+            return this.ToActionResult(Result<Token>.Error("Login failed"));
         }
 
         [HttpPost]
@@ -120,7 +123,6 @@ namespace Infrastructure.Server.Controllers
             {
                 Authority = oidcUrl,
                 ClientId = "NonWebUi.Client",
-                //ClientSecret = "NonWebUi.Secret",
                 RedirectUri = redirectUri,
                 Scope = "openid profile Infrastructure.ServerAPI",
                 FilterClaims = false,
@@ -142,6 +144,5 @@ namespace Infrastructure.Server.Controllers
                 AccessToken = loginResult.AccessToken,
             };
         }
-
     }
 }
