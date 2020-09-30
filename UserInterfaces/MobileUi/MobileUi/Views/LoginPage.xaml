@@ -33,7 +33,8 @@
                             <DataTemplate>
                                 <StackLayout Padding="0,5">
                                     <Button Text="{Binding}"
-                                            Command="{Binding BindingContext.ExternalProviderCommand, Source={x:Reference Page}}"
+                                            Command="{Binding BindingContext.ExternalProviderCommand, 
+                                                    Source={x:Reference Page}}"
                                             CommandParameter="{Binding}"
                                             Background="#68217A"/>
                                 </StackLayout>

@@ -87,8 +87,8 @@ namespace Infrastructure.Server.Controllers
         }
 
 
-        [HttpPost]
-        public async Task<ActionResult<Token>> ExchangeToken([FromBody]string externalToken)
+        [HttpPost("{scheme}")]
+        public async Task<ActionResult<Token>> ExchangeToken([FromRoute] string scheme, [FromBody]string externalToken)
         {
             var httpClient = new HttpClient();
 
@@ -114,7 +114,7 @@ namespace Infrastructure.Server.Controllers
                         Parameters =
                         {
                             { "scope", "Infrastructure.ServerAPI" },
-                            { "provider", "google" },
+                            { "provider", $"{scheme.ToLower()}" },
                             { "token", $"{externalToken}" },
                         }
                     });

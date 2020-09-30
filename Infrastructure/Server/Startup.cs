@@ -62,8 +62,12 @@ namespace Infrastructure.Server
                 })
 
                 .AddDelegationGrant<ApplicationUser, string>()   // Register the extension grant 
-                .AddDefaultSocialLoginValidators(); // Add google, facebook, twitter login support
-                ;
+                .AddDefaultSocialLoginValidators(options => // Add google, facebook, twitter login support
+                {
+                    // Twitter uses OAuth1!!!
+                    options.TwitterConsumerAPIKey = _configuration["Authentication:Twitter:ClientId"];
+                    options.TwitterConsumerSecret = _configuration["Authentication:Twitter:ClientSecret"];
+                });
 
             services.AddAuthentication()
                 ////.AddCookie()

@@ -90,10 +90,10 @@ namespace Infrastructure
                         {
                             uriBuilder.Host += ".nip.io";
                         }
-                        serverUrl = uriBuilder.Uri.AbsoluteUri;
+                        serverUrl = uriBuilder.Uri.AbsoluteUri.TrimEnd('/');
                     }
 
-                    var webAuthenticatorUrl = $"{serverUrl}api/MobileAuth/";
+                    var webAuthenticatorUrl = $"{serverUrl}/api/MobileAuth/";
 
                     var authUrl = new Uri(webAuthenticatorUrl + scheme);
                     var callbackUrl = new Uri("feedreader://");
@@ -101,7 +101,7 @@ namespace Infrastructure
                     result = await WebAuthenticator.AuthenticateAsync(authUrl, callbackUrl);
                 }
 
-                var response = await _httpClient.PostAsJsonAsync("api/MobileAuth", result.AccessToken);
+                var response = await _httpClient.PostAsJsonAsync($"api/MobileAuth/{scheme}", result.AccessToken);
                 var responseToken = await response.Content.ReadFromJsonAsync<Token>();
 
                 token = new Token
