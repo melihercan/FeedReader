@@ -1,23 +1,23 @@
 # FeedReader
-WEB UI (Blazor WASM): 
+## WEB UI (Blazor WASM): 
 ![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/BlazorWasm.gif)
 
-WEB UI (Blazor server side): 
+## WEB UI (Blazor server side): 
 ![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/BlazorServerSide.gif)
 
-Desktop UI - Windows (ElectronNET):
+## Desktop UI - Windows (ElectronNET):
 ![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/DesktopWindows.gif)
 
-Mobile UI - Android (XamarinForms):
+## Mobile UI - Android (XamarinForms):
 ![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/Android.gif)
 
-Mobile UI - iOS (XamarinForms):
+## Mobile UI - iOS (XamarinForms):
 ![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/iOS.gif)
 
-Console UI - Android (.NET Core worker):
+## Console UI - Android (.NET Core worker):
 ![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/Console.gif)
 
-Block diagram:
+## Block diagram:
 ![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/FeedReader.png)
 
 
