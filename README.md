@@ -8,7 +8,16 @@ WEB UI (Blazor server side):
 Desktop UI - Windows (ElectronNET):
 ![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/DesktopWindows.gif)
 
+Mobile UI - Android (XamarinForms):
+![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/Android.gif)
 
+Mobile UI - iOS (XamarinForms):
+![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/iOS.gif)
+
+Console UI - Android (.NET Core worker):
+![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/Console.gif)
+
+Block diagram:
 ![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/FeedReader.png)
 
 
