@@ -2,6 +2,11 @@
 WEB UI (Blazor WASM): 
 ![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/BlazorWasm.gif)
 
+WEB UI (Blazor server side): 
+![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/BlazorServerSide.gif)
+
+
+
 ![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/FeedReader.png)
 
 
