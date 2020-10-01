@@ -9,10 +9,10 @@
 ![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/DesktopWindows.gif)
 
 ## Mobile UI - Android (XamarinForms):
-![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/Android.gif)
+<img src=https://github.com/melihercan/FeedReader/blob/master/doc/Android.gif height="800">
 
 ## Mobile UI - iOS (XamarinForms):
-![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/iOS.gif)
+<img src=https://github.com/melihercan/FeedReader/blob/master/doc/iOS.gif height="800">
 
 ## Console UI - Android (.NET Core worker):
 ![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/Console.gif)
