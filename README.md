@@ -5,6 +5,8 @@ WEB UI (Blazor WASM):
 WEB UI (Blazor server side): 
 ![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/BlazorServerSide.gif)
 
+Desktop UI (ElectronNET):
+![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/BlazorDesktop.gif)
 
 
 ![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/FeedReader.png)
