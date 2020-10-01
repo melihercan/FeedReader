@@ -21,7 +21,7 @@
 ![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/FeedReader.png)
 
 
-Feed Reader is a sample project. The main goal of this application is to demonstrate the [Clean Architecture by Robert C. Martin aka Uncle Bob](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) principles. As Uncle Bob states the heart of the application - business logic is completely decoupled from the rest of modules. It is testable, independent of UIs, independent of databases and independent of any external agencies. Everything else other than the business logic (Core) is detail, a plugin and can be replaced without effecting the Core.
+Feed Reader is a sample project. The main goal of this application is to apply the [Clean Architecture by Robert C. Martin aka Uncle Bob](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) principles to create a well structured system. As Uncle Bob states the heart of the application - business logic is completely decoupled from the rest of modules. It is testable, independent of UIs, independent of databases and independent of any external agencies. Everything else other than the business logic (Core) is detail, a plugin and can be replaced without effecting the Core.
 
 Different UI modules use the same Core through messaging (MediatR). All conveivable UI types have been implemented, namely WEB, Mobile, Desktop and Console. 
 
