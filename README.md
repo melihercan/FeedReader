@@ -1,8 +1,8 @@
-WORK IN PROGRESS...
-
 # FeedReader
+WEB UI (Blazor WASM): 
+![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/BlazorWasm.gif)
 
-![alt text](https://github.com/melihercan/FeedReader/blob/master/FeedReader.png)
+![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/FeedReader.png)
 
 
 RSS Feed Reader sample project. It demonstrates the usage of the following concepts and frameworks:
@@ -31,7 +31,7 @@ Implementation of the interfaces:
 ### UserInterfaces
 
 This layer presents user interfaces:
-- Web UI
+- WEB UI
 - Mobile UI
 - Desktop UI
 - Console UI
