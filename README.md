@@ -14,7 +14,7 @@
 ## Mobile UI - iOS (XamarinForms):
 <img src=https://github.com/melihercan/FeedReader/blob/master/doc/iOS.gif height="800">
 
-## Console UI - Android (.NET Core worker):
+## Console UI (.NET Core worker):
 ![alt text](https://github.com/melihercan/FeedReader/blob/master/doc/Console.gif)
 
 ## Block diagram:
@@ -36,7 +36,7 @@ Application employs the following concepts and frameworks:
 - MediatR
 - Identity Server
 - Reactive Extensions
-- OAUTH2/OIDC and social media authetication
+- OAUTH2/OIDC and social media authentication
 
 ### Core Layer (Domain and Application)
 
