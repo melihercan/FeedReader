@@ -1,0 +1,59 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=SQL5059.site4now.net;Initial Catalog=DB_A5E246_melihercan;User Id=DB_A5E246_melihercan_admin;Password=Fenerbahce2020#;"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "IdentityServer": {
+    //"Key": {
+    //  "Type": "File",
+    //  "FilePath": "melihercan-server.pfx",
+    //  "Password": "fenerbahce"
+    //},
+    "Clients": {
+      "WebUi.Client": {
+        "Profile": "IdentityServerSPA"
+      }
+      //"MobileUi.Client": {
+      //  "Profile": "SPA",
+      //  "RedirectUri": "http://127.0.0.1:54977",
+      //  "LogoutUri": "http://127.0.0.1:54977"
+      //},
+      //"ConsoleBrowserUi.Client": {
+      //  "Profile": "SPA",
+      //  "RedirectUri": "http://127.0.0.1:54977",
+      //  "LogoutUri": "http://127.0.0.1:54977"
+      //}
+    }
+  },
+  "NonWebUiClient": {
+    "Id": "NonWebUi.Client",
+    "Secret": "NonWebUi.Secret"
+  }, 
+  "AllowedHosts": "*",
+  "Authentication": {
+    "Google": {
+      "ClientId": "371183173448-7aeu2jrcs4tvivmob75ar03q6qnp2rbt.apps.googleusercontent.com",
+      "ClientSecret": "P88aFDgv7GLhMr4W2JbBMyKk"
+    },
+    "Facebook": {
+      "ClientId": "349165779668633",
+      "ClientSecret": "78f79a30e449073752c4480e6ed177aa"
+    },
+    "Twitter": {
+      "ClientId": "knHtPcHRBmGBgpabkZT39n8FU",
+      "ClientSecret": "Yre1Ezh46dglRU2YYEI1wyxjCIGIZFb4WCxSTkobV5BTVislLo"
+// "BearerToken": "AAAAAAAAAAAAAAAAAAAAAM2mIAEAAAAAL6U2LKRGoLhODo%2F42hIs%2Bwjhe8o%3DkKtfhrHVL5AGeJNY7ODx2XO28I1ZQiYJW6owGK1hKvLJHejyHS"
+    },
+    "Microsoft": {
+      "ClientId": "09d725b1-ff2e-4a8e-b57c-3d0ae1216456",
+      "ClientSecret": "_H6cB9-9h2_Owhw-Ky4wyVtPn4W7hGB4Xe"
+    }
+  },
+  "TokenSecret": "To sign and verify the JWT tokens, it can be any string"
+}
